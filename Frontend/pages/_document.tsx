@@ -1,53 +1,50 @@
-import {
-  Head, Main, NextScript, Html, DocumentContext,
+/* eslint-disable react/jsx-props-no-spreading */
+import Document, {
+  Head, Main, NextScript, Html, DocumentContext, DocumentInitialProps,
 } from 'next/document';
-// import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet } from 'styled-components';
 
-export default function Document() {
-  return (
-    <Html lang="en">
-      <Head>
-        {/* this.props.styleTags */}
-        {/* nprogress css */}
-        <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+// Boilerplate copied from https://github.com/vercel/next.js/blob/canary/examples/with-styled-components-babel/pages/_document.tsx
+export default class MyDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
 
-        {/* proxima-novo font */}
-        <link rel="stylesheet" href="https://use.typekit.net/iwq0uru.css" />
-      </Head>
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  );
+    try {
+      ctx.renderPage = () => originalRenderPage({
+        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+      });
+
+      const initialProps = await Document.getInitialProps(ctx);
+      return {
+        ...initialProps,
+        styles: [
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>,
+        ],
+      };
+    } finally {
+      sheet.seal();
+    }
+  }
+
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          {/* nprogress css */}
+          <link rel="stylesheet" type="text/css" href="/nprogress.css" key="nprogress" />
+
+          {/* proxima-novo font */}
+          <link rel="stylesheet" href="https://use.typekit.net/iwq0uru.css" key="typekit" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }
-
-// export default class MyDocument extends Document {
-//  static getInitialProps({ renderPage }) {
-//     const sheet = new ServerStyleSheet();
-//     const page = renderPage(App => props =>
-//        sheet.collectStyles(<App {...props} />)
-//     );
-//     const styleTags = sheet.getStyleElement();
-//     return { ...page, styleTags };
-//  }
-
-//   render() {
-//     return (
-//       <Html>
-//         <Head>
-//           {/* this.props.styleTags */}
-//           {/* nprogress css */}
-//           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
-
-//           {/* proxima-novo font */}
-//           <link rel="stylesheet" href="https://use.typekit.net/iwq0uru.css" />
-//         </Head>
-//         <body>
-//           <Main />
-//           <NextScript />
-//         </body>
-//       </Html>
-//     );
-//   }
-// }
