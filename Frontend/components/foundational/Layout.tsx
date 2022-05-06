@@ -1,11 +1,20 @@
 import Router from 'next/router';
 import { FC, ReactNode, useEffect } from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import NProgress from 'nprogress';
 import GlobalStyle from '../../styles/globalStyle';
 import theme from '../../styles/theme';
 import Header from './Header/Header';
 import Meta from './Meta';
+
+const StyledPage = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  main.mainSection {
+    flex-grow: 1;
+  }
+`;
 
 interface LayoutProps {
   children: ReactNode;
@@ -31,8 +40,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Meta />
-      <Header />
-      {children}
+      <StyledPage className="styledPage">
+        <Header />
+        <main className="mainSection">
+          {children}
+        </main>
+      </StyledPage>
     </ThemeProvider>
   );
 };
