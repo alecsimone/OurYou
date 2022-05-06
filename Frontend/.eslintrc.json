@@ -3,10 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "plugin:react/recommended",
-    "airbnb"
-  ],
+  "extends": ["plugin:react/recommended", "airbnb"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -15,18 +12,11 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "@typescript-eslint"],
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".ts", ".tsx"]
       }
     }
   },
@@ -35,10 +25,7 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".ts", ".tsx"]
       }
     ],
     "react/react-in-jsx-scope": "off",
@@ -50,9 +37,16 @@
       }
     ],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error"
-    ],
-    "react/require-default-props": "off"
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "react/require-default-props": "off",
+    "max-len": [
+      "warn",
+      { "code": 80 },
+      { "ignoreComments": true },
+      { "ignoreUrls": true },
+      { "ignoreStrings": true },
+      { "ignoreTemplateLiterals": true },
+      { "ignoreRegExpLiterals": true }
+    ]
   }
 }

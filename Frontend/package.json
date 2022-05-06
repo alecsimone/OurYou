@@ -7,7 +7,7 @@
     "url": "https://github.com/alecsimone/OurYou"
   },
   "scripts": {
-    "dev": "next dev -p 1111",
+    "dev": "next dev -p 333",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

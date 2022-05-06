@@ -2,7 +2,7 @@ import { FC, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 interface LogoIconProps {
-  color?: string;
+  color?: string; // color of the icon, defaults to blue
 }
 
 const LogoIcon: FC<LogoIconProps> = ({ color = 'blue' }) => {

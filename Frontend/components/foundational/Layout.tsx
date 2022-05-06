@@ -17,7 +17,7 @@ const StyledPage = styled.div`
 `;
 
 interface LayoutProps {
-  children: ReactNode;
+  children: ReactNode; // The page component for the currently active route
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {

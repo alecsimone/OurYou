@@ -1,7 +1,7 @@
 export const home = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:6969'
+  ? 'http://localhost:333'
   : 'https://ouryou.org';
-export const homeNoHTTP = process.env.NODE_ENV === 'development' ? 'localhost:6969' : 'ouryou.org';
+export const homeNoHTTP = process.env.NODE_ENV === 'development' ? 'localhost:333' : 'ouryou.org';
 // export const endpoint = process.env.NODE_ENV === 'development'
 //   ? 'http://localhost:4000'
 //   : 'https://playground.ouryou.org';
