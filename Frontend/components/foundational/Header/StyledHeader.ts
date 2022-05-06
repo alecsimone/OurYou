@@ -5,7 +5,7 @@ const StyledHeader = styled.header`
   background: ${(props) => props.theme.midBlack};
   border-bottom: 3px solid
       ${(props) => setLightness(props.theme.coolGrey, 10)};
-  padding: 0.5rem 0;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -11,9 +11,16 @@ const LogoBox: FC<LogoBoxProps> = () => {
   return (
     <StyledLogoBox>
       <Link href="/">
-        <FunctionalIcon iconName="logo" titleTextReplacement="OurYou">
-          <LogoIcon />
-        </FunctionalIcon>
+        <a className="logoLink" href="/" aria-label="homepage link">
+          <FunctionalIcon iconName="logo" titleTextReplacement="OurYou">
+            <LogoIcon />
+          </FunctionalIcon>
+        </a>
+      </Link>
+      <Link href="/">
+        <a className="siteName" href="/" aria-label="homepage link">
+          Ouryou
+        </a>
       </Link>
     </StyledLogoBox>
   );
