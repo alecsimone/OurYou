@@ -33,14 +33,14 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
+        <Head key="document">
           {/* nprogress css */}
           <link rel="stylesheet" type="text/css" href="/nprogress.css" key="nprogress" />
 
           {/* proxima-novo font */}
           <link rel="stylesheet" href="https://use.typekit.net/iwq0uru.css" key="typekit" />
         </Head>
-        <body>
+        <body key="body">
           <Main />
           <NextScript />
         </body>
