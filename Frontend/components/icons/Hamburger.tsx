@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { ColorNames } from '../../styles/styled';
 
@@ -6,7 +6,7 @@ interface HamburgerProps {
   color?: ColorNames; //color of the icon, defaults to coolGrey
 }
 
-const HamburgerIcon: FC<HamburgerProps> = ({color = 'coolGrey'}) => {
+const HamburgerIcon = ({color = 'coolGrey'}: HamburgerProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const computedColor = theme[color];
 

@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { ColorNames } from '../../styles/styled';
 
@@ -6,7 +6,7 @@ interface ArrowProps {
   color?: ColorNames; //color of the icon, defaults to coolGrey
 }
 
-const ArrowIcon: FC<ArrowProps> = ({ color = 'coolGrey' }) => {
+const ArrowIcon = ({ color = 'coolGrey' }: ArrowProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const computedColor = theme[color];
 

@@ -1,8 +1,7 @@
-import { FC } from 'react';
 import Head from 'next/head';
 import { home } from '../../config';
 
-const Meta: FC = () => (
+const Meta = (): JSX.Element => (
   <Head key="Meta">
     <meta name="viewport" content="width=device-width, initial-scale=1" key="viewport" />
     <meta charSet="utf-8" key="charSet" />

@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import { FC, ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import NProgress from 'nprogress';
 import GlobalStyle from '../../styles/globalStyle';
@@ -23,7 +23,7 @@ interface LayoutProps {
   children: ReactNode; // The page component for the currently active route
 }
 
-const Layout: FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }: LayoutProps): JSX.Element => {
   useEffect(() => {
     const handleRouteStart = () => NProgress.start();
     const handleRouteDone = () => NProgress.done();

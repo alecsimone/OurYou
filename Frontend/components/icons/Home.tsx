@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { ColorNames } from '../../styles/styled';
 
@@ -6,7 +6,7 @@ interface HomeProps {
   color?: ColorNames; //color of the icon, defaults to coolGrey
 }
 
-const HomeIcon: FC<HomeProps> = ({ color = 'coolGrey' }) => {
+const HomeIcon = ({ color = 'coolGrey' }: HomeProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const computedColor = theme[color];
 

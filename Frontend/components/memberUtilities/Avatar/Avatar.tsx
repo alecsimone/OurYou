@@ -1,4 +1,3 @@
-import { FC } from "react";
 import DefaultAvatar from "../../icons/DefaultAvatar";
 import FunctionalIcon from "../../icons/FunctionalIcon";
 import StyledAvatar, { StyledDefaultAvatar } from "./StyledAvatar";
@@ -7,7 +6,7 @@ interface AvatarProps {
   avatar?: string | null;
 }
 
-const Avatar: FC<AvatarProps> = ({ avatar }) => {
+const Avatar = ({ avatar }: AvatarProps): JSX.Element => {
   if (avatar == null) {
     return (
       <StyledDefaultAvatar>

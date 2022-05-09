@@ -1,4 +1,4 @@
-import { FC, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import {
   desktopBreakpointPx,
   mobileBreakpointPx,
@@ -9,11 +9,6 @@ import HamburgerIcon from '../../../icons/Hamburger';
 import Search from '../../../icons/Search';
 import X from '../../../icons/X';
 import StyledNavButtons from './StyledNavButtons';
-
-interface NavButtonsProps {
-  showingSearch: boolean;
-  setShowingSearch: Dispatch<SetStateAction<boolean>>;
-}
 
 const toggleShowingSearch = (
   showingSearch: boolean,
@@ -29,10 +24,15 @@ const toggleShowingSearch = (
   }
 };
 
-const NavButtons: FC<NavButtonsProps> = ({
+interface NavButtonsProps {
+  showingSearch: boolean;
+  setShowingSearch: Dispatch<SetStateAction<boolean>>;
+}
+
+const NavButtons = ({
   showingSearch,
   setShowingSearch,
-}) => {
+}: NavButtonsProps): JSX.Element => {
   return (
     <StyledNavButtons className="navButtons">
       <FunctionalIcon

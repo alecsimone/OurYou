@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import SVG from '../../styles/extendableElements/svg';
 
 interface FunctionalIconProps {
@@ -9,13 +9,13 @@ interface FunctionalIconProps {
   children: ReactNode; // The actual icon you want to render
 }
 
-const FunctionalIcon: FC<FunctionalIconProps> = ({
+const FunctionalIcon = ({
   iconName,
   onClick,
   extraClass,
   titleTextReplacement,
   children,
-}) => {
+}: FunctionalIconProps): JSX.Element => {
   const capitalizedName = `${iconName.charAt(0).toUpperCase()}${iconName.slice(
     1
   )}`;

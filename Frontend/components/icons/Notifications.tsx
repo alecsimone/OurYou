@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { ColorNames } from '../../styles/styled';
 
@@ -6,7 +6,7 @@ interface NotificationsIconProps {
   color?: ColorNames; // color of the icon, defaults to coolGrey
 }
 
-const NotificationsIcon: FC<NotificationsIconProps> = ({color = 'coolGrey'}) => {
+const NotificationsIcon = ({color = 'coolGrey'}: NotificationsIconProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const computedColor = theme[color];
 

@@ -1,4 +1,4 @@
-import { FC, useContext} from 'react';
+import { useContext} from 'react';
 import { ThemeContext } from 'styled-components';
 import getComputedColor from '../../styles/functions/getComputedColor';
 import { ColorNames } from '../../styles/styled';
@@ -7,7 +7,7 @@ interface SearchProps {
   color?: ColorNames; // color of the icon, defaults to coolGrey
 }
 
-const Search: FC<SearchProps> = ({color = 'coolGrey'}) => {
+const Search = ({color = 'coolGrey'}: SearchProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const computedColor = theme[color];
 

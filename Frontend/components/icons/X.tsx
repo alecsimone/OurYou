@@ -1,4 +1,4 @@
-import { FC, useContext} from 'react';
+import { useContext} from 'react';
 import { ThemeContext } from 'styled-components';
 import getComputedColor from '../../styles/functions/getComputedColor';
 import { ColorNames } from '../../styles/styled';
@@ -7,7 +7,7 @@ interface XProps {
   color?: string; // color of the icon, defaults to red
 }
 
-const X: FC<XProps> = ({color = 'red'}) => {
+const X = ({color = 'red'}: XProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const computedColor = getComputedColor(theme, color);
 

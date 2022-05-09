@@ -13,6 +13,7 @@ const StyledNavSidebar = styled.nav`
   max-height: 100%;
   ${(props) => props.theme.scroll};
   padding-top: 1rem;
+  padding-bottom: calc(${(props) => props.theme.bigText} + 1rem);
   &.collapsed {
     .navLine {
       padding: 2rem 0;

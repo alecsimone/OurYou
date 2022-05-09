@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FC, ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import ArrowIcon from '../../icons/Arrow';
 import CollectionIcon from '../../icons/Collection';
 import DefaultAvatar from '../../icons/DefaultAvatar';
@@ -12,8 +12,6 @@ import TwitterIcon from '../../icons/Twitter';
 import X from '../../icons/X';
 import YouIcon from '../../icons/You';
 import StyledNavSidebar from './StyledNavSidebar';
-
-interface NavSidebarProps {}
 
 interface linkObj {
   icon: ReactElement<any, any>;
@@ -32,7 +30,7 @@ const navLinks: linkObj[] = [
     icon: <YouIcon />,
     text: 'My Things',
     iconName: 'you',
-    href: '/me?stuff=friends',
+    href: '/me',
   },
   {
     icon: <FriendsIcon />,
@@ -79,7 +77,8 @@ const navLinks: linkObj[] = [
   },
 ];
 
-const NavSidebar: FC<NavSidebarProps> = () => {
+interface NavSidebarProps {}
+const NavSidebar = (): JSX.Element => {
   const [collapsed, setCollapsed] = useState(false);
 
   const navElements = navLinks.map((linkObj) => (

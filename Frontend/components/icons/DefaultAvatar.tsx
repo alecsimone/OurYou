@@ -1,9 +1,9 @@
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 interface DefaultAvatarProps {}
 
-const DefaultAvatar: FC<DefaultAvatarProps> = () => {
+const DefaultAvatar = (): JSX.Element => {
   const {white, coolGrey} = useContext(ThemeContext);
   return (
     <>

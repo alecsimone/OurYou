@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { desktopBreakpointPx } from "../../../styles/breakpoints";
 import LogoBox from "./LogoBox/LogoBox";
 import MemberBox from "./MemberBox/MemberBox";
@@ -7,7 +7,7 @@ import StyledHeader from "./StyledHeader";
 
 interface HeaderProps {}
 
-const Header: FC<HeaderProps> = () => {
+const Header = (): JSX.Element => {
   const [showingSearch, setShowingSearch] = useState(false);
 
   useEffect(() => {

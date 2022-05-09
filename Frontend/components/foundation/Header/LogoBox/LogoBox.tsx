@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { FC } from "react";
 import FunctionalIcon from "../../../icons/FunctionalIcon";
 import LogoIcon from "../../../icons/Logo";
 import StyledLogoBox from "./StyledLogoBox";
 
 interface LogoBoxProps {}
 
-const LogoBox: FC<LogoBoxProps> = () => {
+const LogoBox = (): JSX.Element => {
   return (
     <StyledLogoBox className="logoBox">
       <Link href="/">

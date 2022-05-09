@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { ColorNames } from '../../styles/styled';
 
@@ -6,7 +6,7 @@ interface TwitterProps {
   color?: ColorNames; //color of the icon, defaults to blue
 }
 
-const TwitterIcon: FC<TwitterProps> = ({ color = 'blue' }) => {
+const TwitterIcon = ({ color = 'blue' }: TwitterProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const computedColor = theme[color];
 
