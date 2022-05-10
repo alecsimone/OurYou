@@ -9,7 +9,7 @@ interface LogoBoxProps {}
 const LogoBox: FC<LogoBoxProps> = () => {
   console.log('LogoBox');
   return (
-    <StyledLogoBox>
+    <StyledLogoBox className="logoBox">
       <Link href="/">
         <a className="logoLink" href="/" aria-label="homepage link">
           <FunctionalIcon iconName="logo" titleTextReplacement="OurYou">

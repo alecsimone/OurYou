@@ -9,7 +9,7 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({color = 'coolGrey'}) => {
   const theme = useContext(ThemeContext);
-  const computedColor = getComputedColor(theme, color);
+  const computedColor = theme[color];
 
   return (
     <>

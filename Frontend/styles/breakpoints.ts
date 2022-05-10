@@ -10,8 +10,8 @@ export {
 };
 
 const desktopBreakpointPx = 1100;
-const desktopBPWidth = `${mobileBreakpointPx}px`; // 600
-const desktopBPWidthRaw = mobileBreakpointPx;
+const desktopBPWidth = `${desktopBreakpointPx}px`; // 600
+const desktopBPWidthRaw = desktopBreakpointPx;
 const desktopBreakpoint = `@media screen and (min-width: ${desktopBreakpointPx}px)`;
 export {
   desktopBreakpointPx,
@@ -21,8 +21,8 @@ export {
 };
 
 const midScreenBreakpointPx = 1440;
-const midScreenBPWidth = `${mobileBreakpointPx}px`; // 600
-const midScreenBPWidthRaw = mobileBreakpointPx;
+const midScreenBPWidth = `${midScreenBreakpointPx}px`; // 600
+const midScreenBPWidthRaw = midScreenBreakpointPx;
 const midScreenBreakpoint = `@media screen and (min-width: ${midScreenBreakpointPx}px)`;
 export {
   midScreenBreakpointPx,
@@ -32,8 +32,8 @@ export {
 };
 
 const bigScreenBreakpointPx = 1800;
-const bigScreenBPWidth = `${mobileBreakpointPx}px`; // 600
-const bigScreenBPWidthRaw = mobileBreakpointPx;
+const bigScreenBPWidth = `${bigScreenBreakpointPx}px`; // 600
+const bigScreenBPWidthRaw = bigScreenBreakpointPx;
 const bigScreenBreakpoint = `@media screen and (min-width: ${bigScreenBreakpointPx}px)`;
 export {
   bigScreenBreakpointPx,
@@ -43,8 +43,8 @@ export {
 };
 
 const massiveScreenBreakpointPx = 1921;
-const massiveScreenBPWidth = `${mobileBreakpointPx}px`; // 600
-const massiveScreenBPWidthRaw = mobileBreakpointPx;
+const massiveScreenBPWidth = `${massiveScreenBreakpointPx}px`; // 600
+const massiveScreenBPWidthRaw = massiveScreenBreakpointPx;
 const massiveScreenBreakpoint = `@media screen and (min-width: ${massiveScreenBreakpointPx}px)`;
 export {
   massiveScreenBreakpointPx,

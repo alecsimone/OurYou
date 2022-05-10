@@ -1,13 +1,38 @@
-import styled from 'styled-components';
-import { setLightness } from '../../../styles/modifyColorFunctions';
+import styled from "styled-components";
+import { desktopBPWidth, mobileBPWidth } from "../../../styles/breakpoints";
+import { setLightness } from "../../../styles/modifyColorFunctions";
 
 const StyledHeader = styled.header`
   background: ${(props) => props.theme.midBlack};
-  border-bottom: 3px solid
-      ${(props) => setLightness(props.theme.coolGrey, 10)};
+  border-bottom: 3px solid ${(props) => setLightness(props.theme.coolGrey, 10)};
   padding: 1.5rem 2rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  ${(props) => props.theme.mobileBreakpoint} {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  ${(props) => props.theme.midScreenBreakpoint} {
+  }
+  nav.navButtons {
+    display: none;
+    ${(props) => props.theme.mobileBreakpoint} {
+      display: flex;
+    }
+  }
+  .logoBox {
+    justify-content: flex-start;
+    ${(props) => props.theme.mobileBreakpoint} {
+      justify-content: center;
+    }
+  }
+  &.showingSearch {
+    @media (min-width: ${mobileBPWidth}) and (max-width: ${desktopBPWidth}) {
+      grid-template-columns: 1fr 1fr;
+      .logoBox {
+        display: none;
+      }
+    }
+  }
 `;
 
 export default StyledHeader;
