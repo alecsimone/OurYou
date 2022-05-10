@@ -1,14 +1,14 @@
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC, Dispatch, SetStateAction } from 'react';
 import {
   desktopBreakpointPx,
   mobileBreakpointPx,
-} from "../../../../styles/breakpoints";
-import Input from "../../../../styles/extendableElements/Input";
-import FunctionalIcon from "../../../icons/FunctionalIcon";
-import HamburgerIcon from "../../../icons/Hamburger";
-import Search from "../../../icons/Search";
-import X from "../../../icons/X";
-import StyledNavButtons from "./StyledNavButtons";
+} from '../../../../styles/breakpoints';
+import Input from '../../../../styles/extendableElements/Input';
+import FunctionalIcon from '../../../icons/FunctionalIcon';
+import HamburgerIcon from '../../../icons/Hamburger';
+import Search from '../../../icons/Search';
+import X from '../../../icons/X';
+import StyledNavButtons from './StyledNavButtons';
 
 interface NavButtonsProps {
   showingSearch: boolean;
@@ -35,14 +35,18 @@ const NavButtons: FC<NavButtonsProps> = ({
 }) => {
   return (
     <StyledNavButtons className="navButtons">
-      <FunctionalIcon iconName="hamburger">
+      <FunctionalIcon
+        iconName="hamburger"
+        titleTextReplacement="Show Nav Sidebar"
+      >
         <HamburgerIcon />
       </FunctionalIcon>
-      <FunctionalIcon iconName="newPost">
+      <FunctionalIcon iconName="newPost" titleTextReplacement="New Post">
         <X color="coolGrey" />
       </FunctionalIcon>
       <FunctionalIcon
         iconName="search"
+        titleTextReplacement="Search"
         onClick={() => toggleShowingSearch(showingSearch, setShowingSearch)}
       >
         <Search />

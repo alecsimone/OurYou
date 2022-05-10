@@ -39,6 +39,7 @@
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "react/require-default-props": "off",
+    "quotes": ["error", "single"],
     "max-len": [
       "warn",
       { "code": 400 },
