@@ -1,7 +1,11 @@
 import 'styled-components';
 
+type ColorNames = 'white'|'lightBlack'|'midBlack'|'deepBlack'|'coolGrey'|'warmGrey'|'blue'|'green'|'gold'|'red';
+export {ColorNames};
+
 declare module 'styled-components' {
   export interface DefaultTheme {
+    [key: string]: string;
     tinyText: string,
     miniText: string,
     smallText: string,

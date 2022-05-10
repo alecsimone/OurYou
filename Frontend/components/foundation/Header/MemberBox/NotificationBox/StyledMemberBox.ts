@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const StyledMemberBox = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   > * {
     margin-right: 2rem;
     &:last-child {

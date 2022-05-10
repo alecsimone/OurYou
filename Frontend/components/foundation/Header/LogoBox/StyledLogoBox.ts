@@ -4,6 +4,7 @@ import { setAlpha } from '../../../../styles/modifyColorFunctions';
 const StyledLogoBox = styled.div`
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   a.logoLink {
     line-height: 0;
     svg.logo {
