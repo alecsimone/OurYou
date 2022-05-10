@@ -24,8 +24,4 @@ const LogoIcon: FC<LogoIconProps> = ({ color = 'blue' }) => {
   );
 };
 
-LogoIcon.defaultProps = {
-  color: 'blue',
-};
-
 export default LogoIcon;

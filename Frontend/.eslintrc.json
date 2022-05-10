@@ -41,12 +41,13 @@
     "react/require-default-props": "off",
     "max-len": [
       "warn",
-      { "code": 80 },
+      { "code": 400 },
       { "ignoreComments": true },
       { "ignoreUrls": true },
-      { "ignoreStrings": true },
-      { "ignoreTemplateLiterals": true },
-      { "ignoreRegExpLiterals": true }
+      { "ignoreTrailingComments": true }
+      // { "ignoreStrings": true}
+      // { "ignoreTemplateLiterals": true },
+      // { "ignoreRegExpLiterals": true }
     ]
   }
 }

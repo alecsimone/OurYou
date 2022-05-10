@@ -12,8 +12,9 @@ import {
   massiveScreenBreakpoint,
 } from './breakpoints';
 import { setAlpha, setSaturation } from './modifyColorFunctions';
+import { DefaultTheme } from 'styled-components';
 
-const theme = {
+const theme: DefaultTheme = {
   tinyText,
   miniText,
   smallText,

@@ -26,7 +26,7 @@ const FunctionalIcon: FC<FunctionalIconProps> = ({
     }}
   >
     <title>
-      {titleTextReplacement == null ? 'iconName' : titleTextReplacement}
+      {titleTextReplacement == null ? iconName : titleTextReplacement}
     </title>
     {children}
   </SVG>
