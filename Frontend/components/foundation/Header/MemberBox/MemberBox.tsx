@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Avatar from '../../../memberUtilities/Avatar/Avatar';
-import { toggleThingsSidebarFn } from '../../Layout';
+import { toggleThingsSidebarFn } from '../../Layout/layoutUtils/useSidebars';
 import NotificationBox from './NotificationBox/NotificationBox';
 import StyledMemberBox from './StyledMemberBox';
 

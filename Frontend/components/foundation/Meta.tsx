@@ -38,6 +38,12 @@ const Meta = (): JSX.Element => (
     <meta property="og:type" content="website" key="ogType" />
     <meta property="og:site_name" content="Ouryou" key="ogName" />
     <meta property="og:description" content="What will you learn today?" key="ogDescription" />
+
+    {/* nprogress css */}
+    <link rel="stylesheet" type="text/css" href="/nprogress.css" key="nprogress" />
+
+    {/* proxima-novo font */}
+    <link rel="stylesheet" href="https://use.typekit.net/iwq0uru.css" key="typekit" />
   </Head>
 );
 

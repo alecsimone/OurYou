@@ -20,6 +20,9 @@
       }
     }
   },
+  "globals": {
+    "JSX": true
+  },
   "rules": {
     "react/function-component-definition": "off",
     "react/jsx-filename-extension": [

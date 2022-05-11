@@ -1,5 +1,4 @@
-import { MouseEventHandler } from 'react';
-import { toggleThingsSidebarFn } from '../../foundation/Layout';
+import { toggleThingsSidebarFn } from '../../foundation/Layout/layoutUtils/useSidebars';
 import DefaultAvatar from '../../icons/DefaultAvatar';
 import FunctionalIcon from '../../icons/FunctionalIcon';
 import StyledAvatar, { StyledDefaultAvatar } from './StyledAvatar';

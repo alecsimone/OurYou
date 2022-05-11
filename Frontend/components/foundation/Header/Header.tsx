@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { desktopBreakpointPx } from '../../../styles/breakpoints';
-import { toggleNavSidebarFn, toggleThingsSidebarFn } from '../Layout';
+import {
+  toggleNavSidebarFn,
+  toggleThingsSidebarFn,
+} from '../Layout/layoutUtils/useSidebars';
 import LogoBox from './LogoBox/LogoBox';
 import MemberBox from './MemberBox/MemberBox';
 import NavButtons from './NavButtons/NavButtons';

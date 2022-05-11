@@ -1,23 +1,7 @@
 import {
-  ReactNode, useEffect, useState, MouseEvent, useRef,
+  useEffect, useState, MouseEvent,
 } from 'react';
-import { ThemeProvider } from 'styled-components';
-import GlobalStyle from '../../styles/globalStyle';
-import theme from '../../styles/theme';
-import Header from './Header/Header';
-import Meta from './Meta';
-import NavSidebar from './NavSidebar/NavSidebar';
-import StyledPage from './StyledLayout';
-import {
-  mobileBreakpointPx,
-  desktopBreakpointPx,
-} from '../../styles/breakpoints';
-import ThingsSidebar from './ThingsSidebar/ThingsSidebar';
-import {
-  cleanupNProgress,
-  initNProgress,
-  useNavSidebar,
-} from './LayoutHandlers';
+import { desktopBreakpointPx, mobileBreakpointPx } from '../../../../styles/breakpoints';
 
 type toggleNavSidebarFn = (
   e: MouseEvent<SVGSVGElement>,
@@ -30,19 +14,29 @@ type toggleThingsSidebarFn = (
 ) => void;
 export type { toggleThingsSidebarFn };
 
-interface LayoutProps {
-  children: ReactNode; // The page component for the currently active route
-}
+const useSidebars = (): [
+  boolean,
+  boolean,
+  toggleNavSidebarFn,
+  toggleThingsSidebarFn
+] => {
+  const [navSidebarIsOpen, setNavSidebarIsOpen] = useState(false);
+  const [thingsSidebarIsOpen, setThingsSidebarIsOpen] = useState(false);
 
-const Layout = ({ children }: LayoutProps): JSX.Element => {
   useEffect(() => {
-    initNProgress();
-    return () => {
-      cleanupNProgress();
-    };
+    if (window.innerWidth > desktopBreakpointPx) {
+      setNavSidebarIsOpen(true);
+    }
+    window.addEventListener('resize', () => {
+      // TODO handle manual showing of the sidebar
+      // If someone shows the sidebar, then resizes the window, it will close on them.
+      if (window.innerWidth > desktopBreakpointPx) {
+        setNavSidebarIsOpen(true);
+      } else {
+        setNavSidebarIsOpen(false);
+      }
+    });
   }, []);
-
-  const [navSidebarIsOpen, setNavSidebarIsOpen] = useNavSidebar();
 
   const uncheckedToggleNavSidebar = (e: MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
@@ -66,8 +60,6 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
     }
   };
 
-  const [thingsSidebarIsOpen, setThingsSidebarIsOpen] = useState(false);
-
   const toggleThingsSidebar: toggleThingsSidebarFn = (e) => {
     e.preventDefault();
     if (
@@ -81,19 +73,6 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
     setThingsSidebarIsOpen(!thingsSidebarIsOpen);
   };
 
-  return (
-    <StyledPage className="styledPage">
-      <Header
-        toggleNavSidebar={toggleNavSidebar}
-        toggleThingsSidebar={toggleThingsSidebar}
-      />
-      <main className="mainSection">
-        <NavSidebar isOpen={navSidebarIsOpen} />
-        <div className="pageComponent">{children}</div>
-        <ThingsSidebar isOpen={thingsSidebarIsOpen} />
-      </main>
-    </StyledPage>
-  );
+  return [navSidebarIsOpen, thingsSidebarIsOpen, toggleNavSidebar, toggleThingsSidebar];
 };
-
-export default Layout;
+export default useSidebars;

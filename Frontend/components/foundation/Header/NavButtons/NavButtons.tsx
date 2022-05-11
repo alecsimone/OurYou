@@ -8,7 +8,6 @@ import FunctionalIcon from '../../../icons/FunctionalIcon';
 import HamburgerIcon from '../../../icons/Hamburger';
 import Search from '../../../icons/Search';
 import X from '../../../icons/X';
-import { toggleNavSidebarFn } from '../../Layout';
 import StyledNavButtons from './StyledNavButtons';
 
 const toggleShowingSearch = (
@@ -28,37 +27,35 @@ const toggleShowingSearch = (
 interface NavButtonsProps {
   showingSearch: boolean;
   setShowingSearch: Dispatch<SetStateAction<boolean>>;
-  toggleNavSidebar: toggleNavSidebarFn;
+  toggleNavSidebar: toggleNavSidebarFnn;
 }
 
 const NavButtons = ({
   showingSearch,
   setShowingSearch,
   toggleNavSidebar,
-}: NavButtonsProps): JSX.Element => {
-  return (
-    <StyledNavButtons className="navButtons">
-      <FunctionalIcon
-        iconName="hamburger"
-        titleTextReplacement="Show Nav Sidebar"
-        onClick={(e) => toggleNavSidebar(e, 'hamburger')}
-      >
-        <HamburgerIcon />
-      </FunctionalIcon>
-      <FunctionalIcon iconName="newPost" titleTextReplacement="New Post">
-        <X color="coolGrey" />
-      </FunctionalIcon>
-      <FunctionalIcon
-        iconName="search"
-        onClick={() => toggleShowingSearch(showingSearch, setShowingSearch)}
-      >
-        <Search />
-      </FunctionalIcon>
-      {showingSearch && (
-        <Input className="search" type="text" placeholder="Search" />
-      )}
-    </StyledNavButtons>
-  );
-};
+}: NavButtonsProps): JSX.Element => (
+  <StyledNavButtons className="navButtons">
+    <FunctionalIcon
+      iconName="hamburger"
+      titleTextReplacement="Show Nav Sidebar"
+      onClick={(e) => toggleNavSidebar(e, 'hamburger')}
+    >
+      <HamburgerIcon />
+    </FunctionalIcon>
+    <FunctionalIcon iconName="newPost" titleTextReplacement="New Post">
+      <X color="coolGrey" />
+    </FunctionalIcon>
+    <FunctionalIcon
+      iconName="search"
+      onClick={() => toggleShowingSearch(showingSearch, setShowingSearch)}
+    >
+      <Search />
+    </FunctionalIcon>
+    {showingSearch && (
+      <Input className="search" type="text" placeholder="Search" />
+    )}
+  </StyledNavButtons>
+);
 
 export default NavButtons;
