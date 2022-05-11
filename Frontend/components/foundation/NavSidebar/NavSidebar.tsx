@@ -77,9 +77,24 @@ const navLinks: linkObj[] = [
   },
 ];
 
-interface NavSidebarProps {}
-const NavSidebar = (): JSX.Element => {
+interface NavSidebarProps {
+  isOpen: boolean;
+}
+
+const NavSidebar = ({ isOpen }: NavSidebarProps): JSX.Element => {
   const [collapsed, setCollapsed] = useState(false);
+
+  let className = 'navSidebar';
+  if (collapsed) {
+    className += ' collapsed';
+  } else {
+    className += ' expanded';
+  }
+  if (isOpen) {
+    className += ' visible';
+  } else {
+    className += ' hidden';
+  }
 
   const navElements = navLinks.map((linkObj) => (
     <Link href={linkObj.href}>
@@ -101,7 +116,7 @@ const NavSidebar = (): JSX.Element => {
     </Link>
   ));
   return (
-    <StyledNavSidebar className={collapsed ? 'collapsed' : 'expanded'}>
+    <StyledNavSidebar className={className}>
       <div className="contents">{navElements}</div>
       <FunctionalIcon
         iconName="collapse"
