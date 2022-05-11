@@ -19,6 +19,8 @@ const GlobalStyle = createGlobalStyle`
       font-size: 12px;
     }
     height: 100vh;
+    --foundationBorderStyle: 3px solid ${setAlpha(theme.coolGrey, 0.25)};
+  }
   *, *:before, *:after {
     box-sizing: inherit;
     transition: background 0.5s ease-out;

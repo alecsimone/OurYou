@@ -15,21 +15,27 @@ const FunctionalIcon: FC<FunctionalIconProps> = ({
   extraClass,
   titleTextReplacement,
   children,
-}) => (
-  <SVG
-    className={extraClass == null ? iconName : `${iconName} ${extraClass}`}
-    viewBox="0 0 200 200"
-    onClick={(e) => {
-      if (onClick != null) {
-        onClick(e);
-      }
-    }}
-  >
-    <title>
-      {titleTextReplacement == null ? iconName : titleTextReplacement}
-    </title>
-    {children}
-  </SVG>
-);
+}) => {
+  const capitalizedName = `${iconName.charAt(0).toUpperCase()}${iconName.slice(
+    1
+  )}`;
+
+  return (
+    <SVG
+      className={extraClass == null ? iconName : `${iconName} ${extraClass}`}
+      viewBox="0 0 200 200"
+      onClick={(e) => {
+        if (onClick != null) {
+          onClick(e);
+        }
+      }}
+    >
+      <title>
+        {titleTextReplacement == null ? capitalizedName : titleTextReplacement}
+      </title>
+      {children}
+    </SVG>
+  );
+};
 
 export default FunctionalIcon;

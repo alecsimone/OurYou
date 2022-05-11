@@ -6,10 +6,7 @@ interface NotificationBoxProps {}
 
 const NotificationBox: FC<NotificationBoxProps> = () => {
   return (
-    <FunctionalIcon
-      iconName="notifications"
-      titleTextReplacement="Notifications"
-    >
+    <FunctionalIcon iconName="notifications">
       <NotificationsIcon />
     </FunctionalIcon>
   );

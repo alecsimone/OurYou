@@ -1,8 +1,22 @@
 import {
-  tinyText, miniText, smallText, bigText, smallHead, bigHead,
+  tinyText,
+  miniText,
+  smallText,
+  bigText,
+  smallHead,
+  bigHead,
 } from './fontSizes';
 import {
-  coolGrey, deepBlack, lightBlack, midBlack, white, warmGrey, blue, green, gold, red,
+  coolGrey,
+  deepBlack,
+  lightBlack,
+  midBlack,
+  white,
+  warmGrey,
+  blue,
+  green,
+  gold,
+  red,
 } from './colors';
 import {
   mobileBreakpoint,

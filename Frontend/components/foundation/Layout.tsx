@@ -6,6 +6,7 @@ import GlobalStyle from '../../styles/globalStyle';
 import theme from '../../styles/theme';
 import Header from './Header/Header';
 import Meta from './Meta';
+import NavSidebar from './NavSidebar/NavSidebar';
 
 const StyledPage = styled.div`
   height: 100%;
@@ -13,6 +14,8 @@ const StyledPage = styled.div`
   flex-direction: column;
   main.mainSection {
     flex-grow: 1;
+    display: flex;
+    overflow: hidden;
   }
 `;
 
@@ -43,6 +46,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <StyledPage className="styledPage">
         <Header />
         <main className="mainSection">
+          <NavSidebar />
           {children}
         </main>
       </StyledPage>

@@ -46,7 +46,6 @@ const NavButtons: FC<NavButtonsProps> = ({
       </FunctionalIcon>
       <FunctionalIcon
         iconName="search"
-        titleTextReplacement="Search"
         onClick={() => toggleShowingSearch(showingSearch, setShowingSearch)}
       >
         <Search />
