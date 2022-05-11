@@ -3,6 +3,7 @@ import Document, {
   Head, Main, NextScript, Html, DocumentContext, DocumentInitialProps,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import Meta from '../components/foundation/Meta';
 
 // Boilerplate copied from https://github.com/vercel/next.js/blob/canary/examples/with-styled-components-babel/pages/_document.tsx
 export default class MyDocument extends Document {
@@ -33,13 +34,14 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head key="document">
+        <Head key="Document">
           {/* nprogress css */}
           <link rel="stylesheet" type="text/css" href="/nprogress.css" key="nprogress" />
 
           {/* proxima-novo font */}
           <link rel="stylesheet" href="https://use.typekit.net/iwq0uru.css" key="typekit" />
         </Head>
+        <Meta />
         <body key="body">
           <Main />
           <NextScript />

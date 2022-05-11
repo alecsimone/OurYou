@@ -1,4 +1,6 @@
-import { ReactNode, useEffect, useState, MouseEvent, useRef } from 'react';
+import {
+  ReactNode, useEffect, useState, MouseEvent, useRef,
+} from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../../styles/globalStyle';
 import theme from '../../styles/theme';
@@ -45,9 +47,9 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
   const uncheckedToggleNavSidebar = (e: MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
     if (
-      thingsSidebarIsOpen === true &&
-      navSidebarIsOpen === false &&
-      window.innerWidth <= mobileBreakpointPx
+      thingsSidebarIsOpen === true
+      && navSidebarIsOpen === false
+      && window.innerWidth <= mobileBreakpointPx
     ) {
       // If we're below the mobile breakpoint, the thingsSidebarIsOpen, and we're opening the navSidebar, we want to close the thingsSidebar
       setThingsSidebarIsOpen(false);
@@ -57,8 +59,8 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
 
   const toggleNavSidebar: toggleNavSidebarFn = (e, buttonName) => {
     if (
-      (window.innerWidth <= mobileBreakpointPx && buttonName === 'logo') ||
-      (window.innerWidth <= desktopBreakpointPx && buttonName === 'hamburger')
+      (window.innerWidth <= mobileBreakpointPx && buttonName === 'logo')
+      || (window.innerWidth <= desktopBreakpointPx && buttonName === 'hamburger')
     ) {
       uncheckedToggleNavSidebar(e);
     }
@@ -69,9 +71,9 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
   const toggleThingsSidebar: toggleThingsSidebarFn = (e) => {
     e.preventDefault();
     if (
-      navSidebarIsOpen === true &&
-      thingsSidebarIsOpen === false &&
-      window.innerWidth <= mobileBreakpointPx
+      navSidebarIsOpen === true
+      && thingsSidebarIsOpen === false
+      && window.innerWidth <= mobileBreakpointPx
     ) {
       // If we're below the mobile breakpoint, the navSidebarIsOpen, and we're opening the thingsSidebar, we want to close the navSidebar
       setNavSidebarIsOpen(false);
@@ -80,21 +82,17 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Meta />
-      <StyledPage className="styledPage">
-        <Header
-          toggleNavSidebar={toggleNavSidebar}
-          toggleThingsSidebar={toggleThingsSidebar}
-        />
-        <main className="mainSection">
-          <NavSidebar isOpen={navSidebarIsOpen} />
-          <div className="pageComponent">{children}</div>
-          <ThingsSidebar isOpen={thingsSidebarIsOpen} />
-        </main>
-      </StyledPage>
-    </ThemeProvider>
+    <StyledPage className="styledPage">
+      <Header
+        toggleNavSidebar={toggleNavSidebar}
+        toggleThingsSidebar={toggleThingsSidebar}
+      />
+      <main className="mainSection">
+        <NavSidebar isOpen={navSidebarIsOpen} />
+        <div className="pageComponent">{children}</div>
+        <ThingsSidebar isOpen={thingsSidebarIsOpen} />
+      </main>
+    </StyledPage>
   );
 };
 
