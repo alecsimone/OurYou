@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useState } from 'react';
+import ArrowIcon from '../../icons/Arrow';
 import CollectionIcon from '../../icons/Collection';
 import DefaultAvatar from '../../icons/DefaultAvatar';
 import FriendsIcon from '../../icons/Friends';
@@ -79,6 +80,8 @@ const navLinks: linkObj[] = [
 ];
 
 const NavSidebar: FC<NavSidebarProps> = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
   const navElements = navLinks.map((linkObj) => (
     <Link href={linkObj.href}>
       <a href={linkObj.href}>
@@ -93,12 +96,23 @@ const NavSidebar: FC<NavSidebarProps> = () => {
               {linkObj.icon}
             </FunctionalIcon>
           </span>
-          <span className="navLabel">{linkObj.text}</span>
+          {!collapsed && <span className="navLabel">{linkObj.text}</span>}
         </div>
       </a>
     </Link>
   ));
-  return <StyledNavSidebar>{navElements}</StyledNavSidebar>;
+  return (
+    <StyledNavSidebar className={collapsed ? 'collapsed' : 'expanded'}>
+      <div className="contents">{navElements}</div>
+      <FunctionalIcon
+        iconName="collapse"
+        extraClass={collapsed ? 'pointingRight' : 'pointingLeft'}
+        onClick={() => setCollapsed(!collapsed)}
+      >
+        <ArrowIcon />
+      </FunctionalIcon>
+    </StyledNavSidebar>
+  );
 };
 
 export default NavSidebar;
