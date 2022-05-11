@@ -1,28 +1,40 @@
 import Link from 'next/link';
+import { mobileBreakpointPx } from '../../../../styles/breakpoints';
 import FunctionalIcon from '../../../icons/FunctionalIcon';
 import LogoIcon from '../../../icons/Logo';
-import { toggleNavSidebarFn } from '../../Layout/layoutUtils/useSidebars';
 import StyledLogoBox from './StyledLogoBox';
 
 interface LogoBoxProps {
-  toggleNavSidebar: toggleNavSidebarFn;
+  toggleNavSidebar: () => void;
 }
 
 const LogoBox = ({ toggleNavSidebar }: LogoBoxProps): JSX.Element => (
   <StyledLogoBox className="logoBox">
     <Link href="/">
-      <a className="logoLink" href="/" aria-label="homepage link">
+      <a
+        className="logoLink"
+        href="/"
+        aria-label="homepage link"
+      >
         <FunctionalIcon
           iconName="logo"
           titleTextReplacement="Ouryou"
-          onClick={(e) => toggleNavSidebar(e, 'logo')}
+          onClick={(e) => {
+            if (window.innerWidth <= mobileBreakpointPx) {
+              e.preventDefault();
+              toggleNavSidebar();
+            }
+          }}
         >
           <LogoIcon />
         </FunctionalIcon>
       </a>
     </Link>
     <Link href="/">
-      <a className="siteName" href="/">
+      <a
+        className="siteName"
+        href="/"
+      >
         Ouryou
       </a>
     </Link>

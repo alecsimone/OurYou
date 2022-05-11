@@ -1,40 +1,19 @@
-import { useEffect, useState } from 'react';
-import { desktopBreakpointPx } from '../../../styles/breakpoints';
-import {
-  toggleNavSidebarFn,
-  toggleThingsSidebarFn,
-} from '../Layout/layoutUtils/useSidebars';
 import LogoBox from './LogoBox/LogoBox';
 import MemberBox from './MemberBox/MemberBox';
 import NavButtons from './NavButtons/NavButtons';
 import StyledHeader from './StyledHeader';
+import useToggleableSearch from './useToggleableSearch';
 
 interface HeaderProps {
-  toggleNavSidebar: toggleNavSidebarFn;
-  toggleThingsSidebar: toggleThingsSidebarFn;
+  toggleNavSidebar: () => void;
+  toggleThingsSidebar: () => void;
 }
 
 const Header = ({
   toggleNavSidebar,
   toggleThingsSidebar,
 }: HeaderProps): JSX.Element => {
-  const [showingSearch, setShowingSearch] = useState(false);
-
-  useEffect(() => {
-    // We always show the search bar if the screen is bigger than the desktop breakpoint. Otherwise, the user will have to show it manually
-    if (window.innerWidth > desktopBreakpointPx) {
-      setShowingSearch(true);
-    }
-    window.addEventListener('resize', () => {
-      // TODO handle manual showing of the search bar
-      // The problem with this implementation is that someone might have manually shown the search bar at a width below desktopBreakpointPx, then resized the window, which just hides it again. To account for that, we'd have to keep track of whether the user had manually shown the search bar (which I figure we could do by having the default state be null, and then toggling it would make it true/false), but we'd also have to keep the current value in a ref so we could pass it to the event callback, and that doesn't seem worth implementing right now for such an obscure edge case.
-      if (window.innerWidth > desktopBreakpointPx) {
-        setShowingSearch(true);
-      } else {
-        setShowingSearch(false);
-      }
-    });
-  }, []);
+  const [showingSearch, toggleShowingSearch] = useToggleableSearch();
 
   return (
     <StyledHeader
@@ -42,7 +21,7 @@ const Header = ({
     >
       <NavButtons
         showingSearch={showingSearch}
-        setShowingSearch={setShowingSearch}
+        toggleShowingSearch={toggleShowingSearch}
         toggleNavSidebar={toggleNavSidebar}
       />
       <LogoBox toggleNavSidebar={toggleNavSidebar} />

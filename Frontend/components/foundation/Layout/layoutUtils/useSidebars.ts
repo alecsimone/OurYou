@@ -1,25 +1,10 @@
+import { useEffect, useState } from 'react';
 import {
-  useEffect, useState, MouseEvent,
-} from 'react';
-import { desktopBreakpointPx, mobileBreakpointPx } from '../../../../styles/breakpoints';
+  desktopBreakpointPx,
+  mobileBreakpointPx,
+} from '../../../../styles/breakpoints';
 
-type toggleNavSidebarFn = (
-  e: MouseEvent<SVGSVGElement>,
-  buttonName: 'logo' | 'hamburger'
-) => void;
-export type { toggleNavSidebarFn };
-
-type toggleThingsSidebarFn = (
-  e: MouseEvent<SVGSVGElement | HTMLImageElement> // This could be either the default avatar svg or the avatar img
-) => void;
-export type { toggleThingsSidebarFn };
-
-const useSidebars = (): [
-  boolean,
-  boolean,
-  toggleNavSidebarFn,
-  toggleThingsSidebarFn
-] => {
+const useSidebars = (): [boolean, boolean, () => void, () => void] => {
   const [navSidebarIsOpen, setNavSidebarIsOpen] = useState(false);
   const [thingsSidebarIsOpen, setThingsSidebarIsOpen] = useState(false);
 
@@ -38,12 +23,11 @@ const useSidebars = (): [
     });
   }, []);
 
-  const uncheckedToggleNavSidebar = (e: MouseEvent<SVGSVGElement>) => {
-    e.preventDefault();
+  const toggleNavSidebar = () => {
     if (
-      thingsSidebarIsOpen === true
-      && navSidebarIsOpen === false
-      && window.innerWidth <= mobileBreakpointPx
+      thingsSidebarIsOpen === true &&
+      navSidebarIsOpen === false &&
+      window.innerWidth <= mobileBreakpointPx
     ) {
       // If we're below the mobile breakpoint, the thingsSidebarIsOpen, and we're opening the navSidebar, we want to close the thingsSidebar
       setThingsSidebarIsOpen(false);
@@ -51,21 +35,11 @@ const useSidebars = (): [
     setNavSidebarIsOpen(!navSidebarIsOpen);
   };
 
-  const toggleNavSidebar: toggleNavSidebarFn = (e, buttonName) => {
+  const toggleThingsSidebar = () => {
     if (
-      (window.innerWidth <= mobileBreakpointPx && buttonName === 'logo')
-      || (window.innerWidth <= desktopBreakpointPx && buttonName === 'hamburger')
-    ) {
-      uncheckedToggleNavSidebar(e);
-    }
-  };
-
-  const toggleThingsSidebar: toggleThingsSidebarFn = (e) => {
-    e.preventDefault();
-    if (
-      navSidebarIsOpen === true
-      && thingsSidebarIsOpen === false
-      && window.innerWidth <= mobileBreakpointPx
+      navSidebarIsOpen === true &&
+      thingsSidebarIsOpen === false &&
+      window.innerWidth <= mobileBreakpointPx
     ) {
       // If we're below the mobile breakpoint, the navSidebarIsOpen, and we're opening the thingsSidebar, we want to close the navSidebar
       setNavSidebarIsOpen(false);
@@ -73,6 +47,11 @@ const useSidebars = (): [
     setThingsSidebarIsOpen(!thingsSidebarIsOpen);
   };
 
-  return [navSidebarIsOpen, thingsSidebarIsOpen, toggleNavSidebar, toggleThingsSidebar];
+  return [
+    navSidebarIsOpen,
+    thingsSidebarIsOpen,
+    toggleNavSidebar,
+    toggleThingsSidebar,
+  ];
 };
 export default useSidebars;

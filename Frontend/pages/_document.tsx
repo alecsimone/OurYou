@@ -1,20 +1,28 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import Document, {
-  Head, Main, NextScript, Html, DocumentContext, DocumentInitialProps,
+  DocumentContext,
+  DocumentInitialProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import Meta from '../components/foundation/Meta';
 
 // Boilerplate copied from https://github.com/vercel/next.js/blob/canary/examples/with-styled-components-babel/pages/_document.tsx
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
     try {
-      ctx.renderPage = () => originalRenderPage({
-        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
-      });
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        });
 
       const initialProps = await Document.getInitialProps(ctx);
       return {

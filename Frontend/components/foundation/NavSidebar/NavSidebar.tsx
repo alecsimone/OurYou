@@ -13,14 +13,14 @@ import X from '../../icons/X';
 import YouIcon from '../../icons/You';
 import StyledNavSidebar from './StyledNavSidebar';
 
-interface linkObj {
+interface linkInterface {
   icon: ReactElement<any, any>;
   text: string;
   iconName?: string;
   href: string;
 }
 
-const navLinks: linkObj[] = [
+const navLinks: linkInterface[] = [
   {
     icon: <HomeIcon />,
     text: 'Home',

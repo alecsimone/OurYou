@@ -3,8 +3,15 @@ import { home } from '../../config';
 
 const Meta = (): JSX.Element => (
   <Head key="Meta">
-    <meta name="viewport" content="width=device-width, initial-scale=1" key="viewport" />
-    <meta charSet="utf-8" key="charSet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+      key="viewport"
+    />
+    <meta
+      charSet="utf-8"
+      key="charSet"
+    />
     {/* Favicon Setup */}
     <link
       rel="apple-touch-icon"
@@ -26,24 +33,70 @@ const Meta = (): JSX.Element => (
       href="/favicon-16x16.png?v=2"
       key="icon16"
     />
-    <link rel="manifest" href="/site.webmanifest?v=2" key="manifest" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=2" color="#0066cc" key="mask-icon" />
-    <meta property="og:icon" content={`${home}/logo.png`} key="ogIcon" />
-    <link rel="shortcut icon" href={`${home}/favicon.ico?v=2`} key="shortcut" />
-    <meta name="msapplication-TileColor" content="#030303" key="msTile" />
-    <meta name="theme-color" content="#0066cc" key="themeColor" />
+    <link
+      rel="manifest"
+      href="/site.webmanifest?v=2"
+      key="manifest"
+    />
+    <link
+      rel="mask-icon"
+      href="/safari-pinned-tab.svg?v=2"
+      color="#0066cc"
+      key="mask-icon"
+    />
+    <meta
+      property="og:icon"
+      content={`${home}/logo.png`}
+      key="ogIcon"
+    />
+    <link
+      rel="shortcut icon"
+      href={`${home}/favicon.ico?v=2`}
+      key="shortcut"
+    />
+    <meta
+      name="msapplication-TileColor"
+      content="#030303"
+      key="msTile"
+    />
+    <meta
+      name="theme-color"
+      content="#0066cc"
+      key="themeColor"
+    />
 
     {/* og data */}
     <title key="title">Ouryou</title>
-    <meta property="og:type" content="website" key="ogType" />
-    <meta property="og:site_name" content="Ouryou" key="ogName" />
-    <meta property="og:description" content="What will you learn today?" key="ogDescription" />
+    <meta
+      property="og:type"
+      content="website"
+      key="ogType"
+    />
+    <meta
+      property="og:site_name"
+      content="Ouryou"
+      key="ogName"
+    />
+    <meta
+      property="og:description"
+      content="What will you learn today?"
+      key="ogDescription"
+    />
 
     {/* nprogress css */}
-    <link rel="stylesheet" type="text/css" href="/nprogress.css" key="nprogress" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/nprogress.css"
+      key="nprogress"
+    />
 
     {/* proxima-novo font */}
-    <link rel="stylesheet" href="https://use.typekit.net/iwq0uru.css" key="typekit" />
+    <link
+      rel="stylesheet"
+      href="https://use.typekit.net/iwq0uru.css"
+      key="typekit"
+    />
   </Head>
 );
 
