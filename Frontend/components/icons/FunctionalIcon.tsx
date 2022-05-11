@@ -29,6 +29,7 @@ const FunctionalIcon = ({
           onClick(e);
         }
       }}
+      role="button"
     >
       <title>
         {titleTextReplacement == null ? capitalizedName : titleTextReplacement}

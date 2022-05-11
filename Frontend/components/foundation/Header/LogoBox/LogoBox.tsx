@@ -1,7 +1,7 @@
-import Link from "next/link";
-import FunctionalIcon from "../../../icons/FunctionalIcon";
-import LogoIcon from "../../../icons/Logo";
-import StyledLogoBox from "./StyledLogoBox";
+import Link from 'next/link';
+import FunctionalIcon from '../../../icons/FunctionalIcon';
+import LogoIcon from '../../../icons/Logo';
+import StyledLogoBox from './StyledLogoBox';
 
 interface LogoBoxProps {}
 
@@ -16,7 +16,7 @@ const LogoBox = (): JSX.Element => {
         </a>
       </Link>
       <Link href="/">
-        <a className="siteName" href="/" aria-label="homepage link">
+        <a className="siteName" href="/">
           Ouryou
         </a>
       </Link>
