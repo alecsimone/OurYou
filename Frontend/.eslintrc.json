@@ -42,10 +42,12 @@
     "quotes": ["error", "single"],
     "max-len": [
       "warn",
-      { "code": 400 },
-      { "ignoreComments": true },
-      { "ignoreUrls": true },
-      { "ignoreTrailingComments": true }
+      {
+        "code": 400,
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreTrailingComments": true
+      }
       // { "ignoreStrings": true}
       // { "ignoreTemplateLiterals": true },
       // { "ignoreRegExpLiterals": true }
