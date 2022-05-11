@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { desktopBPWidth, mobileBPWidth } from '../../../styles/breakpoints';
-import { setAlpha, setLightness } from '../../../styles/modifyColorFunctions';
 
 const StyledHeader = styled.header`
   background: ${(props) => props.theme.midBlack};

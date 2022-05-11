@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { setAlpha } from '../../../styles/modifyColorFunctions';
+import { setAlpha } from '../../../styles/functions/modifyColorFunctions';
 
 const StyledNavSidebar = styled.nav`
   position: relative;

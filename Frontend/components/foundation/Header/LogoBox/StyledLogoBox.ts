@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { setAlpha } from '../../../../styles/modifyColorFunctions';
+import { setAlpha } from '../../../../styles/functions/modifyColorFunctions';
 
 const StyledLogoBox = styled.div`
   display: inline-flex;
@@ -12,7 +12,8 @@ const StyledLogoBox = styled.div`
       margin-top: -2px; // We don't want it quite centered. I think it looks best with the hole in the logo lining up with the O in ouryou, which requires a slight nudge to off-center
     }
   }
-  a.siteName, a.siteName:visited {
+  a.siteName,
+  a.siteName:visited {
     display: none;
     ${(props) => props.theme.mobileBreakpoint} {
       display: block;

@@ -1,5 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
-import { setAlpha, setLightness, setSaturation } from './modifyColorFunctions';
+import {
+  setAlpha,
+  setLightness,
+  setSaturation,
+} from './functions/modifyColorFunctions';
 import theme from './theme';
 
 const GlobalStyle = createGlobalStyle`

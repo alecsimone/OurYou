@@ -1,32 +1,32 @@
+import { DefaultTheme } from 'styled-components';
 import {
-  tinyText,
-  miniText,
-  smallText,
-  bigText,
-  smallHead,
-  bigHead,
-} from './fontSizes';
+  bigScreenBreakpoint,
+  desktopBreakpoint,
+  massiveScreenBreakpoint,
+  midScreenBreakpoint,
+  mobileBreakpoint,
+} from './breakpoints';
 import {
+  blue,
   coolGrey,
   deepBlack,
+  gold,
+  green,
   lightBlack,
   midBlack,
-  white,
-  warmGrey,
-  blue,
-  green,
-  gold,
   red,
+  warmGrey,
+  white,
 } from './colors';
 import {
-  mobileBreakpoint,
-  desktopBreakpoint,
-  midScreenBreakpoint,
-  bigScreenBreakpoint,
-  massiveScreenBreakpoint,
-} from './breakpoints';
-import { setAlpha, setSaturation } from './modifyColorFunctions';
-import { DefaultTheme } from 'styled-components';
+  bigHead,
+  bigText,
+  miniText,
+  smallHead,
+  smallText,
+  tinyText,
+} from './fontSizes';
+import { setAlpha, setSaturation } from './functions/modifyColorFunctions';
 
 const theme: DefaultTheme = {
   tinyText,
