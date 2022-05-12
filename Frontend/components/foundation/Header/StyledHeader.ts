@@ -1,5 +1,5 @@
+import { desktopBPWidth, mobileBPWidth } from '@styles/breakpoints';
 import styled from 'styled-components';
-import { desktopBPWidth, mobileBPWidth } from '../../../styles/breakpoints';
 
 const StyledHeader = styled.header`
   background: ${(props) => props.theme.midBlack};

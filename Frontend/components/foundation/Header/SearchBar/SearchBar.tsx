@@ -1,6 +1,6 @@
 import FunctionalIcon from '@icons/FunctionalIcon';
 import Search from '@icons/Search';
-import Input from '../../../../styles/extendableElements/Input';
+import Input from '@styles/extendableElements/Input';
 import StyledSearchBar from './StyledSearchBar';
 
 interface SearchBarProps {

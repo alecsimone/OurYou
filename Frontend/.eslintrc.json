@@ -16,7 +16,10 @@
   "settings": {
     "import/resolver": {
       "alias": {
-        "map": [["@icons", "./components/icons"]],
+        "map": [
+          ["@icons", "./components/icons"],
+          ["@styles", "./styles"]
+        ],
         "extensions": [".js", ".ts", ".tsx"]
       }
     }
@@ -58,7 +61,8 @@
         "code": 80,
         "ignoreComments": true,
         "ignoreUrls": true,
-        "ignoreTrailingComments": true
+        "ignoreTrailingComments": true,
+        "ignoreStrings": true
       }
     ],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]

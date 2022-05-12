@@ -1,8 +1,5 @@
+import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 import { useEffect, useReducer } from 'react';
-import {
-  desktopBreakpointPx,
-  mobileBreakpointPx,
-} from '../../../../styles/breakpoints';
 
 interface sidebarStateInterface {
   nav: boolean;

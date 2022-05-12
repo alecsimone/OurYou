@@ -1,12 +1,14 @@
+import { ColorNames } from '@styles/styled.d';
 import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import { ColorNames } from '../../styles/styled';
 
 interface CollectionProps {
-  color?: ColorNames; //color of the icon, defaults to coolGrey
+  color?: ColorNames; // color of the icon, defaults to coolGrey
 }
 
-const CollectionIcon = ({ color = 'coolGrey' }: CollectionProps): JSX.Element => {
+const CollectionIcon = ({
+  color = 'coolGrey',
+}: CollectionProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   const computedColor = theme[color];
 

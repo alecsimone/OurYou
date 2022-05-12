@@ -1,9 +1,9 @@
+import { ColorNames } from '@styles/styled.d';
 import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import { ColorNames } from '../../styles/styled';
 
 interface YouProps {
-  color?: ColorNames; //color of the icon, defaults to coolGrey
+  color?: ColorNames; // color of the icon, defaults to coolGrey
 }
 
 const YouIcon = ({ color = 'coolGrey' }: YouProps): JSX.Element => {

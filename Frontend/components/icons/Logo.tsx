@@ -1,7 +1,6 @@
+import { ColorNames } from '@styles/styled.d';
 import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import getComputedColor from '../../styles/functions/getComputedColor';
-import { ColorNames } from '../../styles/styled';
 
 interface LogoIconProps {
   color?: ColorNames; // color of the icon, defaults to blue

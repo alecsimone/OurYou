@@ -1,8 +1,5 @@
+import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 import { useEffect, useState } from 'react';
-import {
-  desktopBreakpointPx,
-  mobileBreakpointPx,
-} from '../../../styles/breakpoints';
 
 const useToggleableSearch = (): [boolean, () => void] => {
   const [showingSearch, setShowingSearch] = useState(false);

@@ -1,7 +1,7 @@
+import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import theme from '../../../../styles/theme';
 import SearchBar from './SearchBar';
 
 describe('SearchBar', () => {
@@ -9,7 +9,7 @@ describe('SearchBar', () => {
     render(
       <ThemeProvider theme={theme}>
         <SearchBar
-          showingSearch={true}
+          showingSearch
           toggleShowingSearch={() => {}}
         />
       </ThemeProvider>

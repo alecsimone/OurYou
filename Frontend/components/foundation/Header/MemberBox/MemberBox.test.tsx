@@ -1,7 +1,7 @@
+import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import theme from '../../../../styles/theme';
 import MemberBox from './MemberBox';
 
 describe('MemberBox', () => {

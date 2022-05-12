@@ -1,5 +1,5 @@
+import SVG from '@styles/extendableElements/svg';
 import { MouseEventHandler, ReactNode } from 'react';
-import SVG from '../../styles/extendableElements/svg';
 
 interface FunctionalIconProps {
   iconName: string; // Will be used for className and title text (unless titleTextReplacement provided)

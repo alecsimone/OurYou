@@ -1,4 +1,4 @@
-import Input from '../../../styles/extendableElements/Input';
+import Input from '@styles/extendableElements/Input';
 
 interface BottomBarFormProps {
   placeholder: string;

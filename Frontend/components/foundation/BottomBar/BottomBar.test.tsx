@@ -1,8 +1,8 @@
+import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider } from 'styled-components';
-import theme from '../../../styles/theme';
 import BottomBar from './BottomBar';
 
 describe('BottomBar', () => {
