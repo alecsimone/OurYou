@@ -64,6 +64,7 @@ export default class MyDocument extends Document {
         <body key="body">
           <Main />
           <NextScript />
+          <section id="modalHolder" />
         </body>
       </Html>
     );
