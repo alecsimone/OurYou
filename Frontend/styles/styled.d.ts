@@ -41,35 +41,5 @@ declare module 'styled-components' {
     midScreenBreakpoint: string;
     bigScreenBreakpoint: string;
     massiveScreenBreakpoint: string;
-
-    thingColors: {
-      background: string;
-      border: string;
-      boxShadow: string;
-    };
-    scroll: {
-      overflowY: string;
-      scrollbarWidth: string;
-      scrollbarColor: string;
-    };
-
-    spin: {
-      animationName: string;
-      animationDuration: string;
-      animationIterationCount: string;
-      animationTimingFunction: string;
-    };
-    spinBackward: {
-      animationName: string;
-      animationDuration: string;
-      animationIterationCount: string;
-      animationTimingFunction: string;
-    };
-    twist: {
-      animationName: string;
-      animationDuration: string;
-      animationIterationCount: string;
-      animationTimingFunction: string;
-    };
   }
 }

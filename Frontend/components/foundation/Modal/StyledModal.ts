@@ -21,7 +21,6 @@ const StyledModal = styled.div`
     max-width: 100%;
     min-height: 60%;
     max-height: 100%;
-    ${(props) => props.theme.scroll};
     display: flex;
     align-items: center;
     justify-content: center;

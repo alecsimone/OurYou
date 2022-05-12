@@ -1,4 +1,5 @@
 import { setAlpha } from '@styles/functions/modifyColorFunctions';
+import { scroll } from '@styles/theme';
 import styled from 'styled-components';
 
 const StyledNavSidebar = styled.nav`
@@ -11,7 +12,7 @@ const StyledNavSidebar = styled.nav`
   }
   height: 100%;
   max-height: 100%;
-  ${(props) => props.theme.scroll};
+  ${scroll};
   padding-top: 1rem;
   padding-bottom: calc(${(props) => props.theme.bigText} + 1rem);
   &.collapsed {

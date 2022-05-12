@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components';
+import { css, DefaultTheme } from 'styled-components';
 import {
   bigScreenBreakpoint,
   desktopBreakpoint,
@@ -28,6 +28,41 @@ import {
 } from './fontSizes';
 import { setAlpha, setSaturation } from './functions/modifyColorFunctions';
 
+const scroll = css`
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(210, 10%, 30%) hsl(30, 1%, 4%);
+`;
+
+const thingColors = css`
+  background: ${setSaturation(lightBlack, 25)};
+  border: 2px solid ${setAlpha(coolGrey, 0.15)};
+  box-shadow: 0 4px 4px ${setAlpha(deepBlack, 0.2)};
+`;
+
+const spin = css`
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+`;
+
+const spinBackward = css`
+  animation-name: spinBackward;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+`;
+
+const twist = css`
+  animation-name: twist;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+`;
+
+export { scroll, thingColors, spin, spinBackward, twist };
+
 const theme: DefaultTheme = {
   tinyText,
   miniText,
@@ -55,36 +90,6 @@ const theme: DefaultTheme = {
   midScreenBreakpoint,
   bigScreenBreakpoint,
   massiveScreenBreakpoint,
-
-  thingColors: {
-    background: `${setSaturation(lightBlack, 25)}`,
-    border: `2px solid ${setAlpha(coolGrey, 0.15)}`,
-    boxShadow: `0 4px 4px ${setAlpha(deepBlack, 0.2)}`,
-  },
-  scroll: {
-    overflowY: 'auto',
-    scrollbarWidth: 'thin',
-    scrollbarColor: 'hsl(210, 10%, 30%) hsl(30, 1%, 4%)',
-  },
-
-  spin: {
-    animationName: 'spin',
-    animationDuration: '1000ms',
-    animationIterationCount: 'infinite',
-    animationTimingFunction: 'linear',
-  },
-  spinBackward: {
-    animationName: 'spinBackward',
-    animationDuration: '1000ms',
-    animationIterationCount: 'infinite',
-    animationTimingFunction: 'linear',
-  },
-  twist: {
-    animationName: 'twist',
-    animationDuration: '1000ms',
-    animationIterationCount: 'infinite',
-    animationTimingFunction: 'linear',
-  },
 };
 
 export default theme;
