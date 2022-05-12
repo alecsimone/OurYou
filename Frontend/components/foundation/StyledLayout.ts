@@ -36,6 +36,28 @@ const StyledPage = styled.div`
     .pageComponent {
       flex-grow: 1;
     }
+    .thingsSidebar {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      ${(props) => props.theme.mobileBreakpoint} {
+        width: auto;
+      }
+      &.home {
+        ${(props) => props.theme.desktopBreakpoint} {
+          position: relative;
+        }
+      }
+      transition: transform 0.2s ease-out;
+      &.hidden {
+        transform: translateX(100%);
+        ${(props) => props.theme.desktopBreakpoint} {
+          transform: translateX(0);
+          width: auto;
+        }
+      }
+    }
   }
 `;
 

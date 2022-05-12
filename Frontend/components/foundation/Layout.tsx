@@ -1,8 +1,5 @@
-import Router from 'next/router';
 import { ReactNode, useEffect, useState, MouseEvent, useRef } from 'react';
 import { ThemeProvider } from 'styled-components';
-import NProgress from 'nprogress';
-import { AnimatePresence } from 'framer-motion';
 import GlobalStyle from '../../styles/globalStyle';
 import theme from '../../styles/theme';
 import Header from './Header/Header';
@@ -13,6 +10,12 @@ import {
   mobileBreakpointPx,
   desktopBreakpointPx,
 } from '../../styles/breakpoints';
+import ThingsSidebar from './ThingsSidebar/ThingsSidebar';
+import {
+  cleanupNProgress,
+  initNProgress,
+  useNavSidebar,
+} from './LayoutHandlers';
 
 type toggleNavSidebarFn = (
   e: MouseEvent<SVGSVGElement>,
@@ -20,51 +23,35 @@ type toggleNavSidebarFn = (
 ) => void;
 export type { toggleNavSidebarFn };
 
+type toggleThingsSidebarFn = (
+  e: MouseEvent<SVGSVGElement | HTMLImageElement> // This could be either the default avatar svg or the avatar img
+) => void;
+export type { toggleThingsSidebarFn };
+
 interface LayoutProps {
   children: ReactNode; // The page component for the currently active route
 }
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
   useEffect(() => {
-    const handleRouteStart = () => NProgress.start();
-    const handleRouteDone = () => NProgress.done();
-
-    Router.events.on('routeChangeStart', handleRouteStart);
-    Router.events.on('routeChangeComplete', handleRouteDone);
-    Router.events.on('routeChangeError', handleRouteDone);
-
+    initNProgress();
     return () => {
-      // Make sure to remove the event handler on unmount!
-      Router.events.off('routeChangeStart', handleRouteStart);
-      Router.events.off('routeChangeComplete', handleRouteDone);
-      Router.events.off('routeChangeError', handleRouteDone);
+      cleanupNProgress();
     };
   }, []);
 
-  const [navSidebarIsOpen, setNavSidebarIsOpen] = useState(false);
-  useEffect(() => {
-    if (window.innerWidth > desktopBreakpointPx) {
-      setNavSidebarIsOpen(true);
-    }
-    window.addEventListener('resize', () => {
-      // TODO handle manual showing of the sidebar
-      // If someone shows the sidebar, then resizes the window, it will close on them.
-      if (window.innerWidth > desktopBreakpointPx) {
-        setNavSidebarIsOpen(true);
-      } else {
-        setNavSidebarIsOpen(false);
-      }
-    });
-  }, []);
+  const [navSidebarIsOpen, setNavSidebarIsOpen] = useNavSidebar();
 
   const uncheckedToggleNavSidebar = (e: MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
-    // if (
-    //   thingsSidebarIsOpen === true &&
-    //   navSidebarIsOpen === false
-    // ) {
-    //   setThingsSidebarIsOpen(false);
-    // }
+    if (
+      thingsSidebarIsOpen === true &&
+      navSidebarIsOpen === false &&
+      window.innerWidth <= mobileBreakpointPx
+    ) {
+      // If we're below the mobile breakpoint, the thingsSidebarIsOpen, and we're opening the navSidebar, we want to close the thingsSidebar
+      setThingsSidebarIsOpen(false);
+    }
     setNavSidebarIsOpen(!navSidebarIsOpen);
   };
 
@@ -77,15 +64,34 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
     }
   };
 
+  const [thingsSidebarIsOpen, setThingsSidebarIsOpen] = useState(false);
+
+  const toggleThingsSidebar: toggleThingsSidebarFn = (e) => {
+    e.preventDefault();
+    if (
+      navSidebarIsOpen === true &&
+      thingsSidebarIsOpen === false &&
+      window.innerWidth <= mobileBreakpointPx
+    ) {
+      // If we're below the mobile breakpoint, the navSidebarIsOpen, and we're opening the thingsSidebar, we want to close the navSidebar
+      setNavSidebarIsOpen(false);
+    }
+    setThingsSidebarIsOpen(!thingsSidebarIsOpen);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Meta />
       <StyledPage className="styledPage">
-        <Header toggleNavSidebar={toggleNavSidebar} />
+        <Header
+          toggleNavSidebar={toggleNavSidebar}
+          toggleThingsSidebar={toggleThingsSidebar}
+        />
         <main className="mainSection">
           <NavSidebar isOpen={navSidebarIsOpen} />
           <div className="pageComponent">{children}</div>
+          <ThingsSidebar isOpen={thingsSidebarIsOpen} />
         </main>
       </StyledPage>
     </ThemeProvider>

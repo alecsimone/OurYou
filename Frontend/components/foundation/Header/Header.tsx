@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { desktopBreakpointPx } from '../../../styles/breakpoints';
-import { toggleNavSidebarFn } from '../Layout';
+import { toggleNavSidebarFn, toggleThingsSidebarFn } from '../Layout';
 import LogoBox from './LogoBox/LogoBox';
 import MemberBox from './MemberBox/MemberBox';
 import NavButtons from './NavButtons/NavButtons';
@@ -8,9 +8,13 @@ import StyledHeader from './StyledHeader';
 
 interface HeaderProps {
   toggleNavSidebar: toggleNavSidebarFn;
+  toggleThingsSidebar: toggleThingsSidebarFn;
 }
 
-const Header = ({ toggleNavSidebar }: HeaderProps): JSX.Element => {
+const Header = ({
+  toggleNavSidebar,
+  toggleThingsSidebar,
+}: HeaderProps): JSX.Element => {
   const [showingSearch, setShowingSearch] = useState(false);
 
   useEffect(() => {
@@ -39,7 +43,7 @@ const Header = ({ toggleNavSidebar }: HeaderProps): JSX.Element => {
         toggleNavSidebar={toggleNavSidebar}
       />
       <LogoBox toggleNavSidebar={toggleNavSidebar} />
-      <MemberBox />
+      <MemberBox toggleThingsSidebar={toggleThingsSidebar} />
     </StyledHeader>
   );
 };

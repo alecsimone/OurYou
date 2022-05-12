@@ -1,15 +1,18 @@
-import Link from "next/link";
-import Avatar from "../../../memberUtilities/Avatar/Avatar";
-import NotificationBox from "./NotificationBox/NotificationBox";
-import StyledMemberBox from "./StyledMemberBox";
+import Link from 'next/link';
+import Avatar from '../../../memberUtilities/Avatar/Avatar';
+import { toggleThingsSidebarFn } from '../../Layout';
+import NotificationBox from './NotificationBox/NotificationBox';
+import StyledMemberBox from './StyledMemberBox';
 
-interface MemberBoxProps {}
+interface MemberBoxProps {
+  toggleThingsSidebar: toggleThingsSidebarFn;
+}
 
-const MemberBox = (): JSX.Element => {
+const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
   const data = {
     avatar:
-      "https://pbs.twimg.com/profile_images/917202644740956160/lMFbGZ-e_400x400.jpg",
-    displayName: "Alec",
+      'https://pbs.twimg.com/profile_images/917202644740956160/lMFbGZ-e_400x400.jpg',
+    displayName: 'Alec',
     rep: 1,
   };
 
@@ -24,7 +27,7 @@ const MemberBox = (): JSX.Element => {
             {`[${rep}]`} {displayName}
           </a>
         </Link>
-        <Avatar avatar={avatar} />
+        <Avatar avatar={avatar} onClick={toggleThingsSidebar} />
       </StyledMemberBox>
     );
   }
