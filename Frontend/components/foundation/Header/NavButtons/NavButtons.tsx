@@ -1,6 +1,6 @@
-import FunctionalIcon from '../../../icons/FunctionalIcon';
-import HamburgerIcon from '../../../icons/Hamburger';
-import X from '../../../icons/X';
+import FunctionalIcon from '@icons/FunctionalIcon';
+import HamburgerIcon from '@icons/Hamburger';
+import X from '@icons/X';
 import StyledNavButtons from './StyledNavButtons';
 
 interface NavButtonsProps {

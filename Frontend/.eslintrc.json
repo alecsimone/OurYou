@@ -15,7 +15,8 @@
   "plugins": ["react", "@typescript-eslint"],
   "settings": {
     "import/resolver": {
-      "node": {
+      "alias": {
+        "map": [["@icons", "./components/icons"]],
         "extensions": [".js", ".ts", ".tsx"]
       }
     }

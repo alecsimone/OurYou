@@ -1,5 +1,5 @@
-import DefaultAvatar from '../../icons/DefaultAvatar';
-import FunctionalIcon from '../../icons/FunctionalIcon';
+import DefaultAvatar from '@icons/DefaultAvatar';
+import FunctionalIcon from '@icons/FunctionalIcon';
 import StyledAvatar, { StyledDefaultAvatar } from './StyledAvatar';
 
 interface AvatarProps {
