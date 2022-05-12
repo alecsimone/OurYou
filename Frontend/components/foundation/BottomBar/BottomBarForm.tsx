@@ -1,14 +1,14 @@
 import Input from '../../../styles/extendableElements/Input';
 
 interface BottomBarFormProps {
-  currentForm: string | null;
+  placeholder: string;
   value: string;
   setValue: (value: string) => void;
   submitForm: () => void;
 }
 
 const BottomBarForm = ({
-  currentForm,
+  placeholder,
   value,
   setValue,
   submitForm,
@@ -21,8 +21,9 @@ const BottomBarForm = ({
     }}
   >
     <Input
+      type="text"
       className="bottomBarInput"
-      placeholder={currentForm === 'search' ? 'Search' : 'Thing Title'}
+      placeholder={placeholder}
       value={value}
       onChange={(e) => setValue(e.target.value)}
     />

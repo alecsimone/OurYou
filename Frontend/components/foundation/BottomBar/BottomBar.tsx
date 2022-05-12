@@ -11,13 +11,14 @@ import useBottomBar from './useBottomBar';
 // interface BottomBarProps {}
 const BottomBar = (): JSX.Element => {
   const { bottomBarState, bottomBarDispatch, submitForm } = useBottomBar();
+  const { currentForm, input, showingForm } = bottomBarState;
 
   return (
     <StyledBottomBar>
-      {bottomBarState.showingForm && (
+      {showingForm && (
         <BottomBarForm
-          currentForm={bottomBarState.currentForm}
-          value={bottomBarState.input}
+          placeholder={currentForm === 'search' ? 'Search' : 'Thing Title'}
+          value={input}
           setValue={(value: string) => bottomBarDispatch({ newInput: value })}
           submitForm={submitForm}
         />

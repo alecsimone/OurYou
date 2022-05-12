@@ -1,7 +1,6 @@
 import { useReducer } from 'react';
 
 type bottomBarActions = 'search' | 'new' | 'clear' | { newInput: string };
-export type { bottomBarActions };
 
 interface bottomBarStateInterface {
   showingForm: boolean;
@@ -10,7 +9,7 @@ interface bottomBarStateInterface {
 }
 
 const useBottomBar = () => {
-  const initialBottomBarState = {
+  const initialBottomBarState: bottomBarStateInterface = {
     showingForm: false,
     currentForm: null,
     input: '',
@@ -22,24 +21,14 @@ const useBottomBar = () => {
   ): bottomBarStateInterface => {
     let newState = JSON.parse(JSON.stringify(state));
 
-    if (action === 'search') {
-      if (state.currentForm === 'search') {
-        // If we're already on the search form, we want to toggle showing the form
+    if (action === 'search' || action === 'new') {
+      if (state.currentForm === action) {
+        // If we're already on the requested form, we want to toggle showing the form
         newState.showingForm = !state.showingForm;
       } else {
-        // If we weren't, we want to clear the input and show the search form
+        // If we weren't, we want to clear the input and show the requested form
         newState.showingForm = true;
-        newState.currentForm = 'search';
-        newState.input = '';
-      }
-    } else if (action === 'new') {
-      if (state.currentForm === 'new') {
-        // If we're already on the search form, we want to toggle showing the form
-        newState.showingForm = !state.showingForm;
-      } else {
-        // If we weren't, we want to clear the input and show the search form
-        newState.showingForm = true;
-        newState.currentForm = 'new';
+        newState.currentForm = action;
         newState.input = '';
       }
     } else if (action === 'clear') {
@@ -56,11 +45,13 @@ const useBottomBar = () => {
   );
 
   const search = (searchTerm: string) => {
+    // todo: Redirect to the search page with the searchTerm as the query param
     console.log(`Searching for: ${searchTerm}`);
     bottomBarDispatch('clear');
   };
 
   const newThingWithTitle = (title: string) => {
+    // todo: Call a mutation to create a new thing with the provided title
     console.log(`Creating post: ${title}`);
     bottomBarDispatch('clear');
   };

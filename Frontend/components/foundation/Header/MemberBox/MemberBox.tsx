@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import Avatar from '../../../memberUtilities/Avatar/Avatar';
-import { toggleThingsSidebarFn } from '../../Layout/layoutUtils/useSidebars';
 import NotificationBox from './NotificationBox/NotificationBox';
 import StyledMemberBox from './StyledMemberBox';
 
 interface MemberBoxProps {
-  toggleThingsSidebar: toggleThingsSidebarFn;
+  toggleThingsSidebar: () => void;
 }
 
 const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
@@ -23,11 +22,17 @@ const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
       <StyledMemberBox>
         <NotificationBox />
         <Link href="/me">
-          <a href="/me" className="profileLink">
+          <a
+            href="/me"
+            className="profileLink"
+          >
             {`[${rep}]`} {displayName}
           </a>
         </Link>
-        <Avatar avatar={avatar} onClick={toggleThingsSidebar} />
+        <Avatar
+          avatar={avatar}
+          onClick={toggleThingsSidebar}
+        />
       </StyledMemberBox>
     );
   }

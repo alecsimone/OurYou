@@ -1,11 +1,10 @@
-import { toggleThingsSidebarFn } from '../../foundation/Layout/layoutUtils/useSidebars';
 import DefaultAvatar from '../../icons/DefaultAvatar';
 import FunctionalIcon from '../../icons/FunctionalIcon';
 import StyledAvatar, { StyledDefaultAvatar } from './StyledAvatar';
 
 interface AvatarProps {
   avatar?: string | null;
-  onClick?: toggleThingsSidebarFn;
+  onClick?: () => void;
 }
 
 const Avatar = ({ avatar, onClick }: AvatarProps): JSX.Element => {
