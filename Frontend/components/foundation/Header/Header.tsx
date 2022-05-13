@@ -1,6 +1,7 @@
 import LogoBox from './LogoBox/LogoBox';
 import MemberBox from './MemberBox/MemberBox';
 import NavButtons from './NavButtons/NavButtons';
+import SearchBar from './SearchBar/SearchBar';
 import StyledHeader from './StyledHeader';
 import useToggleableSearch from './useToggleableSearch';
 
@@ -19,11 +20,13 @@ const Header = ({
     <StyledHeader
       className={`header ${showingSearch ? 'showingSearch' : 'hidingSearch'}`}
     >
-      <NavButtons
-        showingSearch={showingSearch}
-        toggleShowingSearch={toggleShowingSearch}
-        toggleNavSidebar={toggleNavSidebar}
-      />
+      <div className="headerLeft">
+        <NavButtons toggleNavSidebar={toggleNavSidebar} />
+        <SearchBar
+          showingSearch={showingSearch}
+          toggleShowingSearch={toggleShowingSearch}
+        />
+      </div>
       <LogoBox toggleNavSidebar={toggleNavSidebar} />
       <MemberBox toggleThingsSidebar={toggleThingsSidebar} />
     </StyledHeader>

@@ -4,20 +4,11 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../../../../styles/theme';
 import NavButtons from './NavButtons';
 
-const setWidth = (width: number) => {
-  window.innerWidth = width;
-  window.dispatchEvent(new Event('resize'));
-};
-
 describe('NavButtons', () => {
-  it('Renders a hamburger, plus, search icon, and search bar', () => {
+  it('Renders a hamburger icon and a plus icon', () => {
     render(
       <ThemeProvider theme={theme}>
-        <NavButtons
-          showingSearch={true}
-          setShowingSearch={() => {}}
-          toggleNavSidebar={() => {}}
-        />
+        <NavButtons toggleNavSidebar={() => {}} />
       </ThemeProvider>
     );
 
@@ -26,11 +17,5 @@ describe('NavButtons', () => {
 
     const plus = screen.getByTitle('New Post');
     expect(plus).toBeInTheDocument();
-
-    const searchIcon = screen.getByTitle('Search');
-    expect(searchIcon).toBeInTheDocument();
-
-    const searchBar = screen.getByPlaceholderText('Search');
-    expect(searchBar).toBeInTheDocument();
   });
 });

@@ -10,12 +10,11 @@ const StyledHeader = styled.header`
   ${(props) => props.theme.mobileBreakpoint} {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  ${(props) => props.theme.midScreenBreakpoint} {
-  }
-  nav.navButtons {
+  .headerLeft {
     display: none;
     ${(props) => props.theme.mobileBreakpoint} {
       display: flex;
+      align-items: center;
     }
   }
   .logoBox {

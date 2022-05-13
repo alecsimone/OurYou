@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const StyledNavButtons = styled.nav`
   display: flex;
@@ -12,16 +12,6 @@ const StyledNavButtons = styled.nav`
     margin-right: 2rem;
     ${(props) => props.theme.desktopBreakpoint} {
       display: none;
-    }
-  }
-  svg.search {
-    margin-right: 1rem;
-  }
-  input.search {
-    font-size: ${(props) => props.theme.bigText};
-    opacity: 0.6;
-    &:focus {
-      opacity: 1;
     }
   }
 `;
