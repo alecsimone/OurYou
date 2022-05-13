@@ -1,4 +1,5 @@
 import { ReactNode, useEffect } from 'react';
+import BottomBar from '../BottomBar/BottomBar';
 import Header from '../Header/Header';
 import NavSidebar from '../NavSidebar/NavSidebar';
 import ThingsSidebar from '../ThingsSidebar/ThingsSidebar';
@@ -39,6 +40,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
         <div className="pageComponent">{children}</div>
         <ThingsSidebar isOpen={thingsSidebarIsOpen} />
       </main>
+      <BottomBar />
     </StyledPage>
   );
 };
