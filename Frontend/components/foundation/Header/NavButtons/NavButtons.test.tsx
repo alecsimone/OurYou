@@ -1,6 +1,6 @@
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import '@testing-library/jest-dom';
 import theme from '../../../../styles/theme';
 import NavButtons from './NavButtons';
 
@@ -13,7 +13,11 @@ describe('NavButtons', () => {
   it('Renders a hamburger, plus, search icon, and search bar', () => {
     render(
       <ThemeProvider theme={theme}>
-        <NavButtons showingSearch={true} setShowingSearch={() => {}} />
+        <NavButtons
+          showingSearch={true}
+          setShowingSearch={() => {}}
+          toggleNavSidebar={() => {}}
+        />
       </ThemeProvider>
     );
 

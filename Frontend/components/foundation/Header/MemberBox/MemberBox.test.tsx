@@ -1,14 +1,14 @@
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import '@testing-library/jest-dom';
-import MemberBox from './MemberBox';
 import theme from '../../../../styles/theme';
+import MemberBox from './MemberBox';
 
 describe('MemberBox', () => {
   it('Renders the bell, rep, name, and avatar', () => {
     render(
       <ThemeProvider theme={theme}>
-        <MemberBox />
+        <MemberBox toggleThingsSidebar={() => {}} />
       </ThemeProvider>
     );
 

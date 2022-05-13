@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
 import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ThemeProvider } from 'styled-components';
 import theme from '../../../styles/theme';
 import Header from './Header';
 
@@ -10,7 +10,10 @@ describe('Header', () => {
     const user = userEvent.setup();
     render(
       <ThemeProvider theme={theme}>
-        <Header />
+        <Header
+          toggleNavSidebar={() => {}}
+          toggleThingsSidebar={() => {}}
+        />
       </ThemeProvider>
     );
 

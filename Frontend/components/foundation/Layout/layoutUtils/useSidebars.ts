@@ -1,50 +1,78 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import {
   desktopBreakpointPx,
   mobileBreakpointPx,
 } from '../../../../styles/breakpoints';
 
+interface sidebarStateInterface {
+  nav: boolean;
+  things: boolean;
+}
+
 const useSidebars = (): [boolean, boolean, () => void, () => void] => {
-  const [navSidebarIsOpen, setNavSidebarIsOpen] = useState(false);
-  const [thingsSidebarIsOpen, setThingsSidebarIsOpen] = useState(false);
+  const sidebarToggler = (
+    state: sidebarStateInterface,
+    action: 'nav' | 'things' | 'openNav' | 'closeAll'
+  ): sidebarStateInterface => {
+    const newState = JSON.parse(JSON.stringify(state));
+
+    if (action === 'nav') {
+      // This action always toggles the nav
+      newState.nav = !state.nav;
+      if (window.innerWidth <= mobileBreakpointPx && state.things) {
+        // If we're below the mobile breakpoint and the things sidebar is already open, it needs to close it
+        newState.things = false;
+      }
+    } else if (action === 'things') {
+      // This action always toggles the things sidebar
+      newState.things = !state.things;
+      if (window.innerWidth <= mobileBreakpointPx && state.nav) {
+        // If we're below the mobile breakpoint and the nav is already open, it needs to close it
+        newState.nav = false;
+      }
+    } else if (action === 'openNav') {
+      // This action JUST opens the nav. It's useful for our effect that opens the nav by default on bigger screens
+      newState.nav = true;
+    } else if (action === 'closeAll') {
+      // This action closes our sidebars. It's useful for our resize listener that closes the sidebars when resizing the screen below the desktopBreakpoint
+      newState.nav = false;
+      newState.things = false;
+    }
+    return newState;
+  };
+
+  const initialSidebarState = {
+    nav: false,
+    things: false,
+  };
+
+  const [sidebarState, sidebarDispatch] = useReducer(
+    sidebarToggler,
+    initialSidebarState
+  );
+  const { nav: navSidebarIsOpen, things: thingsSidebarIsOpen } = sidebarState;
 
   useEffect(() => {
     if (window.innerWidth > desktopBreakpointPx) {
-      setNavSidebarIsOpen(true);
+      sidebarDispatch('openNav');
     }
     window.addEventListener('resize', () => {
       // TODO handle manual showing of the sidebar
       // If someone shows the sidebar, then resizes the window, it will close on them.
       if (window.innerWidth > desktopBreakpointPx) {
-        setNavSidebarIsOpen(true);
+        sidebarDispatch('openNav');
       } else {
-        setNavSidebarIsOpen(false);
+        sidebarDispatch('closeAll');
       }
     });
   }, []);
 
   const toggleNavSidebar = () => {
-    if (
-      thingsSidebarIsOpen === true &&
-      navSidebarIsOpen === false &&
-      window.innerWidth <= mobileBreakpointPx
-    ) {
-      // If we're below the mobile breakpoint, the thingsSidebarIsOpen, and we're opening the navSidebar, we want to close the thingsSidebar
-      setThingsSidebarIsOpen(false);
-    }
-    setNavSidebarIsOpen(!navSidebarIsOpen);
+    sidebarDispatch('nav');
   };
 
   const toggleThingsSidebar = () => {
-    if (
-      navSidebarIsOpen === true &&
-      thingsSidebarIsOpen === false &&
-      window.innerWidth <= mobileBreakpointPx
-    ) {
-      // If we're below the mobile breakpoint, the navSidebarIsOpen, and we're opening the thingsSidebar, we want to close the navSidebar
-      setNavSidebarIsOpen(false);
-    }
-    setThingsSidebarIsOpen(!thingsSidebarIsOpen);
+    sidebarDispatch('things');
   };
 
   return [
