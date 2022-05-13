@@ -23,6 +23,14 @@
   "globals": {
     "JSX": true
   },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
   "rules": {
     "react/function-component-definition": "off",
     "react/jsx-filename-extension": [
@@ -51,9 +59,7 @@
         "ignoreUrls": true,
         "ignoreTrailingComments": true
       }
-      // { "ignoreStrings": true}
-      // { "ignoreTemplateLiterals": true },
-      // { "ignoreRegExpLiterals": true }
-    ]
+    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }

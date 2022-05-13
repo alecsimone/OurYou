@@ -24,11 +24,10 @@ describe('Header', () => {
     expect(searchBar).not.toBeInTheDocument();
 
     await user.click(searchIcon);
-    const searchBarAfterOneClick = screen.queryByPlaceholderText('Search');
-    expect(searchBarAfterOneClick).toBeInTheDocument();
+    const searchBarAfterClick = screen.queryByPlaceholderText('Search');
+    expect(searchBarAfterClick).toBeInTheDocument();
 
     await user.click(searchIcon);
-    const searchBarAfterTwoClicks = screen.queryByPlaceholderText('Search');
-    expect(searchBarAfterTwoClicks).not.toBeInTheDocument();
+    expect(searchBarAfterClick).not.toBeInTheDocument();
   });
 });

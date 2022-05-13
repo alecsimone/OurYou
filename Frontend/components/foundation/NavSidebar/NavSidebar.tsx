@@ -123,7 +123,10 @@ const NavSidebar = ({ isOpen }: NavSidebarProps): JSX.Element => {
     </Link>
   ));
   return (
-    <StyledNavSidebar className={className}>
+    <StyledNavSidebar
+      className={className}
+      data-testid="navSidebar"
+    >
       <div className="contents">{navElements}</div>
       <FunctionalIcon
         iconName="collapse"
