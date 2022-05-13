@@ -1,5 +1,8 @@
 import { useReducer } from 'react';
 
+type bottomBarActions = 'search' | 'new' | 'clear' | { newInput: string };
+export type { bottomBarActions };
+
 interface bottomBarStateInterface {
   showingForm: boolean;
   currentForm: 'search' | 'new' | null;
@@ -15,7 +18,7 @@ const useBottomBar = () => {
 
   const formToggler = (
     state: bottomBarStateInterface,
-    action: 'search' | 'new' | 'clear' | { newInput: string }
+    action: bottomBarActions
   ): bottomBarStateInterface => {
     let newState = JSON.parse(JSON.stringify(state));
 
@@ -53,20 +56,27 @@ const useBottomBar = () => {
   );
 
   const search = (searchTerm: string) => {
-    console.log(searchTerm);
+    console.log(`Searching for: ${searchTerm}`);
     bottomBarDispatch('clear');
   };
 
   const newThingWithTitle = (title: string) => {
-    console.log(title);
+    console.log(`Creating post: ${title}`);
     bottomBarDispatch('clear');
+  };
+
+  const submitForm = () => {
+    if (bottomBarState.currentForm === 'search') {
+      search(bottomBarState.input);
+    } else if (bottomBarState.currentForm === 'new') {
+      newThingWithTitle(bottomBarState.input);
+    }
   };
 
   return {
     bottomBarState,
     bottomBarDispatch,
-    search,
-    newThingWithTitle,
+    submitForm,
   };
 };
 
