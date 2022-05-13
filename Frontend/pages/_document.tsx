@@ -42,7 +42,25 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head key="Document" />
+        <Head key="Document">
+          {/*
+            Stylesheets need to go inside this component. See: https://nextjs.org/docs/messages/no-stylesheets-in-head-component
+           */}
+          {/* nprogress css */}
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="/nprogress.css"
+            key="nprogress"
+          />
+
+          {/* proxima-novo font */}
+          <link
+            rel="stylesheet"
+            href="https://use.typekit.net/iwq0uru.css"
+            key="typekit"
+          />
+        </Head>
         <body key="body">
           <Main />
           <NextScript />

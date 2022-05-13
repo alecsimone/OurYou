@@ -97,9 +97,15 @@ const NavSidebar = ({ isOpen }: NavSidebarProps): JSX.Element => {
   }
 
   const navElements = navLinks.map((linkObj) => (
-    <Link href={linkObj.href}>
+    <Link
+      href={linkObj.href}
+      key={linkObj.text}
+    >
       <a href={linkObj.href}>
-        <div className="navLine">
+        <div
+          className="navLine"
+          key={linkObj.text}
+        >
           <span className="navIcon">
             <FunctionalIcon
               iconName={

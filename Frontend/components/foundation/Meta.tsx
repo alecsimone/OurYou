@@ -82,21 +82,6 @@ const Meta = (): JSX.Element => (
       content="What will you learn today?"
       key="ogDescription"
     />
-
-    {/* nprogress css */}
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/nprogress.css"
-      key="nprogress"
-    />
-
-    {/* proxima-novo font */}
-    <link
-      rel="stylesheet"
-      href="https://use.typekit.net/iwq0uru.css"
-      key="typekit"
-    />
   </Head>
 );
 
