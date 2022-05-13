@@ -76,6 +76,7 @@ const navLinks: linkInterface[] = [
     href: '/new',
   },
 ];
+export { navLinks };
 
 interface NavSidebarProps {
   isOpen: boolean;
