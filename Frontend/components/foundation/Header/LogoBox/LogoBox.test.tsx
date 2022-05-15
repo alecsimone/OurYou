@@ -1,15 +1,14 @@
-import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import Providers from 'components/foundation/Providers';
 import LogoBox from './LogoBox';
 
 describe('LogoBox', () => {
   it('renders our logo and name', () => {
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <LogoBox toggleNavSidebar={() => {}} />
-      </ThemeProvider>
+      </Providers>
     );
 
     const logo = screen.getByTitle('Ouryou');

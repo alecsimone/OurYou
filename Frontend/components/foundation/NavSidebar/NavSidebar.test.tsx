@@ -1,16 +1,15 @@
-import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeProvider } from 'styled-components';
+import Providers from '../Providers';
 import NavSidebar, { navLinks } from './NavSidebar';
 
 describe('NavSidebar', () => {
   it('Renders the nav links', () => {
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <NavSidebar isOpen />
-      </ThemeProvider>
+      </Providers>
     );
 
     navLinks.forEach((linkObj) => {
@@ -24,9 +23,9 @@ describe('NavSidebar', () => {
   it('Collapses and Expands', async () => {
     const user = userEvent.setup();
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <NavSidebar isOpen />
-      </ThemeProvider>
+      </Providers>
     );
 
     // The Nav Sidebar should start expanded

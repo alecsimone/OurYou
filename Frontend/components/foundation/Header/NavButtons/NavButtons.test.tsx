@@ -1,15 +1,14 @@
-import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import Providers from 'components/foundation/Providers';
 import NavButtons from './NavButtons';
 
 describe('NavButtons', () => {
   it('Renders a hamburger icon and a plus icon', () => {
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <NavButtons toggleNavSidebar={() => {}} />
-      </ThemeProvider>
+      </Providers>
     );
 
     const hamburger = screen.getByTitle('Show Nav Sidebar');

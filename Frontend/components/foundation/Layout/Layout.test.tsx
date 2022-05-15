@@ -1,9 +1,8 @@
-import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
-import { ThemeProvider } from 'styled-components';
+import Providers from '../Providers';
 import Layout from './Layout';
 
 // eslint-disable-next-line global-require
@@ -17,11 +16,11 @@ describe('Layout', () => {
   it('Toggles the sidebars', async () => {
     const user = userEvent.setup();
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <Layout>
           <div>Page component</div>
         </Layout>
-      </ThemeProvider>
+      </Providers>
     );
 
     // The Things Sidebar should start hidden

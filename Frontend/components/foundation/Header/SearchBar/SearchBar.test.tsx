@@ -1,18 +1,17 @@
-import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import Providers from 'components/foundation/Providers';
 import SearchBar from './SearchBar';
 
 describe('SearchBar', () => {
   it('Renders a search icon and a search bar', () => {
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <SearchBar
           showingSearch
           toggleShowingSearch={() => {}}
         />
-      </ThemeProvider>
+      </Providers>
     );
 
     const searchIcon = screen.getByTitle('Search');

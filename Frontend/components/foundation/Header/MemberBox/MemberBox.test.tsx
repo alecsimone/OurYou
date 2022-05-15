@@ -1,15 +1,14 @@
-import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import Providers from 'components/foundation/Providers';
 import MemberBox from './MemberBox';
 
 describe('MemberBox', () => {
   it('Renders the bell, rep, name, and avatar', () => {
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <MemberBox toggleThingsSidebar={() => {}} />
-      </ThemeProvider>
+      </Providers>
     );
 
     const bell = screen.getByTitle('Notifications');

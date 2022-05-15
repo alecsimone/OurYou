@@ -1,8 +1,7 @@
-import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeProvider } from 'styled-components';
+import Providers from '../Providers';
 import Modal from './Modal';
 
 describe('Modal', () => {
@@ -11,11 +10,11 @@ describe('Modal', () => {
   it('Exists and closes itself with the close button', async () => {
     const user = userEvent.setup();
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <Modal>
           <div>{modalText}</div>
         </Modal>
-      </ThemeProvider>
+      </Providers>
     );
 
     const modal = screen.getByText(modalText);
@@ -31,11 +30,11 @@ describe('Modal', () => {
   it('Exists and closes itself with the escape key', async () => {
     const user = userEvent.setup();
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <Modal>
           <div>{modalText}</div>
         </Modal>
-      </ThemeProvider>
+      </Providers>
     );
 
     const modal = screen.getByText(modalText);

@@ -21,7 +21,8 @@
           ["@styles", "./styles"]
         ],
         "extensions": [".js", ".ts", ".tsx"]
-      }
+      },
+      "typescript": {}
     }
   },
   "globals": {

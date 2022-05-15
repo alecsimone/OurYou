@@ -1,8 +1,7 @@
-import theme from '@styles/theme';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import mockRouter from 'next-router-mock';
-import { ThemeProvider } from 'styled-components';
+import Providers from '../Providers';
 import ThingsSidebar from './ThingsSidebar';
 
 // eslint-disable-next-line global-require
@@ -15,9 +14,9 @@ describe('ThingsSidebar', () => {
 
   it('Says ThingsSidebar', () => {
     render(
-      <ThemeProvider theme={theme}>
+      <Providers>
         <ThingsSidebar isOpen />
-      </ThemeProvider>
+      </Providers>
     );
 
     const text = screen.getByText('ThingsSidebar');
