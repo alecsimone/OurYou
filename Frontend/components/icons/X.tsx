@@ -1,6 +1,6 @@
-import getComputedColor from '@styles/functions/getComputedColor';
 import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
+import getComputedColor from '@styles/functions/getComputedColor';
 
 interface XProps {
   color?: string; // color of the icon, defaults to red

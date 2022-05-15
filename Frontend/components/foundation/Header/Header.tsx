@@ -1,7 +1,7 @@
-import LogoBox from './LogoBox/LogoBox';
-import MemberBox from './MemberBox/MemberBox';
-import NavButtons from './NavButtons/NavButtons';
-import SearchBar from './SearchBar/SearchBar';
+import LogoBox from './LogoBox';
+import MemberBox from './MemberBox';
+import NavButtons from './NavButtons';
+import SearchBar from './SearchBar';
 import StyledHeader from './StyledHeader';
 import useToggleableSearch from './useToggleableSearch';
 

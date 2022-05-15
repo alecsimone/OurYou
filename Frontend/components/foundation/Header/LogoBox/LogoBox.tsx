@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import FunctionalIcon from '@icons/FunctionalIcon';
 import LogoIcon from '@icons/Logo';
 import { mobileBreakpointPx } from '@styles/breakpoints';
-import Link from 'next/link';
 import StyledLogoBox from './StyledLogoBox';
 
 interface LogoBoxProps {

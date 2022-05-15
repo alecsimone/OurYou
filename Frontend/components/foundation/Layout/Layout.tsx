@@ -1,8 +1,8 @@
 import { ReactNode, useEffect } from 'react';
-import BottomBar from '../BottomBar/BottomBar';
-import Header from '../Header/Header';
-import NavSidebar from '../NavSidebar/NavSidebar';
-import ThingsSidebar from '../ThingsSidebar/ThingsSidebar';
+import BottomBar from '../BottomBar';
+import Header from '../Header';
+import NavSidebar from '../NavSidebar';
+import ThingsSidebar from '../ThingsSidebar';
 import {
   cleanupNProgress,
   initNProgress,

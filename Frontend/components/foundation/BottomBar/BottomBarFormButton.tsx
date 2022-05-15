@@ -1,5 +1,5 @@
-import FunctionalIcon from '@icons/FunctionalIcon';
 import { ReactNode } from 'react';
+import FunctionalIcon from '@icons/FunctionalIcon';
 
 interface BottomBarFormButtonProps {
   name: 'search' | 'new';

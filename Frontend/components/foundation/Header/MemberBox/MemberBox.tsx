@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Avatar from '../../../memberUtilities/Avatar/Avatar';
+import Avatar from 'components/memberUtilities/Avatar';
 import NotificationBox from './NotificationBox/NotificationBox';
 import StyledMemberBox from './StyledMemberBox';
 

@@ -1,7 +1,7 @@
-import FunctionalIcon from '@icons/FunctionalIcon';
-import X from '@icons/X';
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import FunctionalIcon from '@icons/FunctionalIcon';
+import X from '@icons/X';
 import StyledModal from './StyledModal';
 import useModal from './useModal';
 

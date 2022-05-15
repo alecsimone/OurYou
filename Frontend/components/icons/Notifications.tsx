@@ -1,6 +1,6 @@
-import { ColorNames } from '@styles/styled.d';
 import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
+import { ColorNames } from '@styles/styled.d';
 
 interface NotificationsIconProps {
   color?: ColorNames; // color of the icon, defaults to coolGrey

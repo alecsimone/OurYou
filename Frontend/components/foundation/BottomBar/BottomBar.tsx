@@ -1,10 +1,10 @@
-import FunctionalIcon from '@icons/FunctionalIcon';
-import HomeIcon from '@icons/Home';
-import Search from '@icons/Search';
-import X from '@icons/X';
 import Link from 'next/link';
 import { useState } from 'react';
-import Modal from '../Modal/Modal';
+import Modal from '../Modal';
+import X from '@icons/X';
+import Search from '@icons/Search';
+import HomeIcon from '@icons/Home';
+import FunctionalIcon from '@icons/FunctionalIcon';
 import BottomBarForm from './BottomBarForm';
 import BottomBarFormButton from './BottomBarFormButton';
 import StyledBottomBar from './StyledBottomBar';

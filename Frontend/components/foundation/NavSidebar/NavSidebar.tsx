@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { ReactElement, useState } from 'react';
 import ArrowIcon from '@icons/Arrow';
 import CollectionIcon from '@icons/Collection';
 import DefaultAvatar from '@icons/DefaultAvatar';
@@ -9,8 +11,6 @@ import Search from '@icons/Search';
 import TwitterIcon from '@icons/Twitter';
 import X from '@icons/X';
 import YouIcon from '@icons/You';
-import Link from 'next/link';
-import { ReactElement, useState } from 'react';
 import StyledNavSidebar from './StyledNavSidebar';
 
 interface linkInterface {

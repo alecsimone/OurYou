@@ -1,6 +1,6 @@
+import styled from 'styled-components';
 import { setAlpha } from '@styles/functions/modifyColorFunctions';
 import { scroll } from '@styles/theme';
-import styled from 'styled-components';
 
 const StyledNavSidebar = styled.nav`
   position: relative;

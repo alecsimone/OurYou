@@ -1,5 +1,5 @@
-import { setAlpha } from '@styles/functions/modifyColorFunctions';
 import styled from 'styled-components';
+import { setAlpha } from '@styles/functions/modifyColorFunctions';
 
 const StyledBottomBar = styled.nav`
   position: relative;
