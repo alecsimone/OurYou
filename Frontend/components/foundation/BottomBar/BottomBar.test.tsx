@@ -76,4 +76,51 @@ describe('BottomBar', () => {
     expect(searchFormFinal).toBeInTheDocument();
     expect(searchFormFinal).toHaveValue('');
   });
+
+  it('Calls the search and new thing functions', async () => {
+    const user = userEvent.setup();
+    render(
+      <Providers>
+        <BottomBar />
+      </Providers>
+    );
+
+    // Search
+    // Make sure the search button is in the document
+    const searchButton = screen.getByTitle('Search');
+    expect(searchButton).toBeInTheDocument();
+
+    // Make sure it shows the search form
+    await user.click(searchButton);
+    const searchForm = screen.getByPlaceholderText('Search');
+    expect(searchForm).toBeInTheDocument();
+
+    // Make sure we can type into it
+    const searchString = 'Search String';
+    await user.type(searchForm, searchString);
+    expect(searchForm).toHaveValue(searchString);
+
+    // Make sure it goes away after we hit enter
+    await user.keyboard('{Enter}');
+    expect(searchForm).not.toBeInTheDocument();
+
+    // New Thing
+    // Make sure the search button is in the document
+    const newThingButton = screen.getByTitle('New');
+    expect(newThingButton).toBeInTheDocument();
+
+    // Make sure it shows the search form
+    await user.click(newThingButton);
+    const newThingForm = screen.getByPlaceholderText('Thing Title');
+    expect(newThingForm).toBeInTheDocument();
+
+    // Make sure we can type into it
+    const newThingString = 'New Thing String';
+    await user.type(newThingForm, newThingString);
+    expect(newThingForm).toHaveValue(newThingString);
+
+    // Make sure it goes away after we hit enter
+    await user.keyboard('{Enter}');
+    expect(newThingForm).not.toBeInTheDocument();
+  });
 });

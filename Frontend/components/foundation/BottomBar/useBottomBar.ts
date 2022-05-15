@@ -46,12 +46,14 @@ const useBottomBar = () => {
 
   const search = (searchTerm: string) => {
     // todo: Redirect to the search page with the searchTerm as the query param
+    // eslint-disable-next-line no-console
     console.log(`Searching for: ${searchTerm}`);
     bottomBarDispatch('clear');
   };
 
   const newThingWithTitle = (title: string) => {
     // todo: Call a mutation to create a new thing with the provided title
+    // eslint-disable-next-line no-console
     console.log(`Creating post: ${title}`);
     bottomBarDispatch('clear');
   };
