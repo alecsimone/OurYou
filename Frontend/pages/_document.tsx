@@ -43,17 +43,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head key="Document">
-          {/*
-            Stylesheets need to go inside this component. See: https://nextjs.org/docs/messages/no-stylesheets-in-head-component
-           */}
-          {/* nprogress css */}
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="/nprogress.css"
-            key="nprogress"
-          />
-
           {/* proxima-novo font */}
           <link
             rel="stylesheet"

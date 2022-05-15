@@ -30,9 +30,12 @@ const BottomBar = (): JSX.Element => {
           bottomBarDispatch('search');
         }}
       />
-      <Link href="/">
+      <Link
+        href="/"
+        passHref
+      >
         <a
-          href="/"
+          href="replace"
           className="bottomBarButtonWrapper"
         >
           <FunctionalIcon iconName="home">

@@ -1,3 +1,3 @@
-export * from './SearchBar';
+// export * from './SearchBar';
 // eslint-disable-next-line no-restricted-exports
 export { default } from './SearchBar';

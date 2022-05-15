@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Layout from 'components/foundation/Layout/Layout';
 import Meta from 'components/foundation/Meta';
 import Providers from 'components/foundation/Providers';
+import 'public/nprogress.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

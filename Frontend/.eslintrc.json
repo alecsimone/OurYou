@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+  "extends": ["plugin:react/recommended", "airbnb", "prettier", "next"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -63,8 +63,9 @@
         "code": 80,
         "ignoreComments": true,
         "ignoreUrls": true,
-        "ignoreTrailingComments": true,
-        "ignoreStrings": true
+        // "ignoreTrailingComments": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
       }
     ],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],

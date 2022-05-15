@@ -10,10 +10,13 @@ interface LogoBoxProps {
 
 const LogoBox = ({ toggleNavSidebar }: LogoBoxProps): JSX.Element => (
   <StyledLogoBox className="logoBox">
-    <Link href="/">
+    <Link
+      href="/"
+      passHref
+    >
       <a
         className="logoLink"
-        href="/"
+        href="replace"
         aria-label="homepage link"
       >
         <FunctionalIcon
@@ -30,10 +33,13 @@ const LogoBox = ({ toggleNavSidebar }: LogoBoxProps): JSX.Element => (
         </FunctionalIcon>
       </a>
     </Link>
-    <Link href="/">
+    <Link
+      href="/"
+      passHref
+    >
       <a
         className="siteName"
-        href="/"
+        href="replace"
       >
         Ouryou
       </a>

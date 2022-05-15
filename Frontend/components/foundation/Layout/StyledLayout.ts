@@ -35,6 +35,7 @@ const StyledPage = styled.div`
     }
     .pageComponent {
       flex-grow: 1;
+      height: 100%;
     }
     .thingsSidebar {
       width: 100%;
