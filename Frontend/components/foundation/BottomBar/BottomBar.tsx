@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { useState } from 'react';
-import Modal from '../Modal';
 import X from '@icons/X';
 import Search from '@icons/Search';
 import HomeIcon from '@icons/Home';
@@ -14,8 +12,6 @@ import useBottomBar from './useBottomBar';
 const BottomBar = (): JSX.Element => {
   const { bottomBarState, bottomBarDispatch, submitForm } = useBottomBar();
   const { currentForm, input, showingForm } = bottomBarState;
-
-  const [showingModal, setShowingModal] = useState(false);
 
   return (
     <StyledBottomBar>
@@ -44,20 +40,6 @@ const BottomBar = (): JSX.Element => {
           </FunctionalIcon>
         </a>
       </Link>
-      <button
-        type="button"
-        onClick={() => {
-          setShowingModal(!showingModal);
-        }}
-        className="bottomBarButtonWrapper"
-      >
-        Modal
-      </button>
-      {showingModal && (
-        <Modal>
-          <div>Hi!</div>
-        </Modal>
-      )}
       <BottomBarFormButton
         name="new"
         icon={<X color="white" />}

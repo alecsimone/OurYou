@@ -6,13 +6,12 @@ import StyledModal from './StyledModal';
 import useModal from './useModal';
 
 interface ModalProps {
+  close: () => void; // The function that closes the modal. Needs to come from the component that creates the modal so that it knows the modal has been closed.
   children: ReactNode;
 }
 
-const Modal = ({ children }: ModalProps): JSX.Element | null => {
-  const [isOpen, closeModal] = useModal();
-
-  if (!isOpen) return null;
+const Modal = ({ close, children }: ModalProps): JSX.Element | null => {
+  useModal(close);
 
   const modalElement = (
     <StyledModal>
@@ -21,7 +20,7 @@ const Modal = ({ children }: ModalProps): JSX.Element | null => {
         <FunctionalIcon
           iconName="closeModal"
           titleTextReplacement="Close"
-          onClick={closeModal}
+          onClick={close}
         >
           <X />
         </FunctionalIcon>

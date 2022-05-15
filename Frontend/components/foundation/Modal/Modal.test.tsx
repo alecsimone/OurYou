@@ -7,11 +7,13 @@ import Modal from './Modal';
 describe('Modal', () => {
   const modalText = 'The Modal Component';
 
-  it('Exists and closes itself with the close button', async () => {
+  const close = jest.fn(() => {});
+
+  it('Exists and calls close with the button', async () => {
     const user = userEvent.setup();
     render(
       <Providers>
-        <Modal>
+        <Modal close={close}>
           <div>{modalText}</div>
         </Modal>
       </Providers>
@@ -24,14 +26,14 @@ describe('Modal', () => {
     expect(closeButton).toBeInTheDocument();
 
     await user.click(closeButton);
-    expect(modal).not.toBeInTheDocument();
+    expect(close.mock.calls.length).toBe(1);
   });
 
-  it('Exists and closes itself with the escape key', async () => {
+  it('Exists and calls close with the escape key', async () => {
     const user = userEvent.setup();
     render(
       <Providers>
-        <Modal>
+        <Modal close={close}>
           <div>{modalText}</div>
         </Modal>
       </Providers>
@@ -41,6 +43,6 @@ describe('Modal', () => {
     expect(modal).toBeInTheDocument();
 
     await user.keyboard('{Escape}');
-    expect(modal).not.toBeInTheDocument();
+    expect(close.mock.calls.length).toBe(2);
   });
 });
