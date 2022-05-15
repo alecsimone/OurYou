@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Providers from '../Providers';
+import Providers from 'components/foundation/Providers';
 import Modal from './Modal';
 
 describe('Modal', () => {
