@@ -53,9 +53,8 @@ const StyledPage = styled.div`
       transition: transform 0.2s ease-out;
       &.hidden {
         transform: translateX(100%);
-        ${(props) => props.theme.desktopBreakpoint} {
-          transform: translateX(0);
-          width: auto;
+        &.home {
+          width: 0;
         }
       }
     }

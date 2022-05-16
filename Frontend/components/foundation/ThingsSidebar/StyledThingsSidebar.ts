@@ -6,6 +6,7 @@ const StyledThingsSidebar = styled.nav`
   height: 100%;
   max-height: 100%;
   ${(props) => props.theme.scroll};
+  transform: translateX(0%);
 `;
 
 export default StyledThingsSidebar;
