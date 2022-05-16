@@ -17,10 +17,10 @@ const StyledModal = styled.div`
     padding: 3rem;
     border-radius: 0.5rem;
     border: 1px solid ${(props) => setAlpha(props.theme.coolGrey, 0.25)};
-    min-width: 60%;
     max-width: 100%;
-    min-height: 60%;
     max-height: 100%;
+    width: min(90vh, 90vw); // 90% of whichever side is smaller
+    height: min(90vh, 90vw); // Make it square
     display: flex;
     align-items: center;
     justify-content: center;
