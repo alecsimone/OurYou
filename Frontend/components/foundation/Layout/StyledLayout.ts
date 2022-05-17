@@ -53,7 +53,7 @@ const StyledPage = styled.div`
       }
       &.hidden {
         transform: translateX(100%);
-        ${(props) => props.theme.mobileBreakpoint} {
+        ${(props) => props.theme.desktopBreakpoint} {
           &.home {
             width: 0;
           }

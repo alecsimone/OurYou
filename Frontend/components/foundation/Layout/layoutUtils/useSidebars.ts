@@ -55,7 +55,7 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
 
   const initialSidebarState = {
     nav: false,
-    things: router.pathname === '/', // We only want to show the things sidebar by default on the homepage
+    things: false,
   };
 
   const [sidebarState, sidebarDispatch] = useReducer(
@@ -65,7 +65,8 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
   const { nav: navSidebarIsOpen, things: thingsSidebarIsOpen } = sidebarState;
 
   useEffect(() => {
-    if (router.pathname === '/' && window.innerWidth > mobileBreakpointPx) {
+    if (router.pathname === '/' && window.innerWidth > desktopBreakpointPx) {
+      // If we're on the homepage and above the desktop breakpoint, we want to show the things sidebar
       sidebarDispatch('openThings');
     } else if (router.pathname !== '/') {
       sidebarDispatch('closeThings');
@@ -82,11 +83,11 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
       // If someone shows the sidebar, then resizes the window, it will close on them.
       if (window.innerWidth > desktopBreakpointPx) {
         sidebarDispatch('openNav');
+        if (router.pathname === '/') {
+          sidebarDispatch('openThings');
+        }
       } else {
         sidebarDispatch('closeAll');
-      }
-      if (window.innerWidth > mobileBreakpointPx && router.pathname === '/') {
-        sidebarDispatch('openThings');
       }
     };
 
