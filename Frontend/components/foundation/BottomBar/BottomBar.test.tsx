@@ -81,7 +81,8 @@ describe('BottomBar', () => {
 
   it('Calls the search and new thing functions', async () => {
     const user = userEvent.setup();
-    console.log = jest.fn();
+    // console.log = jest.fn();
+    jest.spyOn(console, 'log').mockImplementation();
     render(
       <Providers>
         <BottomBar />
@@ -108,8 +109,12 @@ describe('BottomBar', () => {
     expect(searchForm).not.toBeInTheDocument();
 
     // And that it console logs our searchString, since we're console logging right now instead of actually searching
-    expect(console.log.mock.calls[0][0]).toContain('Searching for:');
-    expect(console.log.mock.calls[0][0]).toContain(searchString);
+    // eslint-disable-next-line no-console
+    expect(console.log).toBeCalledTimes(1);
+    // eslint-disable-next-line no-console
+    expect(console.log).toHaveBeenLastCalledWith(
+      `Searching for: ${searchString}`
+    );
 
     // New Thing
     // Make sure the search button is in the document
@@ -131,11 +136,15 @@ describe('BottomBar', () => {
     expect(newThingForm).not.toBeInTheDocument();
 
     // And that it console logs our newThingString, since we're console logging right now instead of actually creating a thing
-    expect(console.log.mock.calls[1][0]).toContain('Creating post:');
-    expect(console.log.mock.calls[1][0]).toContain(newThingString);
+    // eslint-disable-next-line no-console
+    expect(console.log).toBeCalledTimes(2);
+    // eslint-disable-next-line no-console
+    expect(console.log).toHaveBeenLastCalledWith(
+      `Creating post: ${newThingString}`
+    );
   });
 
-  it('Clicking the home button routes to the home page', async () => {
+  it('routes to the home page after clicking the Home button', async () => {
     const user = userEvent.setup();
     mockRouter.setCurrentUrl('/twitter');
     render(
