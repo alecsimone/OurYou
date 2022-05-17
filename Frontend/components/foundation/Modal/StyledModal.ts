@@ -22,7 +22,7 @@ const StyledModal = styled.div`
     padding: 3rem;
     width: min(90vh, 90vw); /* 90% of whichever side is smaller */
     max-width: 100%;
-    height: min(90vh, 90vw); /* Make it square */
+    height: calc(min(90vh, 90vw) * 0.75); /* Make it a 4:3 aspect ratio */
     max-height: 100%;
   }
   svg.closeModal {
