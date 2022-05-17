@@ -1,3 +1,3 @@
 # Quickly test adding diagrams
 
-[Alt Text](TestImage.drawio.svg)
+![Alt Text](TestImage.drawio.svg)
