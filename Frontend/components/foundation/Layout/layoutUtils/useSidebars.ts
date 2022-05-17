@@ -76,7 +76,8 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
     if (window.innerWidth > desktopBreakpointPx) {
       sidebarDispatch('openNav');
     }
-    window.addEventListener('resize', () => {
+
+    const handleResize = () => {
       // TODO handle manual showing of the sidebar
       // If someone shows the sidebar, then resizes the window, it will close on them.
       if (window.innerWidth > desktopBreakpointPx) {
@@ -84,8 +85,14 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
       } else {
         sidebarDispatch('closeAll');
       }
-    });
-  }, []);
+      if (window.innerWidth > mobileBreakpointPx && router.pathname === '/') {
+        sidebarDispatch('openThings');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [router.pathname]);
 
   const toggleNavSidebar = () => {
     sidebarDispatch('nav');
