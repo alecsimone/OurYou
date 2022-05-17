@@ -5,7 +5,7 @@ import Providers from '../Providers';
 import Header from './Header';
 
 describe('Header', () => {
-  it('Shows and hides the search bar', async () => {
+  it('shows and hides the search bar', async () => {
     const user = userEvent.setup();
     render(
       <Providers>
@@ -24,7 +24,6 @@ describe('Header', () => {
 
     await user.click(searchIcon);
     const searchBarAfterClick = screen.queryByPlaceholderText('Search');
-    expect(searchBarAfterClick).toBeInTheDocument();
 
     await user.click(searchIcon);
     expect(searchBarAfterClick).not.toBeInTheDocument();
