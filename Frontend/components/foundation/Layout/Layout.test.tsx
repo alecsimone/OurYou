@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 import { act } from 'react-dom/test-utils';
+import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 import Providers from '../Providers';
 import Layout from './Layout';
 
@@ -13,7 +14,7 @@ const user = userEvent.setup();
 describe('Layout', () => {
   it('Toggles the sidebars', async () => {
     mockRouter.setCurrentUrl('/');
-    window.innerWidth = 1200;
+    window.innerWidth = desktopBreakpointPx + 1;
     render(
       <Providers>
         <Layout>
@@ -57,7 +58,7 @@ describe('Layout', () => {
 
   it('Toggles the sidebars on mobile', async () => {
     mockRouter.setCurrentUrl('/');
-    window.innerWidth = 500;
+    window.innerWidth = mobileBreakpointPx;
     render(
       <Providers>
         <Layout>
@@ -101,7 +102,7 @@ describe('Layout', () => {
 
   it('Does not render the things sidebar at first if not on the homepage, but can still open it', async () => {
     mockRouter.setCurrentUrl('/twitter');
-    window.innerWidth = 1200;
+    window.innerWidth = desktopBreakpointPx + 1;
     render(
       <Providers>
         <Layout>

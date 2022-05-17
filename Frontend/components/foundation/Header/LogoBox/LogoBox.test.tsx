@@ -5,6 +5,7 @@ import { RouterContext } from 'next/dist/shared/lib/router-context';
 import mockRouter from 'next-router-mock';
 import { act } from 'react-dom/test-utils';
 import Providers from 'components/foundation/Providers';
+import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 import LogoBox from './LogoBox';
 
 describe('LogoBox', () => {
@@ -25,7 +26,7 @@ describe('LogoBox', () => {
   });
 
   it("doesn't render the name below the mobile breakpoint", () => {
-    window.innerWidth = 500;
+    window.innerWidth = mobileBreakpointPx;
     render(
       <Providers>
         <LogoBox toggleNavSidebar={() => {}} />
@@ -43,7 +44,7 @@ describe('LogoBox', () => {
   });
 
   it('calls toggleNavSidebar when the logo is clicked', async () => {
-    window.innerWidth = 500;
+    window.innerWidth = mobileBreakpointPx;
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();
     render(
@@ -60,7 +61,7 @@ describe('LogoBox', () => {
   });
 
   it('routes to the homepage when clicked above the mobile breakpoint', async () => {
-    window.innerWidth = 1200;
+    window.innerWidth = desktopBreakpointPx;
     mockRouter.setCurrentUrl('/twitter');
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();

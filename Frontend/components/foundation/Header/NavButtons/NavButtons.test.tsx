@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { desktopBreakpointPx } from '@styles/breakpoints';
 import Providers from 'components/foundation/Providers';
 import NavButtons from './NavButtons';
 
@@ -20,7 +21,7 @@ describe('NavButtons', () => {
   });
 
   it('toggles the nav sidebar', async () => {
-    window.innerWidth = 1000;
+    window.innerWidth = desktopBreakpointPx;
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();
     render(
