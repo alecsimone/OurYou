@@ -4,36 +4,62 @@ import { scroll } from '@styles/theme';
 
 const StyledNavSidebar = styled.nav`
   position: relative;
-  background: ${(props) => props.theme.midBlack};
   flex: 0 1 auto;
   border-right: var(--foundationBorderStyle);
-  a:hover {
-    text-decoration: none;
-  }
+  background: ${(props) => props.theme.midBlack};
+  padding-top: 1rem;
+  padding-bottom: calc(${(props) => props.theme.bigText} + 1rem);
   height: 100%;
   max-height: 100%;
   ${scroll};
-  padding-top: 1rem;
-  padding-bottom: calc(${(props) => props.theme.bigText} + 1rem);
-  &.collapsed {
-    .navLine {
-      padding: 2rem 0;
-    }
+  a:hover {
+    text-decoration: none;
   }
   .contents {
-    height: 100%;
-    max-height: 800px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    height: 100%;
+    max-height: 800px;
   }
   .navLine {
     display: flex;
     align-items: center;
+    transition: background 0.2s; /* Our backgrounds have a .5s transition on them by default, but we want this one to be faster */
     cursor: pointer;
     padding: 2rem 4rem 2rem 2rem;
-    transition: background 0.2s; // Our backgrounds have a .5s transition on them by default, but we want this one to be faster
+    .navIcon {
+      padding: 0 2rem;
+      text-align: center;
+      line-height: 0;
+      svg {
+        width: ${(props) => props.theme.bigText};
+        &.new {
+          transform: rotate(45deg);
+        }
+        &.avatar {
+          rect {
+            fill: none;
+          }
+          path,
+          circle {
+            fill: ${(props) => props.theme.coolGrey};
+          }
+        }
+      }
+    }
+    .navLabel {
+      justify-self: start;
+      margin-left: 2rem;
+      line-height: 1;
+      white-space: nowrap;
+      color: ${(props) => props.theme.white};
+      font-size: ${(props) => props.theme.bigText};
+    }
+    /* stylelint-disable */
+    /* it doesn't like that there's descending selectors inside this hover */
     &:hover {
+      /* stylelint-enable */
       background: ${(props) => setAlpha(props.theme.white, 0.05)};
       .navLabel {
         color: ${(props) => props.theme.blue};
@@ -78,39 +104,16 @@ const StyledNavSidebar = styled.nav`
         }
       }
     }
-    .navIcon {
-      text-align: center;
-      padding: 0 2rem;
-      line-height: 0;
-      svg {
-        width: ${(props) => props.theme.bigText};
-        &.new {
-          transform: rotate(45deg);
-        }
-        &.avatar {
-          rect {
-            fill: none;
-          }
-          path,
-          circle {
-            fill: ${(props) => props.theme.coolGrey};
-          }
-        }
-      }
-    }
-    .navLabel {
-      justify-self: start;
-      color: ${(props) => props.theme.white};
-      font-size: ${(props) => props.theme.bigText};
-      margin-left: 2rem;
-      line-height: 1;
-      white-space: nowrap;
+  }
+  &.collapsed {
+    .navLine {
+      padding: 2rem 0;
     }
   }
   svg.collapse {
     position: absolute;
-    bottom: 1rem;
     right: 1rem;
+    bottom: 1rem;
   }
 `;
 

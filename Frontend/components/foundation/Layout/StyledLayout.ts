@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 const StyledPage = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
   main.mainSection {
+    position: relative;
     flex-grow: 1;
     overflow: hidden;
-    position: relative;
     ${(props) => props.theme.mobileBreakpoint} {
       /* Below the mobile breakpoint, the two sidebars take up the whole screen. Above, they're in a flexbox with the page component */
       display: flex;
@@ -15,10 +15,10 @@ const StyledPage = styled.div`
     .navSidebar {
       position: absolute;
       top: 0;
-      height: 100%;
       left: 0;
-      width: 100%;
       transition: transform 0.2s ease-out;
+      width: 100%;
+      height: 100%;
       ${(props) => props.theme.mobileBreakpoint} {
         width: auto;
       }
@@ -38,10 +38,11 @@ const StyledPage = styled.div`
       height: 100%;
     }
     .thingsSidebar {
-      width: 100%;
       position: absolute;
       top: 0;
       right: 0;
+      transition: transform 0.2s ease-out;
+      width: 100%;
       ${(props) => props.theme.mobileBreakpoint} {
         width: auto;
       }
@@ -50,7 +51,6 @@ const StyledPage = styled.div`
           position: relative;
         }
       }
-      transition: transform 0.2s ease-out;
       &.hidden {
         transform: translateX(100%);
         &.home {

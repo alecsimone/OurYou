@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { desktopBPWidth, mobileBPWidth } from '@styles/breakpoints';
 
 const StyledHeader = styled.header`
-  background: ${(props) => props.theme.midBlack};
-  border-bottom: var(--foundationBorderStyle);
-  padding: 1.5rem 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  border-bottom: var(--foundationBorderStyle);
+  background: ${(props) => props.theme.midBlack};
+  padding: 1.5rem 2rem;
   ${(props) => props.theme.mobileBreakpoint} {
     grid-template-columns: 1fr 1fr 1fr;
   }

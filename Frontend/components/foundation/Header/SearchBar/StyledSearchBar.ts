@@ -7,8 +7,8 @@ const StyledSearchBar = styled.div`
     margin-right: 1rem;
   }
   input.search {
-    font-size: ${(props) => props.theme.bigText};
     opacity: 0.6;
+    font-size: ${(props) => props.theme.bigText};
     &:focus {
       opacity: 1;
     }

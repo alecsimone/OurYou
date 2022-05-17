@@ -2,32 +2,32 @@ import styled from 'styled-components';
 import { setAlpha } from '@styles/functions/modifyColorFunctions';
 
 const StyledBottomBar = styled.nav`
-  position: relative;
   display: flex;
-  background: ${(props) => props.theme.deepBlack};
-  border-top: var(--foundationBorderStyle);
+  position: relative;
   z-index: 99;
+  border-top: var(--foundationBorderStyle);
+  background: ${(props) => props.theme.deepBlack};
   form.bottomBarInputWrapper {
     position: absolute;
+    bottom: calc(100% + 3px); /* 3px to allow for the border */
     left: 0;
-    width: 100%;
-    bottom: calc(100% + 3px); // 3px to allow for the border
-    padding: 1.5rem;
     background: ${(props) => props.theme.midBlack};
+    padding: 1.5rem;
+    width: 100%;
     input {
-      width: 100%;
       background: ${(props) => props.theme.lightBlack};
-      font-size: ${(props) => props.theme.bigText};
       padding: 0.5rem 1rem;
+      width: 100%;
+      font-size: ${(props) => props.theme.bigText};
     }
   }
   .bottomBarButtonWrapper {
-    cursor: pointer;
     flex-grow: 1;
-    text-align: center;
-    padding: 2rem 0;
-    line-height: 0;
     border-right: 2px solid ${(props) => setAlpha(props.theme.coolGrey, 0.2)};
+    cursor: pointer;
+    padding: 2rem 0;
+    text-align: center;
+    line-height: 0;
     &:last-child {
       border-right: none;
     }
