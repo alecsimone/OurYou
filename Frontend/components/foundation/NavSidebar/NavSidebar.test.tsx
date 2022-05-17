@@ -1,16 +1,18 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import mockRouter from 'next-router-mock';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import Providers from '../Providers';
 import NavSidebar, { navLinks } from './NavSidebar';
 
 // I have no idea what this is doing or why it works, but it does work. I found it here: https://github.com/vercel/next.js/issues/4012#issuecomment-373509798
-jest.mock(
-  'next/link',
-  () =>
-    ({ children }: { children: unknown }) =>
-      children
-);
+// jest.mock(
+//   'next/link',
+//   () =>
+//     ({ children }: { children: unknown }) =>
+//       children
+// );
 
 describe('NavSidebar', () => {
   it('Renders the nav links', () => {
@@ -67,15 +69,17 @@ describe('NavSidebar', () => {
     expect(navSidebar).toHaveClass('expanded');
   });
 
-  it('calls toggle on click', async () => {
+  it('Routes and calls toggle on click', async () => {
     const user = userEvent.setup();
     const toggle = jest.fn(() => {});
     render(
       <Providers>
-        <NavSidebar
-          isOpen
-          toggleOpen={toggle}
-        />
+        <RouterContext.Provider value={mockRouter}>
+          <NavSidebar
+            isOpen
+            toggleOpen={toggle}
+          />
+        </RouterContext.Provider>
       </Providers>
     );
 
@@ -85,6 +89,7 @@ describe('NavSidebar', () => {
     expect(twitterLink).toBeInTheDocument();
 
     await user.click(twitterLink);
+    expect(mockRouter.pathname).toBe('/twitter');
     expect(toggle.mock.calls.length).toBe(1);
   });
 });
