@@ -30,12 +30,18 @@ const Modal = ({ close, children }: ModalProps): JSX.Element | null => {
 
   if (process.env.NODE_ENV === 'test') {
     // I can't get document.getElementById to work in tests, so let's just spit the element out without worrying about portaling it.
-    return modalElement;
+    // return modalElement;
   }
 
-  const modalHolder = document.getElementById('modalHolder');
+  let modalHolder = document.getElementById('modalHolder');
 
-  if (modalHolder == null) return null;
+  if (modalHolder == null) {
+    // If we didn't find a modalHolder for some reason, let's create one. And in case there's no document object, we'll just spit out the modalElement, because we're clearly already in a real weird environment.
+    if (document == null) return modalElement;
+    modalHolder = document.createElement('section');
+    modalHolder.setAttribute('id', 'modalHolder');
+    document.body.appendChild(modalHolder);
+  }
 
   return createPortal(modalElement, modalHolder);
 };
