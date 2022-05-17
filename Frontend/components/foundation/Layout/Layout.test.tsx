@@ -13,7 +13,7 @@ const user = userEvent.setup();
 describe('Layout', () => {
   it('Toggles the sidebars', async () => {
     mockRouter.setCurrentUrl('/');
-    global.innerWidth = 1200;
+    window.innerWidth = 1200;
     render(
       <Providers>
         <Layout>
@@ -57,7 +57,7 @@ describe('Layout', () => {
 
   it('Toggles the sidebars on mobile', async () => {
     mockRouter.setCurrentUrl('/');
-    global.innerWidth = 500;
+    window.innerWidth = 500;
     render(
       <Providers>
         <Layout>
@@ -101,7 +101,7 @@ describe('Layout', () => {
 
   it('Does not render the things sidebar at first if not on the homepage, but can still open it', async () => {
     mockRouter.setCurrentUrl('/twitter');
-    global.innerWidth = 1200;
+    window.innerWidth = 1200;
     render(
       <Providers>
         <Layout>

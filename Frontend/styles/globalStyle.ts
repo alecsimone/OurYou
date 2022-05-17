@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     scrollbar-width: 'thin';
     scrollbar-color: 'hsl(210, 10%, 30%) hsl(30, 1%, 4%)';
     font-size: 8px;
-    ${theme.bigScreenBreakpoint} {
+    ${theme.midScreenBreakpoint} {
       font-size: 10px;
     }
     ${theme.massiveScreenBreakpoint} {
