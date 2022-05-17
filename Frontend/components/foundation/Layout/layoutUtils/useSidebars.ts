@@ -65,7 +65,7 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
   const { nav: navSidebarIsOpen, things: thingsSidebarIsOpen } = sidebarState;
 
   useEffect(() => {
-    if (router.pathname === '/') {
+    if (router.pathname === '/' && window.innerWidth > mobileBreakpointPx) {
       sidebarDispatch('openThings');
     } else if (router.pathname !== '/') {
       sidebarDispatch('closeThings');

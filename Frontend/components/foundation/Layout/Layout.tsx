@@ -36,7 +36,10 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
         toggleThingsSidebar={toggleThingsSidebar}
       />
       <main className="mainSection">
-        <NavSidebar isOpen={navSidebarIsOpen} />
+        <NavSidebar
+          isOpen={navSidebarIsOpen}
+          toggleOpen={toggleNavSidebar}
+        />
         <div className="pageComponent">{children}</div>
         <ThingsSidebar isOpen={thingsSidebarIsOpen} />
       </main>

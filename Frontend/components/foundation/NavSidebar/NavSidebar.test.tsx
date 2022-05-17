@@ -4,11 +4,22 @@ import userEvent from '@testing-library/user-event';
 import Providers from '../Providers';
 import NavSidebar, { navLinks } from './NavSidebar';
 
+// I have no idea what this is doing or why it works, but it does work. I found it here: https://github.com/vercel/next.js/issues/4012#issuecomment-373509798
+jest.mock(
+  'next/link',
+  () =>
+    ({ children }: { children: unknown }) =>
+      children
+);
+
 describe('NavSidebar', () => {
   it('Renders the nav links', () => {
     render(
       <Providers>
-        <NavSidebar isOpen />
+        <NavSidebar
+          isOpen
+          toggleOpen={() => {}}
+        />
       </Providers>
     );
 
@@ -24,7 +35,10 @@ describe('NavSidebar', () => {
     const user = userEvent.setup();
     render(
       <Providers>
-        <NavSidebar isOpen />
+        <NavSidebar
+          isOpen
+          toggleOpen={() => {}}
+        />
       </Providers>
     );
 
@@ -51,5 +65,26 @@ describe('NavSidebar', () => {
     // Clicking the collapse button again should expand it
     await user.click(collapseButton);
     expect(navSidebar).toHaveClass('expanded');
+  });
+
+  it('calls toggle on click', async () => {
+    const user = userEvent.setup();
+    const toggle = jest.fn(() => {});
+    render(
+      <Providers>
+        <NavSidebar
+          isOpen
+          toggleOpen={toggle}
+        />
+      </Providers>
+    );
+
+    const twitterLink = screen.getByText('Twitter', {
+      selector: 'span.navLabel',
+    });
+    expect(twitterLink).toBeInTheDocument();
+
+    await user.click(twitterLink);
+    expect(toggle.mock.calls.length).toBe(1);
   });
 });

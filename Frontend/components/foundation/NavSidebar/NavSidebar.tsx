@@ -80,9 +80,10 @@ export { navLinks };
 
 interface NavSidebarProps {
   isOpen: boolean;
+  toggleOpen: () => void;
 }
 
-const NavSidebar = ({ isOpen }: NavSidebarProps): JSX.Element => {
+const NavSidebar = ({ isOpen, toggleOpen }: NavSidebarProps): JSX.Element => {
   const [collapsed, setCollapsed] = useState(false);
 
   let className = 'navSidebar';
@@ -102,7 +103,10 @@ const NavSidebar = ({ isOpen }: NavSidebarProps): JSX.Element => {
       href={linkObj.href}
       key={linkObj.text}
     >
-      <a href={linkObj.href}>
+      <a
+        href={linkObj.href}
+        onClick={toggleOpen}
+      >
         <div
           className="navLine"
           key={linkObj.text}

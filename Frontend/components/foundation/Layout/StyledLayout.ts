@@ -53,8 +53,10 @@ const StyledPage = styled.div`
       }
       &.hidden {
         transform: translateX(100%);
-        &.home {
-          width: 0;
+        ${(props) => props.theme.mobileBreakpoint} {
+          &.home {
+            width: 0;
+          }
         }
       }
     }
