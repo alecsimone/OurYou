@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react';
+import { useRouter } from 'next/router';
 import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 
 interface sidebarStateInterface {
@@ -9,7 +10,13 @@ interface sidebarStateInterface {
 const useSidebars = (): [boolean, boolean, () => void, () => void] => {
   const sidebarToggler = (
     state: sidebarStateInterface,
-    action: 'nav' | 'things' | 'openNav' | 'closeAll'
+    action:
+      | 'nav'
+      | 'things'
+      | 'openNav'
+      | 'openThings'
+      | 'closeThings'
+      | 'closeAll'
   ): sidebarStateInterface => {
     const newState = JSON.parse(JSON.stringify(state));
 
@@ -30,6 +37,12 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
     } else if (action === 'openNav') {
       // This action JUST opens the nav. It's useful for our effect that opens the nav by default on bigger screens
       newState.nav = true;
+    } else if (action === 'openThings') {
+      // This action JUST opens the nav. It's useful for our effect that opens the nav by default on bigger screens
+      newState.things = true;
+    } else if (action === 'closeThings') {
+      // This action JUST opens the nav. It's useful for our effect that opens the nav by default on bigger screens
+      newState.things = false;
     } else if (action === 'closeAll') {
       // This action closes our sidebars. It's useful for our resize listener that closes the sidebars when resizing the screen below the desktopBreakpoint
       newState.nav = false;
@@ -38,9 +51,11 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
     return newState;
   };
 
+  const router = useRouter();
+
   const initialSidebarState = {
     nav: false,
-    things: false,
+    things: router.pathname === '/', // We only want to show the things sidebar by default on the homepage
   };
 
   const [sidebarState, sidebarDispatch] = useReducer(
@@ -48,6 +63,14 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
     initialSidebarState
   );
   const { nav: navSidebarIsOpen, things: thingsSidebarIsOpen } = sidebarState;
+
+  useEffect(() => {
+    if (router.pathname === '/') {
+      sidebarDispatch('openThings');
+    } else if (router.pathname !== '/') {
+      sidebarDispatch('closeThings');
+    }
+  }, [router.pathname]);
 
   useEffect(() => {
     if (window.innerWidth > desktopBreakpointPx) {
