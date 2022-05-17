@@ -35,30 +35,30 @@ const scroll = css`
 `;
 
 const thingColors = css`
-  background: ${setSaturation(lightBlack, 25)};
   border: 2px solid ${setAlpha(coolGrey, 0.15)};
   box-shadow: 0 4px 4px ${setAlpha(deepBlack, 0.2)};
+  background: ${setSaturation(lightBlack, 25)};
 `;
 
 const spin = css`
   animation-name: spin;
   animation-duration: 1000ms;
-  animation-iteration-count: infinite;
   animation-timing-function: linear;
+  animation-iteration-count: infinite;
 `;
 
 const spinBackward = css`
   animation-name: spinBackward;
   animation-duration: 1000ms;
-  animation-iteration-count: infinite;
   animation-timing-function: linear;
+  animation-iteration-count: infinite;
 `;
 
 const twist = css`
   animation-name: twist;
   animation-duration: 1000ms;
-  animation-iteration-count: infinite;
   animation-timing-function: linear;
+  animation-iteration-count: infinite;
 `;
 
 export { scroll, thingColors, spin, spinBackward, twist };

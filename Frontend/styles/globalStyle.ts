@@ -8,11 +8,13 @@ import theme from './theme';
 
 const GlobalStyle = createGlobalStyle`
   html {
+    --foundationBorderStyle: 3px solid ${setAlpha(theme.coolGrey, 0.25)};
+    box-sizing: border-box;
     background: ${setLightness(setSaturation(theme.blue, 90), 11)};
+    height: 100vh;
+    overflow-y: 'auto';
     color: ${theme.white};
     font-family: "proxima-nova", sans-serif;
-    box-sizing: border-box;
-    overflow-y: 'auto';
     scrollbar-width: 'thin';
     scrollbar-color: 'hsl(210, 10%, 30%) hsl(30, 1%, 4%)';
     font-size: 8px;
@@ -22,29 +24,27 @@ const GlobalStyle = createGlobalStyle`
     ${theme.massiveScreenBreakpoint} {
       font-size: 12px;
     }
-    height: 100vh;
-    --foundationBorderStyle: 3px solid ${setAlpha(theme.coolGrey, 0.25)};
   }
   *, *:before, *:after {
     box-sizing: inherit;
     transition: background 0.5s ease-out;
   }
   body {
-    min-height: 100%;
-    height: 100%;
-    padding: 0;
     margin: 0;
-    font-size: ${theme.smallText};
+    padding: 0;
+    height: 100%;
+    min-height: 100%;
     line-height: 1.6;
+    font-size: ${theme.smallText};
     font-weight: 300;
   }
   #__next {
-    min-height: 100%;
     height: 100%;
+    min-height: 100%;
   }
   *::-webkit-scrollbar {
-    width: .5rem;
     background: ${theme.midBlack};
+    width: .5rem;
   }
   *::-webkit-scrollbar-track {
     box-shadow: inset 0 0 1px ${theme.deepBlack};
@@ -55,15 +55,15 @@ const GlobalStyle = createGlobalStyle`
     background: ${theme.coolGrey};
   }
   &.success {
-    background: ${setLightness(theme.green, 10)} !important;
     transition: background 0.2s ease-in;
+    background: ${setLightness(theme.green, 10)} !important;
   }
   a, a:visited {
     text-decoration: none;
+    word-break: break-word;
+    word-wrap: break-word;
     color: ${setLightness(theme.blue, 75)};
     overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
     &:hover {
       text-decoration: underline;
     }
@@ -96,13 +96,13 @@ const GlobalStyle = createGlobalStyle`
     width: auto;
     max-width: 42rem;
     .Toastify__toast {
-      background: ${theme.deepBlack};
       border: 2px solid ${setAlpha(theme.coolGrey, 0.5)};
       border-radius: 3px;
+      background: ${theme.deepBlack};
     }
     .Toastify__toast-body {
-      color: ${theme.white};
       padding: 1rem 3rem;
+      color: ${theme.white};
     }
     .Toastify__progress-bar {
       background: ${theme.blue};

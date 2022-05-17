@@ -5,6 +5,5 @@
     "stylelint-config-concentric-order",
     "stylelint-config-prettier",
     "stylelint-config-styled-components"
-  ],
-  "plugins": ["stylelint-order", "stylelint-config-rational-order/plugin"]
+  ]
 }
