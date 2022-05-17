@@ -1,6 +1,8 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import mockRouter from 'next-router-mock';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import Providers from '../Providers';
 import BottomBar from './BottomBar';
 
@@ -79,6 +81,7 @@ describe('BottomBar', () => {
 
   it('Calls the search and new thing functions', async () => {
     const user = userEvent.setup();
+    console.log = jest.fn();
     render(
       <Providers>
         <BottomBar />
@@ -104,6 +107,10 @@ describe('BottomBar', () => {
     await user.keyboard('{Enter}');
     expect(searchForm).not.toBeInTheDocument();
 
+    // And that it console logs our searchString, since we're console logging right now instead of actually searching
+    expect(console.log.mock.calls[0][0]).toContain('Searching for:');
+    expect(console.log.mock.calls[0][0]).toContain(searchString);
+
     // New Thing
     // Make sure the search button is in the document
     const newThingButton = screen.getByTitle('New');
@@ -122,5 +129,27 @@ describe('BottomBar', () => {
     // Make sure it goes away after we hit enter
     await user.keyboard('{Enter}');
     expect(newThingForm).not.toBeInTheDocument();
+
+    // And that it console logs our newThingString, since we're console logging right now instead of actually creating a thing
+    expect(console.log.mock.calls[1][0]).toContain('Creating post:');
+    expect(console.log.mock.calls[1][0]).toContain(newThingString);
+  });
+
+  it('Clicking the home button routes to the home page', async () => {
+    const user = userEvent.setup();
+    mockRouter.setCurrentUrl('/twitter');
+    render(
+      <Providers>
+        <RouterContext.Provider value={mockRouter}>
+          <BottomBar />
+        </RouterContext.Provider>
+      </Providers>
+    );
+
+    const homeButton = screen.getByTitle('Home');
+    expect(homeButton).toBeInTheDocument();
+
+    await user.click(homeButton);
+    expect(mockRouter.pathname).toBe('/');
   });
 });
