@@ -3,11 +3,8 @@ import BottomBar from '../BottomBar';
 import Header from '../Header';
 import NavSidebar from '../NavSidebar';
 import ThingsSidebar from '../ThingsSidebar';
-import {
-  cleanupNProgress,
-  initNProgress,
-} from './layoutUtils/nProgressHandlers';
-import useSidebars from './layoutUtils/useSidebars';
+import { cleanupNProgress, initNProgress } from './nProgressHandlers';
+import useSidebars from './useSidebars';
 import StyledPage from './StyledLayout';
 
 interface LayoutProps {

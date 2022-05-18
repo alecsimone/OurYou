@@ -1,11 +1,9 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import mockRouter from 'next-router-mock';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import Providers from '../Providers';
 import ThingsSidebar from './ThingsSidebar';
-
-// eslint-disable-next-line global-require
-jest.mock('next/router', () => require('next-router-mock'));
 
 describe('ThingsSidebar', () => {
   beforeEach(() => {
@@ -15,7 +13,9 @@ describe('ThingsSidebar', () => {
   it('Says ThingsSidebar', () => {
     render(
       <Providers>
-        <ThingsSidebar isOpen />
+        <RouterContext.Provider value={mockRouter}>
+          <ThingsSidebar isOpen />
+        </RouterContext.Provider>
       </Providers>
     );
 

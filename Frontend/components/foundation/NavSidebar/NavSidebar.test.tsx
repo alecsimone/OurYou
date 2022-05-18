@@ -6,14 +6,6 @@ import { RouterContext } from 'next/dist/shared/lib/router-context';
 import Providers from '../Providers';
 import NavSidebar, { navLinks } from './NavSidebar';
 
-// I have no idea what this is doing or why it works, but it does work. I found it here: https://github.com/vercel/next.js/issues/4012#issuecomment-373509798
-// jest.mock(
-//   'next/link',
-//   () =>
-//     ({ children }: { children: unknown }) =>
-//       children
-// );
-
 describe('NavSidebar', () => {
   it('Renders the nav links', () => {
     render(

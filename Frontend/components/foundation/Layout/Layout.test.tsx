@@ -12,53 +12,9 @@ jest.mock('next/router', () => require('next-router-mock'));
 
 const user = userEvent.setup();
 describe('Layout', () => {
-  it('Toggles the sidebars', async () => {
+  it('toggles the sidebars', async () => {
     mockRouter.setCurrentUrl('/');
-    window.innerWidth = desktopBreakpointPx + 1;
-    render(
-      <Providers>
-        <Layout>
-          <div>Page component</div>
-        </Layout>
-      </Providers>
-    );
-
-    // The Things Sidebar should start visible
-    const thingsSidebar = screen.queryByText('ThingsSidebar');
-    expect(thingsSidebar).toBeInTheDocument();
-    expect(thingsSidebar).toHaveClass('visible');
-
-    const avatar = screen.getByAltText(/avatar/i, { exact: false });
-    expect(avatar).toBeInTheDocument();
-
-    // Clicking the avatar should hide it
-    await user.click(avatar);
-    expect(thingsSidebar).toHaveClass('hidden');
-
-    // Clicking again should show it
-    await user.click(avatar);
-    expect(thingsSidebar).toHaveClass('visible');
-
-    // The Nav Sidebar should start visible
-    const navSidebar = screen.getByTestId('navSidebar');
-    expect(navSidebar).toBeInTheDocument();
-    expect(navSidebar).toHaveClass('visible');
-
-    const hamburger = screen.getByTitle('Show Nav Sidebar');
-    expect(hamburger).toBeInTheDocument();
-
-    // Clicking the hamburger should hide it
-    await user.click(hamburger);
-    expect(navSidebar).toHaveClass('hidden');
-
-    // Clicking again should hide it
-    await user.click(hamburger);
-    expect(navSidebar).toHaveClass('visible');
-  });
-
-  it('Toggles the sidebars on mobile', async () => {
-    mockRouter.setCurrentUrl('/');
-    window.innerWidth = mobileBreakpointPx;
+    window.innerWidth = mobileBreakpointPx + 1;
     render(
       <Providers>
         <Layout>
@@ -100,7 +56,7 @@ describe('Layout', () => {
     expect(navSidebar).toHaveClass('hidden');
   });
 
-  it('Does not render the things sidebar at first if not on the homepage, but can still open it', async () => {
+  it('does not render the things sidebar at first if not on the homepage, but can still open it', async () => {
     mockRouter.setCurrentUrl('/twitter');
     window.innerWidth = desktopBreakpointPx + 1;
     render(
@@ -130,6 +86,14 @@ describe('Layout', () => {
     act(() => {
       mockRouter.push({ pathname: '/' });
     });
+    expect(thingsSidebar).toHaveClass('visible');
+
+    // Clicking the avatar should hide it
+    await user.click(avatar);
+    expect(thingsSidebar).toHaveClass('hidden');
+
+    // Clicking the avatar again should show it
+    await user.click(avatar);
     expect(thingsSidebar).toHaveClass('visible');
 
     // And routing back away should close it
