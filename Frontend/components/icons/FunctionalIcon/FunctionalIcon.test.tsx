@@ -38,15 +38,15 @@ describe('FunctionalIcon', () => {
     expect(title).toBeInTheDocument();
   });
 
-  it('calls its onClick function', async () => {
-    const onClick = jest.fn(() => {});
+  it('calls its onTrigger function', async () => {
+    const onTrigger = jest.fn(() => {});
     const user = userEvent.setup();
 
     render(
       <Providers>
         <FunctionalIcon
           iconName="iconNameTest"
-          onClick={onClick}
+          onTrigger={onTrigger}
         >
           <ArrowIcon />
         </FunctionalIcon>
@@ -57,10 +57,10 @@ describe('FunctionalIcon', () => {
     expect(title).toBeInTheDocument();
 
     await user.click(title);
-    expect(onClick).toBeCalledTimes(1);
+    expect(onTrigger).toBeCalledTimes(1);
 
-    // await user.keyboard('{Enter}');
-    // expect(onClick).toBeCalledTimes(2);
+    await user.keyboard('{Enter}');
+    // expect(onTrigger).toBeCalledTimes(2);
   });
 
   it('adds its extraClass prop as a class', () => {

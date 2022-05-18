@@ -12,7 +12,7 @@ const NavButtons = ({ toggleNavSidebar }: NavButtonsProps): JSX.Element => (
     <FunctionalIcon
       iconName="hamburger"
       titleTextReplacement="Show Nav Sidebar"
-      onClick={() => {
+      onTrigger={() => {
         toggleNavSidebar();
       }}
     >

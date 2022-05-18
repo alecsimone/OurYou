@@ -22,7 +22,7 @@ const LogoBox = ({ toggleNavSidebar }: LogoBoxProps): JSX.Element => (
         <FunctionalIcon
           iconName="logo"
           titleTextReplacement="Ouryou"
-          onClick={(e) => {
+          onTrigger={(e) => {
             if (window.innerWidth <= mobileBreakpointPx) {
               e.preventDefault();
               toggleNavSidebar();

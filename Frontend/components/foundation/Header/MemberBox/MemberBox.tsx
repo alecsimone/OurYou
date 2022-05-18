@@ -31,7 +31,7 @@ const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
         </Link>
         <Avatar
           avatar={avatar}
-          onClick={toggleThingsSidebar}
+          onTrigger={toggleThingsSidebar}
         />
       </StyledMemberBox>
     );

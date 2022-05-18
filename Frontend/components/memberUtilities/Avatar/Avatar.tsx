@@ -4,17 +4,17 @@ import StyledAvatar, { StyledDefaultAvatar } from './StyledAvatar';
 
 interface AvatarProps {
   avatar?: string | null;
-  onClick?: () => void;
+  onTrigger?: () => void;
 }
 
-const Avatar = ({ avatar, onClick }: AvatarProps): JSX.Element => {
+const Avatar = ({ avatar, onTrigger }: AvatarProps): JSX.Element => {
   if (avatar == null) {
     return (
       <StyledDefaultAvatar>
         <FunctionalIcon
           iconName="defaultAvatar"
           extraClass="avatar noAvatar"
-          onClick={onClick}
+          onTrigger={onTrigger}
         >
           <DefaultAvatar />
         </FunctionalIcon>
@@ -26,7 +26,12 @@ const Avatar = ({ avatar, onClick }: AvatarProps): JSX.Element => {
       className="avatar hasAvatar"
       src={avatar}
       alt="avatar"
-      onClick={onClick}
+      onClick={onTrigger}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' && onTrigger != null) {
+          onTrigger();
+        }
+      }}
     />
   );
 };

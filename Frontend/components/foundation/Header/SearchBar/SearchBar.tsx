@@ -15,7 +15,7 @@ const SearchBar = ({
   <StyledSearchBar>
     <FunctionalIcon
       iconName="search"
-      onClick={() => toggleShowingSearch()}
+      onTrigger={() => toggleShowingSearch()}
     >
       <Search />
     </FunctionalIcon>

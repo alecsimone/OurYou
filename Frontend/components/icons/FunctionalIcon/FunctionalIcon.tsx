@@ -1,17 +1,19 @@
-import { MouseEventHandler, ReactNode, useRef } from 'react';
+import { MouseEvent, KeyboardEvent, ReactNode } from 'react';
 import SVG from '@styles/extendableElements/svg';
 
 interface FunctionalIconProps {
   iconName: string; // Will be used for className and title text (unless titleTextReplacement provided)
   extraClass?: string; // Added to the className after the iconName
   titleTextReplacement?: string; // Replaces the iconName as the title text for the SVG
-  onClick?: MouseEventHandler<SVGSVGElement>; // Handler for the SVG onClick event
+  onTrigger?: (
+    e: MouseEvent<SVGSVGElement> | KeyboardEvent<SVGSVGElement>
+  ) => any;
   children: ReactNode; // The actual icon you want to render
 }
 
 const FunctionalIcon = ({
   iconName,
-  onClick,
+  onTrigger,
   extraClass,
   titleTextReplacement,
   children,
@@ -20,16 +22,18 @@ const FunctionalIcon = ({
     1
   )}`;
 
-  const iconRef = useRef<SVGSVGElement>(null);
-
   return (
     <SVG
-      ref={iconRef}
       className={extraClass == null ? iconName : `${iconName} ${extraClass}`}
       viewBox="0 0 200 200"
       onClick={(e) => {
-        if (onClick != null) {
-          onClick(e);
+        if (onTrigger != null) {
+          onTrigger(e);
+        }
+      }}
+      onKeyDown={(e) => {
+        if ((e.key === 'Enter' || e.key === 'Space') && onTrigger != null) {
+          onTrigger(e);
         }
       }}
       role="button"

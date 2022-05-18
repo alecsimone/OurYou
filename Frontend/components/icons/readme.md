@@ -9,12 +9,12 @@ interface FunctionalIconProps {
   iconName: string; // Will be used for className and title text (unless titleTextReplacement provided)
   extraClass?: string; // Added to the className after the iconName
   titleTextReplacement?: string; // Replaces the iconName as the title text for the SVG
-  onClick?: MouseEventHandler<SVGSVGElement>; // Handler for the SVG onClick event
+  onTrigger?: (e: MouseEvent<SVGSVGElement> | globalThis.KeyboardEvent) => any;
   children: ReactNode; // The actual icon you want to render
 }
 ```
 
-## [Features](FunctionalICon/FunctionalIcon.test.tsx)
+## [Features](FunctionalIcon/FunctionalIcon.test.tsx)
 
 ### It passes its icon name as a title with the first letter capitalized
 
@@ -24,10 +24,10 @@ interface FunctionalIconProps {
 
 - If passed a titleTextReplacement prop, it should use that as the title text and not the iconName
 
-### It calls its onClick function
+### It calls its onTrigger function
 
-- FunctionalIcon can be passed an onClick function, which it should call when it's clicked.
-- This should also work when it's focused and the user hits enter, but we haven't implemented that yet.
+- FunctionalIcon can be passed an onTrigger function, which it should call when it's clicked, or on Enter or Space keydown.
+- Keyboard part is currently not working
 
 ### It adds its extraClass prop as a class
 

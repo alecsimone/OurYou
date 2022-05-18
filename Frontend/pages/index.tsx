@@ -18,6 +18,11 @@ const Home: NextPage = () => {
       <Button
         type="button"
         onClick={() => setShowingModal(!showingModal)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === 'Space') {
+            setShowingModal(!showingModal);
+          }
+        }}
       >
         Show Modal
       </Button>

@@ -20,7 +20,7 @@ const Modal = ({ close, children }: ModalProps): JSX.Element | null => {
         <FunctionalIcon
           iconName="closeModal"
           titleTextReplacement="Close"
-          onClick={close}
+          onTrigger={close}
         >
           <X />
         </FunctionalIcon>
