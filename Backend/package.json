@@ -1,7 +1,6 @@
 {
-  "name": "keystone-app",
-  "version": "1.0.0",
-  "private": true,
+  "name": "ouryou-backend",
+  "version": "3.0.0",
   "scripts": {
     "dev": "keystone dev",
     "start": "keystone start",
