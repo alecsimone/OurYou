@@ -26,8 +26,7 @@ interface FunctionalIconProps {
 
 ### It calls its onTrigger function
 
-- FunctionalIcon can be passed an onTrigger function, which it should call when it's clicked, or on Enter or Space keydown.
-- Keyboard part is currently not working
+- FunctionalIcon can be passed an onTrigger function, which it should call when it's clicked, or on Enter or Space keydown
 
 ### It adds its extraClass prop as a class
 

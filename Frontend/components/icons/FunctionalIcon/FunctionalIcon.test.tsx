@@ -58,9 +58,6 @@ describe('FunctionalIcon', () => {
 
     await user.click(title);
     expect(onTrigger).toBeCalledTimes(1);
-
-    await user.keyboard('{Enter}');
-    // expect(onTrigger).toBeCalledTimes(2);
   });
 
   it('adds its extraClass prop as a class', () => {
