@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode } from 'react';
+import { MouseEventHandler, ReactNode, useRef } from 'react';
 import SVG from '@styles/extendableElements/svg';
 
 interface FunctionalIconProps {
@@ -20,8 +20,11 @@ const FunctionalIcon = ({
     1
   )}`;
 
+  const iconRef = useRef<SVGSVGElement>(null);
+
   return (
     <SVG
+      ref={iconRef}
       className={extraClass == null ? iconName : `${iconName} ${extraClass}`}
       viewBox="0 0 200 200"
       onClick={(e) => {
