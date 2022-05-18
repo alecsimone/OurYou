@@ -9,7 +9,7 @@ describe('Modal', () => {
 
   const close = jest.fn(() => {});
 
-  it('Exists and calls close with the button', async () => {
+  it('exists and calls close with the button', async () => {
     const user = userEvent.setup();
     render(
       <Providers>
@@ -29,7 +29,7 @@ describe('Modal', () => {
     expect(close.mock.calls.length).toBe(1);
   });
 
-  it('Exists and calls close with the escape key', async () => {
+  it('exists and calls close with the escape key', async () => {
     const user = userEvent.setup();
     render(
       <Providers>

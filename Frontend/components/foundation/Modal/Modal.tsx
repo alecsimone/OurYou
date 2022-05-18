@@ -28,11 +28,6 @@ const Modal = ({ close, children }: ModalProps): JSX.Element | null => {
     </StyledModal>
   );
 
-  if (process.env.NODE_ENV === 'test') {
-    // I can't get document.getElementById to work in tests, so let's just spit the element out without worrying about portaling it.
-    // return modalElement;
-  }
-
   let modalHolder = document.getElementById('modalHolder');
 
   if (modalHolder == null) {
