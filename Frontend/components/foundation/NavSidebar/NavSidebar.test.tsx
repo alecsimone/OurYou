@@ -4,10 +4,11 @@ import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import Providers from '../Providers';
-import NavSidebar, { navLinks } from './NavSidebar';
+import navLinks from './NavLinks';
+import NavSidebar from './NavSidebar';
 
 describe('NavSidebar', () => {
-  it('Renders the nav links', () => {
+  it('renders the nav links', () => {
     render(
       <Providers>
         <NavSidebar
@@ -25,7 +26,7 @@ describe('NavSidebar', () => {
     });
   });
 
-  it('Collapses and Expands', async () => {
+  it('collapses and Expands', async () => {
     const user = userEvent.setup();
     render(
       <Providers>
@@ -61,7 +62,7 @@ describe('NavSidebar', () => {
     expect(navSidebar).toHaveClass('expanded');
   });
 
-  it('Routes and calls toggle on click', async () => {
+  it('routes and calls toggle on click', async () => {
     const user = userEvent.setup();
     const toggle = jest.fn(() => {});
     render(
@@ -75,13 +76,23 @@ describe('NavSidebar', () => {
       </Providers>
     );
 
-    const twitterLink = screen.getByText('Twitter', {
-      selector: 'span.navLabel',
-    });
-    expect(twitterLink).toBeInTheDocument();
+    const twitterLinkObj = navLinks.find(
+      (linkObj) => linkObj.text === 'Twitter'
+    );
+    if (twitterLinkObj != null) {
+      const { text, href } = twitterLinkObj;
 
-    await user.click(twitterLink);
-    expect(mockRouter.pathname).toBe('/twitter');
-    expect(toggle.mock.calls.length).toBe(1);
+      const twitterLink = screen.getByText(text, {
+        selector: 'span.navLabel',
+      });
+      expect(twitterLink).toBeInTheDocument();
+
+      await user.click(twitterLink);
+      expect(mockRouter.pathname).toBe(href);
+      expect(toggle.mock.calls.length).toBe(1);
+    } else {
+      // If we didn't find the twitterLinkObj, we want to throw an error. This is mostly just to keep typescript from worrying that twitterLinkObj might be null, while still throwing an exception if it is.
+      expect(twitterLinkObj).toBe(true);
+    }
   });
 });
