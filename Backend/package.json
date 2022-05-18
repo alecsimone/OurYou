@@ -1,6 +1,11 @@
 {
   "name": "ouryou-backend",
   "version": "3.0.0",
+  "description": "A social note-taking app to help you organize and share your thoughts and keep up with what your friends are learning.",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "url": "https://github.com/alecsimone/OurYou"
+  },
   "scripts": {
     "dev": "keystone dev",
     "start": "keystone start",
@@ -10,7 +15,14 @@
   "dependencies": {
     "@keystone-6/auth": "^1.0.1",
     "@keystone-6/core": "^1.0.1",
-    "@keystone-6/fields-document": "^1.0.1",
+    "@keystone-6/fields-document": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "typescript": "^4.5.4"
   },
   "engines": {

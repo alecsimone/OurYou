@@ -20,9 +20,7 @@
     "nprogress": "^0.2.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "styled-components": "^5.3.5",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.10.0"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@testing-library/dom": "^8.13.0",
@@ -52,6 +50,8 @@
     "stylelint": "^14.8.2",
     "stylelint-config-concentric-order": "^5.0.0",
     "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0",
     "stylelint-config-recommended": "^7.0.0",
     "stylelint-prettier": "^2.0.0",
     "typescript": "4.6.4"
