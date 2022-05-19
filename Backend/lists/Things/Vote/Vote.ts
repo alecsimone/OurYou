@@ -1,6 +1,6 @@
 import { list } from '@keystone-6/core';
 import { integer, relationship } from '@keystone-6/core/fields';
-import createdAt from '@lists/common/createdAt';
+import createdAt from '../../common/createdAt';
 
 const Vote = list({
   fields: {

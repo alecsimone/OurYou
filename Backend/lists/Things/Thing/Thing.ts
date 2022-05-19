@@ -1,8 +1,8 @@
 import { list } from '@keystone-6/core';
 import { relationship, text } from '@keystone-6/core/fields';
-import createdAt from '@lists/common/createdAt';
-import privacy from '@lists/common/privacy';
-import score from '@lists/common/score';
+import createdAt from '../../common/createdAt';
+import privacy from '../../common/privacy';
+import score from '../../common/score';
 
 const Thing = list({
   description: 'The model for posts, which we call Things',

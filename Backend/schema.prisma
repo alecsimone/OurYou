@@ -11,29 +11,138 @@ generator client {
   output   = "node_modules/.prisma/client"
 }
 
-model User {
-  id       String @id @default(cuid())
-  name     String @default("")
-  email    String @unique @default("")
-  password String
-  posts    Post[] @relation("Post_author")
+model Member {
+  id                 String       @id @default(cuid())
+  email              String       @unique @default("")
+  displayName        String       @unique @default("")
+  avatar             String       @default("")
+  password           String?
+  role               String       @default("Unverified")
+  rep                Int?         @default(0)
+  defaultPrivacy     String       @default("Friends")
+  votes              Vote[]       @relation("Vote_voter")
+  createdThings      Thing[]      @relation("Thing_author")
+  ownedTags          Tag[]        @relation("Tag_author")
+  comments           Comment[]    @relation("Comment_author")
+  createdConnections Connection[] @relation("Connection_creator")
+  createdAt          DateTime?    @default(now())
 }
 
-model Post {
-  id          String    @id @default(cuid())
-  title       String    @default("")
-  status      String?   @default("draft")
-  content     String    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  publishDate DateTime?
-  author      User?     @relation("Post_author", fields: [authorId], references: [id])
-  authorId    String?   @map("author")
-  tags        Tag[]     @relation("Post_tags")
+model Thing {
+  id                 String         @id @default(cuid())
+  title              String         @default("Untitled Thing")
+  author             Member?        @relation("Thing_author", fields: [authorId], references: [id])
+  authorId           String?        @map("author")
+  featuredImage      String         @default("")
+  poster             String         @default("")
+  color              String         @default("")
+  privacy            String         @default("Friends")
+  votes              Vote[]         @relation("Vote_onThing")
+  score              Int            @default(0)
+  partOfTags         Tag[]          @relation("Tag_connectedThings")
+  content            ContentPiece[] @relation("ContentPiece_onThing")
+  copiedInContent    ContentPiece[] @relation("ContentPiece_copiedToThings")
+  comments           Comment[]      @relation("Comment_onThing")
+  subjectConnections Connection[]   @relation("Connection_subject")
+  objectConnections  Connection[]   @relation("Connection_object")
+  createdAt          DateTime?      @default(now())
+
+  @@index([title])
+  @@index([authorId])
+}
+
+model ContentPiece {
+  id             String    @id @default(cuid())
+  content        String    @default("")
+  comments       Comment[] @relation("Comment_onContentPiece")
+  onThing        Thing?    @relation("ContentPiece_onThing", fields: [onThingId], references: [id])
+  onThingId      String?   @map("onThing")
+  copiedToThings Thing[]   @relation("ContentPiece_copiedToThings")
+  onTag          Tag?      @relation("ContentPiece_onTag", fields: [onTagId], references: [id])
+  onTagId        String?   @map("onTag")
+  votes          Vote[]    @relation("Vote_onContentPiece")
+  score          Int       @default(0)
+  privacy        String    @default("Friends")
+  createdAt      DateTime? @default(now())
+
+  @@index([content])
+  @@index([onThingId])
+  @@index([onTagId])
+}
+
+model Tag {
+  id              String         @id @default(cuid())
+  title           String         @unique @default("")
+  author          Member?        @relation("Tag_author", fields: [authorId], references: [id])
+  authorId        String?        @map("author")
+  featuredImage   String         @default("")
+  poster          String         @default("")
+  color           String         @default("")
+  content         ContentPiece[] @relation("ContentPiece_onTag")
+  connectedThings Thing[]        @relation("Tag_connectedThings")
+  comments        Comment[]      @relation("Comment_onTag")
+  createdAt       DateTime?      @default(now())
 
   @@index([authorId])
 }
 
-model Tag {
-  id    String @id @default(cuid())
-  name  String @default("")
-  posts Post[] @relation("Post_tags")
+model Vote {
+  id               String        @id @default(cuid())
+  voter            Member?       @relation("Vote_voter", fields: [voterId], references: [id])
+  voterId          String?       @map("voter")
+  onThing          Thing?        @relation("Vote_onThing", fields: [onThingId], references: [id])
+  onThingId        String?       @map("onThing")
+  onComment        Comment?      @relation("Vote_onComment", fields: [onCommentId], references: [id])
+  onCommentId      String?       @map("onComment")
+  onContentPiece   ContentPiece? @relation("Vote_onContentPiece", fields: [onContentPieceId], references: [id])
+  onContentPieceId String?       @map("onContentPiece")
+  value            Int
+  createdAt        DateTime?     @default(now())
+
+  @@index([voterId])
+  @@index([onThingId])
+  @@index([onCommentId])
+  @@index([onContentPieceId])
+}
+
+model Connection {
+  id           String    @id @default(cuid())
+  creator      Member?   @relation("Connection_creator", fields: [creatorId], references: [id])
+  creatorId    String?   @map("creator")
+  subject      Thing?    @relation("Connection_subject", fields: [subjectId], references: [id])
+  subjectId    String?   @map("subject")
+  object       Thing?    @relation("Connection_object", fields: [objectId], references: [id])
+  objectId     String?   @map("object")
+  relationship String    @default("")
+  strength     Int       @default(0)
+  createdAt    DateTime? @default(now())
+
+  @@index([creatorId])
+  @@index([subjectId])
+  @@index([objectId])
+}
+
+model Comment {
+  id               String        @id @default(cuid())
+  author           Member?       @relation("Comment_author", fields: [authorId], references: [id])
+  authorId         String?       @map("author")
+  comment          String        @default("")
+  onThing          Thing?        @relation("Comment_onThing", fields: [onThingId], references: [id])
+  onThingId        String?       @map("onThing")
+  onContentPiece   ContentPiece? @relation("Comment_onContentPiece", fields: [onContentPieceId], references: [id])
+  onContentPieceId String?       @map("onContentPiece")
+  onTag            Tag?          @relation("Comment_onTag", fields: [onTagId], references: [id])
+  onTagId          String?       @map("onTag")
+  replies          Comment[]     @relation("Comment_replyTo")
+  replyTo          Comment?      @relation("Comment_replyTo", fields: [replyToId], references: [id])
+  replyToId        String?       @map("replyTo")
+  votes            Vote[]        @relation("Vote_onComment")
+  score            Int           @default(0)
+  createdAt        DateTime?     @default(now())
+
+  @@index([authorId])
+  @@index([onThingId])
+  @@index([onContentPieceId])
+  @@index([onTagId])
+  @@index([replyToId])
 }
