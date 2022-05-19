@@ -1,7 +1,7 @@
 import { list } from '@keystone-6/core';
 import { relationship, text } from '@keystone-6/core/fields';
-import createdAt from '../../common/createdAt';
-import score from '../../common/score';
+import createdAt from '@lists/common/createdAt';
+import score from '@lists/common/score';
 
 const Comment = list({
   fields: {

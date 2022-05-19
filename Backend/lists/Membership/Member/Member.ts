@@ -6,8 +6,8 @@ import {
   select,
   text,
 } from '@keystone-6/core/fields';
-import createdAt from '../../common/createdAt';
-import privacy from '../../common/privacy';
+import createdAt from '@lists/common/createdAt';
+import privacy from '@lists/common/privacy';
 
 const Member = list({
   description: 'All the information for each member of the site. AKA Users.',

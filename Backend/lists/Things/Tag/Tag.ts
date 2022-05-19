@@ -1,6 +1,6 @@
 import { list } from '@keystone-6/core';
 import { relationship, text } from '@keystone-6/core/fields';
-import createdAt from '../../common/createdAt';
+import createdAt from '@lists/common/createdAt';
 
 const Tag = list({
   fields: {
