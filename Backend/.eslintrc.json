@@ -12,11 +12,9 @@
   "plugins": ["@typescript-eslint", "import", "unused-imports"],
   "settings": {
     "import/resolver": {
-      "alias": {
-        "map": [["@lists", "./lists"]],
+      "node": {
         "extensions": [".ts"]
-      },
-      "typescript": {}
+      }
     }
   },
   "rules": {
