@@ -3,25 +3,33 @@ import { text } from '@keystone-6/core/fields';
 
 const Thing = list({
   fields: {
-    title: text(),
     // author: Member! @relation(name: "Author")
+    title: text(),
     // featuredImage: String
     // poster: String
+
+    // color: String
+
+    // privacy: PrivacySetting @default(value: Private)
+    // individualViewPermissions: [Member] @relation(name: "IndividualViewers")
+
+    // votes: [Vote]
+    // score: Int! @default(value: 0)
+
+    // partOfTags: [Tag]
+
     // content: [ContentPiece!] @scalarList(strategy:RELATION) @relation(name: "OriginalThingForContentPiece")
     // unsavedNewContent: String
     // addToStartUnsavedNewContent: String
     // copiedInContent: [ContentPiece] @relation(name: "ThingsAddedToForContentPiece")
     // contentOrder: [String] @scalarList(strategy:RELATION)
-    // partOfTags: [Tag]
-    // color: String
-    // votes: [Vote]
-    // score: Int! @default(value: 0)
+
     // comments: [Comment]
-    // privacy: PrivacySetting @default(value: Private)
-    // individualViewPermissions: [Member] @relation(name: "IndividualViewers")
-    // manualUpdatedAt: DateTime
+
     // subjectConnections: [Connection!] @scalarList(strategy: RELATION) @relation(name:"IsSubject")
     // objectConnections: [Connection!] @scalarList(strategy: RELATION) @relation(name:"IsObject")
+
+    // manualUpdatedAt: DateTime
     // createdAt: DateTime! @createdAt
   },
 });

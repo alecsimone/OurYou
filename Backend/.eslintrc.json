@@ -52,6 +52,7 @@
           "index"
         ]
       }
-    ]
+    ],
+    "import/no-unresolved": [2, { "ignore": [".keystone"] }]
   }
 }
