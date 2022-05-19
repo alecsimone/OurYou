@@ -73,10 +73,11 @@ const Member = list({
     createdThings: relationship({
       ref: 'Thing.author',
       many: true,
-      // ui: {
-      //   displayMode: 'cards',
-      //   linkToItem: true
-      // }
+      ui: {
+        displayMode: 'cards',
+        cardFields: ['title', 'createdAt', 'id'],
+        linkToItem: true,
+      },
     }),
 
     ownedTags: relationship({
@@ -122,6 +123,21 @@ const Member = list({
   },
   ui: {
     labelField: 'displayName',
+    description: 'All the information for each member of the site. AKA Users.',
+    listView: {
+      initialColumns: [
+        'displayName',
+        'email',
+        'rep',
+        'role',
+        'createdAt',
+        'id',
+      ],
+      initialSort: {
+        field: 'role',
+        direction: 'ASC',
+      },
+    },
   },
 });
 

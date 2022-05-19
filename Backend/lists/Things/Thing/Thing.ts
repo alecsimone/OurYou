@@ -25,7 +25,9 @@ const Thing = list({
 
     featuredImage: text(),
     poster: text(),
-    color: text(),
+    color: text({
+      defaultValue: 'hsl(210, 10%, 30%)',
+    }),
 
     privacy,
     // individualViewPermissions: [Member] @relation(name: "IndividualViewers")
@@ -44,6 +46,18 @@ const Thing = list({
     content: relationship({
       ref: 'ContentPiece.onThing',
       many: true,
+      ui: {
+        displayMode: 'cards',
+        cardFields: ['content'],
+        linkToItem: true,
+        inlineCreate: {
+          fields: ['content'],
+        },
+        inlineEdit: {
+          fields: ['content'],
+        },
+        inlineConnect: true,
+      },
     }),
     // contentOrder: [String] @scalarList(strategy:RELATION)
     // unsavedNewContent: String
@@ -69,6 +83,24 @@ const Thing = list({
 
     // manualUpdatedAt: DateTime
     createdAt,
+  },
+  ui: {
+    labelField: 'title',
+    description: 'The model for posts, which we call Things',
+    listView: {
+      initialColumns: [
+        'title',
+        'author',
+        'partOfTags',
+        'score',
+        'createdAt',
+        'id',
+      ],
+      initialSort: {
+        field: 'createdAt',
+        direction: 'DESC',
+      },
+    },
   },
 });
 
