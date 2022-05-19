@@ -1,36 +1,74 @@
 import { list } from '@keystone-6/core';
-import { text } from '@keystone-6/core/fields';
+import { relationship, text } from '@keystone-6/core/fields';
+import createdAt from '../../common/createdAt';
+import privacy from '../../common/privacy';
+import score from '../../common/score';
 
 const Thing = list({
+  description: 'The model for posts, which we call Things',
   fields: {
-    // author: Member! @relation(name: "Author")
-    title: text(),
-    // featuredImage: String
-    // poster: String
+    title: text({
+      defaultValue: 'Untitled Thing',
+      validation: {
+        isRequired: true,
+        length: {
+          min: 1,
+          max: 140,
+        },
+      },
+      isIndexed: true,
+    }),
 
-    // color: String
+    author: relationship({
+      ref: 'Member.createdThings',
+    }),
 
-    // privacy: PrivacySetting @default(value: Private)
+    featuredImage: text(),
+    poster: text(),
+    color: text(),
+
+    privacy,
     // individualViewPermissions: [Member] @relation(name: "IndividualViewers")
 
-    // votes: [Vote]
-    // score: Int! @default(value: 0)
+    votes: relationship({
+      ref: 'Vote.onThing',
+      many: true,
+    }),
+    score,
 
-    // partOfTags: [Tag]
+    partOfTags: relationship({
+      ref: 'Tag.connectedThings',
+      many: true,
+    }),
 
-    // content: [ContentPiece!] @scalarList(strategy:RELATION) @relation(name: "OriginalThingForContentPiece")
+    content: relationship({
+      ref: 'ContentPiece.onThing',
+      many: true,
+    }),
+    // contentOrder: [String] @scalarList(strategy:RELATION)
     // unsavedNewContent: String
     // addToStartUnsavedNewContent: String
-    // copiedInContent: [ContentPiece] @relation(name: "ThingsAddedToForContentPiece")
-    // contentOrder: [String] @scalarList(strategy:RELATION)
+    copiedInContent: relationship({
+      ref: 'ContentPiece.copiedToThings',
+      many: true,
+    }),
 
-    // comments: [Comment]
+    comments: relationship({
+      ref: 'Comment.onThing',
+      many: true,
+    }),
 
-    // subjectConnections: [Connection!] @scalarList(strategy: RELATION) @relation(name:"IsSubject")
-    // objectConnections: [Connection!] @scalarList(strategy: RELATION) @relation(name:"IsObject")
+    subjectConnections: relationship({
+      ref: 'Connection.subject',
+      many: true,
+    }),
+    objectConnections: relationship({
+      ref: 'Connection.object',
+      many: true,
+    }),
 
     // manualUpdatedAt: DateTime
-    // createdAt: DateTime! @createdAt
+    createdAt,
   },
 });
 
