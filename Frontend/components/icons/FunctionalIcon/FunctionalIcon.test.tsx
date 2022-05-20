@@ -58,6 +58,17 @@ describe('FunctionalIcon', () => {
 
     await user.click(title);
     expect(onTrigger).toBeCalledTimes(1);
+
+    const icon = title.closest('svg');
+    if (icon != null) {
+      icon.focus();
+      await user.keyboard('{Enter}');
+      expect(onTrigger).toBeCalledTimes(2);
+      await user.keyboard(' ');
+      expect(onTrigger).toBeCalledTimes(3);
+    } else {
+      expect(icon).toBeInTheDocument();
+    }
   });
 
   it('adds its extraClass prop as a class', () => {
