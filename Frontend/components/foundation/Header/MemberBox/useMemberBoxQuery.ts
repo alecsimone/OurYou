@@ -1,4 +1,5 @@
-import data from './queries';
+import { QueryResult, useQuery } from '@apollo/client';
+import MEMBER_BOX_QUERY from './queries';
 
 interface memberBoxMemberData {
   displayName: string;
@@ -6,20 +7,11 @@ interface memberBoxMemberData {
   avatar: string | null;
 }
 
-interface memberBoxData {
-  data: memberBoxMemberData;
-  loading: boolean;
-  error:
-    | false
-    | {
-        message: string;
-      };
-}
-
-const useMemberBoxQuery = (): memberBoxData => ({
-  data,
-  loading: false,
-  error: false,
-});
+const useMemberBoxQuery = (): QueryResult<memberBoxMemberData> => {
+  const result = useQuery<memberBoxMemberData>(MEMBER_BOX_QUERY, {
+    onError: (e) => console.log(e),
+  });
+  return result;
+};
 
 export default useMemberBoxQuery;
