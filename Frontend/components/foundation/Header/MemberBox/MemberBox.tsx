@@ -2,22 +2,17 @@ import Link from 'next/link';
 import Avatar from 'components/memberUtilities/Avatar';
 import NotificationBox from './NotificationBox';
 import StyledMemberBox from './StyledMemberBox';
+import useMemberBoxData from './useMemberBoxData';
 
 interface MemberBoxProps {
   toggleThingsSidebar: () => void;
 }
 
 const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
-  const data = {
-    avatar:
-      'https://pbs.twimg.com/profile_images/917202644740956160/lMFbGZ-e_400x400.jpg',
-    displayName: 'Alec',
-    rep: 1,
-  };
+  const { memberData, loading, error } = useMemberBoxData();
 
-  const { rep, displayName, avatar } = data;
-
-  if (data) {
+  if (memberData) {
+    const { displayName, rep, avatar } = memberData;
     return (
       <StyledMemberBox>
         <NotificationBox />
@@ -36,7 +31,16 @@ const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
       </StyledMemberBox>
     );
   }
-  return <div>MemberBox</div>;
+
+  if (loading) {
+    return <div>MemberBox</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  return <div>Error</div>;
 };
 
 export default MemberBox;
