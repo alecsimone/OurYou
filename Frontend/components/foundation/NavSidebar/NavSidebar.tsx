@@ -33,11 +33,6 @@ const NavSidebar = ({ isOpen, toggleOpen }: NavSidebarProps): JSX.Element => {
       <a
         href={linkObj.href}
         onClick={toggleOpen}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === 'Space') {
-            toggleOpen();
-          }
-        }}
       >
         <div
           className="navLine"

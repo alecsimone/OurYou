@@ -57,6 +57,8 @@
     ],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
     "unused-imports/no-unused-imports": "error",
     "react/require-default-props": "off",
     "quotes": ["error", "single", { "avoidEscape": true }],

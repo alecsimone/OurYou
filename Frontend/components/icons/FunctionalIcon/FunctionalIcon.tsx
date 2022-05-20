@@ -1,5 +1,6 @@
 import { MouseEvent, KeyboardEvent, ReactNode } from 'react';
 import SVG from '@styles/extendableElements/svg';
+import buttonLikeTrigger from 'utils/buttonLikeTrigger';
 
 interface FunctionalIconProps {
   iconName: string; // Will be used for className and title text (unless titleTextReplacement provided)
@@ -32,8 +33,8 @@ const FunctionalIcon = ({
         }
       }}
       onKeyDown={(e) => {
-        if ((e.key === 'Enter' || e.key === 'Space') && onTrigger != null) {
-          onTrigger(e);
+        if (onTrigger != null) {
+          buttonLikeTrigger(e, onTrigger);
         }
       }}
       role="button"

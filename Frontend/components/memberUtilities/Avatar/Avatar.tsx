@@ -1,5 +1,6 @@
 import DefaultAvatar from '@icons/DefaultAvatar';
 import FunctionalIcon from '@icons/FunctionalIcon';
+import buttonLikeTrigger from 'utils/buttonLikeTrigger';
 import StyledAvatar, { StyledDefaultAvatar } from './StyledAvatar';
 
 interface AvatarProps {
@@ -28,8 +29,8 @@ const Avatar = ({ avatar, onTrigger }: AvatarProps): JSX.Element => {
       alt="avatar"
       onClick={onTrigger}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' && onTrigger != null) {
-          onTrigger();
+        if (onTrigger) {
+          buttonLikeTrigger(e, onTrigger);
         }
       }}
     />

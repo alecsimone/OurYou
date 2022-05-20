@@ -23,6 +23,7 @@ const StyledBottomBar = styled.nav`
   }
   .bottomBarButtonWrapper {
     flex-grow: 1;
+    border: none;
     border-right: 2px solid ${(props) => setAlpha(props.theme.coolGrey, 0.2)};
     cursor: pointer;
     padding: 2rem 0;

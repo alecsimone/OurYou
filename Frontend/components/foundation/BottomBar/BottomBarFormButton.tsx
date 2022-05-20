@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import FunctionalIcon from '@icons/FunctionalIcon';
+import Button from '@styles/extendableElements/Button';
 
 interface BottomBarFormButtonProps {
   name: 'search' | 'new';
@@ -12,19 +13,14 @@ const BottomBarFormButton = ({
   icon,
   dispatch,
 }: BottomBarFormButtonProps): JSX.Element => (
-  <div
+  <Button
     className={`bottomBarButtonWrapper ${name}`}
-    role="button"
+    type="button"
     tabIndex={0}
     onClick={() => dispatch()}
-    onKeyDown={(e) => {
-      if (e.key === 'Enter' || e.key === 'Space') {
-        dispatch();
-      }
-    }}
   >
     <FunctionalIcon iconName={name}>{icon}</FunctionalIcon>
-  </div>
+  </Button>
 );
 
 export default BottomBarFormButton;
