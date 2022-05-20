@@ -4,7 +4,7 @@ const buttonLikeTrigger = (
   e: KeyboardEvent<any>,
   onTrigger: (e: KeyboardEvent<any>) => void
 ) => {
-  if (e.key === 'Enter' || e.key === 'Space') {
+  if (e.key === 'Enter' || e.key === ' ') {
     onTrigger(e);
   }
 };

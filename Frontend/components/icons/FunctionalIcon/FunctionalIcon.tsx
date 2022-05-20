@@ -38,6 +38,7 @@ const FunctionalIcon = ({
         }
       }}
       role="button"
+      tabIndex={0}
     >
       <title>
         {titleTextReplacement == null ? capitalizedName : titleTextReplacement}
