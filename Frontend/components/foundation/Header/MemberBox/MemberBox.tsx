@@ -2,17 +2,17 @@ import Link from 'next/link';
 import Avatar from 'components/memberUtilities/Avatar';
 import NotificationBox from './NotificationBox';
 import StyledMemberBox from './StyledMemberBox';
-import useMemberBoxData from './useMemberBoxData';
+import useMemberBoxQuery from './useMemberBoxQuery';
 
 interface MemberBoxProps {
   toggleThingsSidebar: () => void;
 }
 
 const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
-  const { memberData, loading, error } = useMemberBoxData();
+  const { data, loading, error } = useMemberBoxQuery();
 
-  if (memberData) {
-    const { displayName, rep, avatar } = memberData;
+  if (data) {
+    const { displayName, rep, avatar } = data;
     return (
       <StyledMemberBox>
         <NotificationBox />

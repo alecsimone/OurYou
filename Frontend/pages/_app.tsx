@@ -5,6 +5,7 @@ import Meta from 'components/foundation/Meta';
 import Providers from 'components/foundation/Providers';
 import 'public/nprogress.css';
 
+// eslint-disable-next-line react/function-component-definition
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>

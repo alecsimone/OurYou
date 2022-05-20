@@ -37,7 +37,10 @@
     }
   ],
   "rules": {
-    "react/function-component-definition": "off",
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function" }
+    ],
     "react/jsx-filename-extension": [
       1,
       {
