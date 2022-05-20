@@ -5,6 +5,12 @@ import { withAuth, session } from './auth';
 
 export default withAuth(
   config({
+    server: {
+      cors: {
+        origin: [process.env.FRONTEND_URL || 'http://localhost:219'],
+        credentials: true,
+      },
+    },
     db: {
       provider: 'postgresql',
       url: process.env.DATABASE_URL || 'postgres://',
