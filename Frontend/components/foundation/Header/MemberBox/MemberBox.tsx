@@ -36,14 +36,6 @@ const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
     );
   }
 
-  if (loading) {
-    return <StyledMemberBox>MemberBox</StyledMemberBox>;
-  }
-
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
-
   return <StyledMemberBox>Error</StyledMemberBox>;
 };
 

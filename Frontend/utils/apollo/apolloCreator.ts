@@ -19,9 +19,11 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const client = new ApolloClient({
-  link: from([errorLink, httpLink]),
-  cache: new InMemoryCache(),
-});
+const createApolloClient = () =>
+  new ApolloClient({
+    ssrMode: typeof window === 'undefined',
+    link: from([errorLink, httpLink]),
+    cache: new InMemoryCache(),
+  });
 
-export default client;
+export default createApolloClient;

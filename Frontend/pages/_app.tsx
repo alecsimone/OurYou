@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Meta />
-      <Providers>
+      <Providers pageProps={pageProps}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

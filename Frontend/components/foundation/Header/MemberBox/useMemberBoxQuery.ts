@@ -9,6 +9,7 @@ interface memberBoxMemberData {
 
 const useMemberBoxQuery = (): QueryResult<memberBoxMemberData> => {
   const result = useQuery<memberBoxMemberData>(MEMBER_BOX_QUERY, {
+    // eslint-disable-next-line no-console
     onError: (e) => console.log(e),
   });
   return result;
