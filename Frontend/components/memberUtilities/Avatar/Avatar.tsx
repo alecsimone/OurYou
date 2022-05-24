@@ -9,7 +9,7 @@ interface AvatarProps {
 }
 
 const Avatar = ({ avatar, onTrigger }: AvatarProps): JSX.Element => {
-  if (avatar == null) {
+  if (avatar == null || avatar === '') {
     return (
       <StyledDefaultAvatar>
         <FunctionalIcon

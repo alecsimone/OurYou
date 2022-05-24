@@ -3,7 +3,7 @@
 import { gql } from '@apollo/client';
 
 const MEMBER_BOX_QUERY = gql`
-  query MEMBER_BOX_QUERY($id: ID!) {
+  query MEMBER_BOX_QUERY {
     authenticatedItem {
       ... on Member {
         displayName

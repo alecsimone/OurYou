@@ -4,6 +4,7 @@ import { endpoint } from 'globalConstants';
 
 const httpLink = new HttpLink({
   uri: endpoint,
+  credentials: 'include',
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Modal from 'components/foundation/Modal';
 import Button from '@styles/extendableElements/Button';
 import initializeApollo, { addApolloState } from 'utils/apollo/apolloHandlers';
@@ -16,9 +16,6 @@ const THINGS_QUERY = gql`
 
 const Home: NextPage = () => {
   const [showingModal, setShowingModal] = useState(false);
-  const { data, loading, error } = useQuery(THINGS_QUERY);
-  // eslint-disable-next-line no-console
-  console.log({ data, loading, error });
 
   return (
     <div

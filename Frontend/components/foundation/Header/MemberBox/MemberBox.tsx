@@ -2,21 +2,17 @@ import Link from 'next/link';
 import Avatar from 'components/memberUtilities/Avatar';
 import NotificationBox from './NotificationBox';
 import StyledMemberBox from './StyledMemberBox';
+import useMemberBoxQuery from './useMemberBoxQuery';
 
 interface MemberBoxProps {
   toggleThingsSidebar: () => void;
 }
 
 const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
-  // const { data, loading } = useMemberBoxQuery();
-  const data = {
-    displayName: 'Alec',
-    rep: 1,
-    avatar: null,
-  };
+  const { data, loading } = useMemberBoxQuery();
 
-  if (data) {
-    const { displayName, rep, avatar } = data;
+  if (data?.authenticatedItem) {
+    const { displayName, rep, avatar } = data.authenticatedItem;
     return (
       <StyledMemberBox>
         <NotificationBox />
@@ -34,6 +30,10 @@ const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
         />
       </StyledMemberBox>
     );
+  }
+
+  if (loading) {
+    return <StyledMemberBox>Authenticating...</StyledMemberBox>;
   }
 
   return <StyledMemberBox>Error</StyledMemberBox>;
