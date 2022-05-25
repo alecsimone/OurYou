@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
+import waitForQuery from 'utils/testing/waitForQuery';
 import MockProviders from '../MockProviders';
 import Header from './Header';
 import MEMBER_BOX_QUERY from './MemberBox/queries';
@@ -37,9 +37,7 @@ describe('Header', () => {
       </MockProviders>
     );
 
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    });
+    await waitForQuery();
 
     const searchIcon = screen.getByTitle('Search');
     expect(searchIcon).toBeInTheDocument();

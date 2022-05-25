@@ -47,7 +47,9 @@ const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
           Sign up or Log in
         </Button>
         {showingSignUp && (
-          <Modal close={() => setShowingSignUp(false)}>Sign up or Log in</Modal>
+          <Modal close={() => setShowingSignUp(false)}>
+            Sign up and Log in forms
+          </Modal>
         )}
       </StyledMemberBox>
     );

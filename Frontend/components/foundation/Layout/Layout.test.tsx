@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 import { act } from 'react-dom/test-utils';
 import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
+import waitForQuery from 'utils/testing/waitForQuery';
 import MockProviders from '../MockProviders';
 import MEMBER_BOX_QUERY from '../Header/MemberBox/queries';
 import Layout from './Layout';
@@ -43,9 +44,7 @@ describe('Layout', () => {
       </MockProviders>
     );
 
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    });
+    await waitForQuery();
 
     // The Things Sidebar should start hidden
     const thingsSidebar = screen.queryByText('ThingsSidebar');
@@ -91,9 +90,7 @@ describe('Layout', () => {
       </MockProviders>
     );
 
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    });
+    await waitForQuery();
 
     const thingsSidebar = screen.queryByText('ThingsSidebar');
     expect(thingsSidebar).toBeInTheDocument();
