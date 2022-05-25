@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { setAlpha } from '@styles/functions/modifyColorFunctions';
+import { setAlpha, setLightness } from '@styles/functions/modifyColorFunctions';
 
 const StyledModal = styled.div`
   display: flex;
@@ -26,8 +26,23 @@ const StyledModal = styled.div`
     max-height: 100%;
     font-size: ${(props) => props.theme.bigText};
     &.error {
-      border-left: 3px solid ${(props) => setAlpha(props.theme.red, 0.75)};
+      /* border-left: 3px solid ${(props) =>
+        setAlpha(props.theme.red, 0.75)}; */
+      /* background: ${(props) => setLightness(props.theme.red, 5)}; */
+      border: 2px solid ${(props) => setAlpha(props.theme.red, 0.33)};
       font-weight: bold;
+      .errorBox {
+        background: ${(props) => setAlpha(props.theme.lightBlack, 0.75)};
+        padding: 3rem 5rem;
+        border-radius: 0.5rem;
+      }
+      h4 {
+        display: block;
+        font-size: ${(props) => props.theme.smallHead};
+        text-align: center;
+        margin: 0 0 2rem 0;
+        color: ${(props) => setAlpha(props.theme.red, 0.75)};
+      }
     }
   }
   svg.closeModal {

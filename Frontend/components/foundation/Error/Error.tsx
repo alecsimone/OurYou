@@ -21,7 +21,10 @@ const Error = ({ error }: ErrorProps): JSX.Element | null => {
         close={() => setShowingModal(false)}
         type="error"
       >
-        {errorMessage}
+        <div className="errorBox">
+          <h4>Error:</h4>
+          <div className="message">{errorMessage}</div>
+        </div>
       </Modal>
     );
   }

@@ -1,7 +1,7 @@
 import { DocumentNode } from 'graphql';
 import BASIC_MEMBER_QUERY from 'components/memberUtilities/basicMemberQuery';
 import initializeApollo, {
-  addApolloCacheToPageProps,
+  saveApolloCacheInPageProps,
 } from './apollo/apolloHandlers';
 
 const runServerSideQueries = async (
@@ -25,7 +25,7 @@ const runServerSideQueries = async (
   // Because we're just trying to get this data into the apollo cache, we don't have to do anything with it, but we do have to wait until it's been fetched
   await Promise.all(queryResults);
 
-  return addApolloCacheToPageProps(apolloClient, {
+  return saveApolloCacheInPageProps(apolloClient, {
     props: {},
   });
 };
