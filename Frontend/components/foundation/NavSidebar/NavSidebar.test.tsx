@@ -3,19 +3,19 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
-import Providers from '../Providers';
+import MockProviders from '../MockProviders';
 import navLinks from './NavLinks';
 import NavSidebar from './NavSidebar';
 
 describe('NavSidebar', () => {
   it('renders the nav links', () => {
     render(
-      <Providers>
+      <MockProviders>
         <NavSidebar
           isOpen
           toggleOpen={() => {}}
         />
-      </Providers>
+      </MockProviders>
     );
 
     navLinks.forEach((linkObj) => {
@@ -29,12 +29,12 @@ describe('NavSidebar', () => {
   it('collapses and Expands', async () => {
     const user = userEvent.setup();
     render(
-      <Providers>
+      <MockProviders>
         <NavSidebar
           isOpen
           toggleOpen={() => {}}
         />
-      </Providers>
+      </MockProviders>
     );
 
     // The Nav Sidebar should start expanded
@@ -66,14 +66,14 @@ describe('NavSidebar', () => {
     const user = userEvent.setup();
     const toggle = jest.fn(() => {});
     render(
-      <Providers>
+      <MockProviders>
         <RouterContext.Provider value={mockRouter}>
           <NavSidebar
             isOpen
             toggleOpen={toggle}
           />
         </RouterContext.Provider>
-      </Providers>
+      </MockProviders>
     );
 
     const twitterLinkObj = navLinks.find(

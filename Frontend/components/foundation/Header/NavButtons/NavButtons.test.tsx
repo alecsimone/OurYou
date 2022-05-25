@@ -2,15 +2,15 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { desktopBreakpointPx } from '@styles/breakpoints';
-import Providers from 'components/foundation/Providers';
+import MockProviders from 'components/foundation/MockProviders';
 import NavButtons from './NavButtons';
 
 describe('NavButtons', () => {
   it('renders a hamburger icon and a plus icon', () => {
     render(
-      <Providers>
+      <MockProviders>
         <NavButtons toggleNavSidebar={() => {}} />
-      </Providers>
+      </MockProviders>
     );
 
     const hamburger = screen.getByTitle('Show Nav Sidebar');
@@ -25,9 +25,9 @@ describe('NavButtons', () => {
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();
     render(
-      <Providers>
+      <MockProviders>
         <NavButtons toggleNavSidebar={toggleNav} />
-      </Providers>
+      </MockProviders>
     );
 
     const hamburger = screen.getByTitle('Show Nav Sidebar');

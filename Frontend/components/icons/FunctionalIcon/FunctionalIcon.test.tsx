@@ -1,18 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Providers from 'components/foundation/Providers';
 import '@testing-library/jest-dom';
+import MockProviders from 'components/foundation/MockProviders';
 import ArrowIcon from '../Arrow';
 import FunctionalIcon from './FunctionalIcon';
 
 describe('FunctionalIcon', () => {
   it('passes its icon name as a title with the first letter capitalized', () => {
     render(
-      <Providers>
+      <MockProviders>
         <FunctionalIcon iconName="iconNameTest">
           <ArrowIcon />
         </FunctionalIcon>
-      </Providers>
+      </MockProviders>
     );
 
     const title = screen.getByTitle('IconNameTest');
@@ -21,14 +21,14 @@ describe('FunctionalIcon', () => {
 
   it('overrides the icon name when given a titleTextReplacement prop', () => {
     render(
-      <Providers>
+      <MockProviders>
         <FunctionalIcon
           iconName="iconNameTest"
           titleTextReplacement="Something Else"
         >
           <ArrowIcon />
         </FunctionalIcon>
-      </Providers>
+      </MockProviders>
     );
 
     const failedTitle = screen.queryByTitle('IconNameTest');
@@ -43,14 +43,14 @@ describe('FunctionalIcon', () => {
     const user = userEvent.setup();
 
     render(
-      <Providers>
+      <MockProviders>
         <FunctionalIcon
           iconName="iconNameTest"
           onTrigger={onTrigger}
         >
           <ArrowIcon />
         </FunctionalIcon>
-      </Providers>
+      </MockProviders>
     );
 
     const title = screen.getByTitle('IconNameTest');
@@ -74,14 +74,14 @@ describe('FunctionalIcon', () => {
   it('adds its extraClass prop as a class', () => {
     const extraClass = 'extraClassTest';
     render(
-      <Providers>
+      <MockProviders>
         <FunctionalIcon
           iconName="iconNameTest"
           extraClass={extraClass}
         >
           <ArrowIcon />
         </FunctionalIcon>
-      </Providers>
+      </MockProviders>
     );
 
     const title = screen.getByTitle('IconNameTest');

@@ -1,18 +1,18 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Providers from 'components/foundation/Providers';
+import MockProviders from 'components/foundation/MockProviders';
 import SearchBar from './SearchBar';
 
 describe('SearchBar', () => {
   it('renders a search icon and a search bar', () => {
     render(
-      <Providers>
+      <MockProviders>
         <SearchBar
           showingSearch
           toggleShowingSearch={() => {}}
         />
-      </Providers>
+      </MockProviders>
     );
     const searchIcon = screen.getByTitle('Search');
     expect(searchIcon).toBeInTheDocument();
@@ -23,12 +23,12 @@ describe('SearchBar', () => {
 
   it('only shows the search bar when the showingSearch prop is present', () => {
     render(
-      <Providers>
+      <MockProviders>
         <SearchBar
           showingSearch={false}
           toggleShowingSearch={() => {}}
         />
-      </Providers>
+      </MockProviders>
     );
     const searchIcon = screen.getByTitle('Search');
     expect(searchIcon).toBeInTheDocument();
@@ -41,12 +41,12 @@ describe('SearchBar', () => {
     const user = userEvent.setup();
     const toggleShowingSearch = jest.fn();
     render(
-      <Providers>
+      <MockProviders>
         <SearchBar
           showingSearch
           toggleShowingSearch={toggleShowingSearch}
         />
-      </Providers>
+      </MockProviders>
     );
     const searchIcon = screen.getByTitle('Search');
     expect(searchIcon).toBeInTheDocument();
@@ -59,12 +59,12 @@ describe('SearchBar', () => {
     const user = userEvent.setup();
     const toggleShowingSearch = jest.fn();
     render(
-      <Providers>
+      <MockProviders>
         <SearchBar
           showingSearch
           toggleShowingSearch={toggleShowingSearch}
         />
-      </Providers>
+      </MockProviders>
     );
     const searchBar = screen.getByPlaceholderText('Search');
     expect(searchBar).toBeInTheDocument();

@@ -4,16 +4,16 @@ import userEvent from '@testing-library/user-event';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import mockRouter from 'next-router-mock';
 import { act } from 'react-dom/test-utils';
-import Providers from 'components/foundation/Providers';
 import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
+import MockProviders from 'components/foundation/MockProviders';
 import LogoBox from './LogoBox';
 
 describe('LogoBox', () => {
   it('renders our logo and name', () => {
     render(
-      <Providers>
+      <MockProviders>
         <LogoBox toggleNavSidebar={() => {}} />
-      </Providers>
+      </MockProviders>
     );
 
     const logo = screen.getByTitle('Ouryou');
@@ -28,9 +28,9 @@ describe('LogoBox', () => {
   it("doesn't render the name below the mobile breakpoint", () => {
     window.innerWidth = mobileBreakpointPx;
     render(
-      <Providers>
+      <MockProviders>
         <LogoBox toggleNavSidebar={() => {}} />
-      </Providers>
+      </MockProviders>
     );
 
     const logo = screen.getByTitle('Ouryou');
@@ -48,9 +48,9 @@ describe('LogoBox', () => {
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();
     render(
-      <Providers>
+      <MockProviders>
         <LogoBox toggleNavSidebar={toggleNav} />
-      </Providers>
+      </MockProviders>
     );
 
     const logo = screen.getByTitle('Ouryou');
@@ -66,11 +66,11 @@ describe('LogoBox', () => {
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();
     render(
-      <Providers>
+      <MockProviders>
         <RouterContext.Provider value={mockRouter}>
           <LogoBox toggleNavSidebar={toggleNav} />
         </RouterContext.Provider>
-      </Providers>
+      </MockProviders>
     );
 
     const logo = screen.getByTitle('Ouryou');

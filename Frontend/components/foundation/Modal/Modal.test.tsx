@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Providers from 'components/foundation/Providers';
+import MockProviders from '../MockProviders';
 import Modal from './Modal';
 
 describe('Modal', () => {
@@ -12,11 +12,11 @@ describe('Modal', () => {
   it('exists and calls close with the button', async () => {
     const user = userEvent.setup();
     render(
-      <Providers>
+      <MockProviders>
         <Modal close={close}>
           <div>{modalText}</div>
         </Modal>
-      </Providers>
+      </MockProviders>
     );
 
     const modal = screen.getByText(modalText);
@@ -32,11 +32,11 @@ describe('Modal', () => {
   it('exists and calls close with the escape key', async () => {
     const user = userEvent.setup();
     render(
-      <Providers>
+      <MockProviders>
         <Modal close={close}>
           <div>{modalText}</div>
         </Modal>
-      </Providers>
+      </MockProviders>
     );
 
     const modal = screen.getByText(modalText);

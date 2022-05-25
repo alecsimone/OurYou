@@ -4,16 +4,40 @@ import { RouterContext } from 'next/dist/shared/lib/router-context';
 import mockRouter from 'next-router-mock';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import Providers from 'components/foundation/Providers';
+import MockProviders from 'components/foundation/MockProviders';
 import MemberBox from './MemberBox';
+import MEMBER_BOX_QUERY from './queries';
+
+const mocks = [
+  {
+    request: {
+      query: MEMBER_BOX_QUERY,
+    },
+    result: {
+      data: {
+        authenticatedItem: {
+          __typename: 'Member',
+          displayName: 'Alec',
+          rep: 1,
+          avatar:
+            'https://pbs.twimg.com/profile_images/917202644740956160/lMFbGZ-e_400x400.jpg',
+        },
+      },
+    },
+  },
+];
 
 describe('MemberBox', () => {
-  it('renders the bell, rep, name, and avatar', () => {
+  it('renders the bell, rep, name, and avatar', async () => {
     render(
-      <Providers>
+      <MockProviders mocks={mocks}>
         <MemberBox toggleThingsSidebar={() => {}} />
-      </Providers>
+      </MockProviders>
     );
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    });
 
     const bell = screen.getByTitle('Notifications');
     expect(bell).toBeInTheDocument();
@@ -33,12 +57,16 @@ describe('MemberBox', () => {
     const user = userEvent.setup();
 
     render(
-      <Providers>
+      <MockProviders mocks={mocks}>
         <RouterContext.Provider value={mockRouter}>
           <MemberBox toggleThingsSidebar={() => {}} />
         </RouterContext.Provider>
-      </Providers>
+      </MockProviders>
     );
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    });
 
     const rep = screen.getByText('1', { exact: false });
     expect(rep).toBeInTheDocument();
@@ -61,10 +89,15 @@ describe('MemberBox', () => {
     const toggleThingsSidebar = jest.fn(() => {});
     const user = userEvent.setup();
     render(
-      <Providers>
+      <MockProviders mocks={mocks}>
         <MemberBox toggleThingsSidebar={toggleThingsSidebar} />
-      </Providers>
+      </MockProviders>
     );
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    });
+
     const avatar = screen.getByAltText('avatar');
     expect(avatar).toBeInTheDocument();
 

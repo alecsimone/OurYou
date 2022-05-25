@@ -2,18 +2,18 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import mockRouter from 'next-router-mock';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
-import Providers from '../Providers';
+import MockProviders from '../MockProviders';
 import ThingsSidebar from './ThingsSidebar';
 
 describe('ThingsSidebar', () => {
   it('says ThingsSidebar', () => {
     mockRouter.setCurrentUrl('/');
     render(
-      <Providers>
+      <MockProviders>
         <RouterContext.Provider value={mockRouter}>
           <ThingsSidebar isOpen />
         </RouterContext.Provider>
-      </Providers>
+      </MockProviders>
     );
 
     const theSidebar = screen.getByText('ThingsSidebar');
@@ -24,11 +24,11 @@ describe('ThingsSidebar', () => {
   it("knows when it's not on the homepage", () => {
     mockRouter.setCurrentUrl('/twitter');
     render(
-      <Providers>
+      <MockProviders>
         <RouterContext.Provider value={mockRouter}>
           <ThingsSidebar isOpen />
         </RouterContext.Provider>
-      </Providers>
+      </MockProviders>
     );
 
     const theSidebar = screen.getByText('ThingsSidebar');
