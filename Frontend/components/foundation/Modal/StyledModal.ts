@@ -24,6 +24,11 @@ const StyledModal = styled.div`
     max-width: 100%;
     height: calc(min(90vh, 90vw) * 0.75); /* Make it a 4:3 aspect ratio */
     max-height: 100%;
+    font-size: ${(props) => props.theme.bigText};
+    &.error {
+      border-left: 3px solid ${(props) => setAlpha(props.theme.red, 0.75)};
+      font-weight: bold;
+    }
   }
   svg.closeModal {
     position: absolute;

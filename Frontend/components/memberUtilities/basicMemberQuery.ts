@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const MEMBER_BOX_QUERY = gql`
+const BASIC_MEMBER_QUERY = gql`
   query MEMBER_BOX_QUERY {
     authenticatedItem {
       ... on Member {
@@ -11,4 +11,4 @@ const MEMBER_BOX_QUERY = gql`
     }
   }
 `;
-export default MEMBER_BOX_QUERY;
+export default BASIC_MEMBER_QUERY;

@@ -8,6 +8,7 @@ const Button = styled.button`
   cursor: pointer;
   padding: 1rem;
   color: ${(props) => props.theme.white};
+  font-family: 'proxima-nova', sans-serif;
   font-size: ${(props) => props.theme.smallText};
   &:hover {
     background: ${(props) => setAlpha(props.theme.coolGrey, 0.2)};

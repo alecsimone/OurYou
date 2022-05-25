@@ -1,18 +1,8 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { gql } from '@apollo/client';
 import Modal from 'components/foundation/Modal';
 import Button from '@styles/extendableElements/Button';
-import initializeApollo, { addApolloState } from 'utils/apollo/apolloHandlers';
-
-const THINGS_QUERY = gql`
-  query THINGS_QUERY {
-    things {
-      id
-      title
-    }
-  }
-`;
+import runServerSideQueries from 'utils/runServerSideQueries';
 
 const Home: NextPage = () => {
   const [showingModal, setShowingModal] = useState(false);
@@ -41,16 +31,8 @@ const Home: NextPage = () => {
   );
 };
 
-export async function getServerSideProps() {
-  const apolloClient = initializeApollo();
-
-  await apolloClient.query({
-    query: THINGS_QUERY,
-  });
-
-  return addApolloState(apolloClient, {
-    props: {},
-  });
+export async function getServerSideProps(context: any) {
+  return runServerSideQueries(context);
 }
 
 export default Home;

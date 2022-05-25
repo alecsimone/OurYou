@@ -11,13 +11,21 @@ const StyledMemberBox = styled.div`
     }
   }
   a.profileLink,
-  a.profileLink:visited {
+  a.profileLink:visited,
+  button.signUp {
     color: ${(props) => props.theme.gold};
     font-weight: 600;
   }
   .avatar {
     cursor: pointer; /* The default avatar svg gets this from SVG, but we need it for the img element when there's actually an avatar */
     width: ${(props) => props.theme.smallHead};
+  }
+  button.signUp {
+    border: none;
+    &:hover {
+      background: none;
+      text-decoration: underline;
+    }
   }
 `;
 

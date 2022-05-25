@@ -8,13 +8,13 @@ let preExistingApolloClient: ApolloClient<NormalizedCacheObject> | null;
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
-const initializeApollo = (initialState = null) => {
+const initializeApollo = (cookie: string | null, initialState = null) => {
   // If we've stored an ApolloClient, we want to work with that one. If we haven't, we want to create a new one.
   let currentApolloClient;
   if (preExistingApolloClient != null) {
     currentApolloClient = preExistingApolloClient;
   } else {
-    currentApolloClient = createApolloClient();
+    currentApolloClient = createApolloClient(cookie);
   }
 
   if (initialState != null) {
@@ -49,7 +49,7 @@ const initializeApollo = (initialState = null) => {
 };
 export default initializeApollo;
 
-const addApolloState = (
+const addApolloCacheToPageProps = (
   client: ApolloClient<NormalizedCacheObject>,
   pageProps: {
     props: any;
@@ -63,11 +63,11 @@ const addApolloState = (
 
   return pageProps;
 };
-export { addApolloState };
+export { addApolloCacheToPageProps };
 
 const useApollo = (pageProps: any) => {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
-  const store = useMemo(() => initializeApollo(state), [state]);
+  const store = useMemo(() => initializeApollo(null, state), [state]);
   return store;
 };
 export { useApollo };

@@ -1,29 +1,50 @@
+/* eslint-disable no-console */
 import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { endpoint } from 'globalConstants';
 
-const httpLink = new HttpLink({
-  uri: endpoint,
-  credentials: 'include',
-});
+interface HttpLinkOptions {
+  uri: string;
+  credentials: 'include';
+  headers?: {
+    cookie: string;
+  };
+}
+const createHttpLink = (cookie: string | null) => {
+  const options: HttpLinkOptions = {
+    uri: endpoint,
+    credentials: 'include',
+  };
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (cookie != null) {
+    options.headers = {
+      // cookie,
+    };
+  }
+
+  return new HttpLink(options);
+};
+
+const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+  if (operation?.operationName) {
+    console.log(`Error in ${operation.operationName}`);
+  }
   if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      // eslint-disable-next-line no-console
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
+    graphQLErrors.forEach(({ message, extensions }) => {
+      console.log(`[GraphQL error] - ${extensions?.code}: ${message}`);
+    });
 
-  // eslint-disable-next-line no-console
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (networkError) {
+    console.log(
+      `[Network error] - [${networkError?.name}]: ${networkError.message}`
+    );
+  }
 });
 
-const createApolloClient = () =>
+const createApolloClient = (cookie: string | null) =>
   new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: from([errorLink, httpLink]),
+    link: from([errorLink, createHttpLink(cookie)]),
     cache: new InMemoryCache(),
   });
 
