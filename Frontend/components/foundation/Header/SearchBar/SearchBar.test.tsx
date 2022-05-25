@@ -53,6 +53,15 @@ describe('SearchBar', () => {
 
     await user.click(searchIcon);
     expect(toggleShowingSearch).toBeCalled();
+
+    const icon = searchIcon.closest('svg');
+    icon?.focus();
+
+    await user.keyboard('{Enter}');
+    expect(toggleShowingSearch).toBeCalledTimes(2);
+
+    await user.keyboard(' ');
+    expect(toggleShowingSearch).toBeCalledTimes(3);
   });
 
   it('lets you type in the search box', async () => {

@@ -27,6 +27,7 @@ const Avatar = ({ avatar, onTrigger }: AvatarProps): JSX.Element => {
       className="avatar hasAvatar"
       src={avatar}
       alt="avatar"
+      tabIndex={0}
       onClick={onTrigger}
       onKeyDown={(e) => {
         if (onTrigger) {

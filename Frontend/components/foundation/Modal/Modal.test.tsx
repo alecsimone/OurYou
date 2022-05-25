@@ -26,7 +26,16 @@ describe('Modal', () => {
     expect(closeButton).toBeInTheDocument();
 
     await user.click(closeButton);
-    expect(close.mock.calls.length).toBe(1);
+    expect(close).toBeCalledTimes(1);
+
+    const icon = closeButton.closest('svg');
+    icon?.focus();
+
+    await user.keyboard('{Enter}');
+    expect(close).toBeCalledTimes(2);
+
+    await user.keyboard(' ');
+    expect(close).toBeCalledTimes(3);
   });
 
   it('exists and calls close with the escape key', async () => {
@@ -43,6 +52,6 @@ describe('Modal', () => {
     expect(modal).toBeInTheDocument();
 
     await user.keyboard('{Escape}');
-    expect(close.mock.calls.length).toBe(2);
+    expect(close).toBeCalledTimes(4);
   });
 });

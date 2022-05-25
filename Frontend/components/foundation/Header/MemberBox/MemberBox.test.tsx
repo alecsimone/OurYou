@@ -60,6 +60,7 @@ describe('MemberBox', () => {
     const forms = screen.getByText('Sign up and Log in forms');
     expect(forms).toBeInTheDocument();
   });
+
   it('renders the bell, rep, name, and avatar', async () => {
     render(
       <MockProviders mocks={mocks}>
@@ -114,6 +115,14 @@ describe('MemberBox', () => {
 
     await user.click(rep);
     expect(mockRouter.pathname).toBe('/me');
+
+    act(() => {
+      mockRouter.push({ pathname: '/' });
+    });
+
+    name.focus();
+    await user.keyboard('{Enter}');
+    expect(mockRouter.pathname).toBe('/me');
   });
 
   it('toggles the things sidebar', async () => {
@@ -132,5 +141,15 @@ describe('MemberBox', () => {
 
     await user.click(avatar);
     expect(toggleThingsSidebar).toBeCalledTimes(1);
+
+    // const icon = avatar.closest('svg');
+    // icon?.focus();
+    avatar.focus();
+
+    await user.keyboard('{Enter}');
+    expect(toggleThingsSidebar).toBeCalledTimes(2);
+
+    await user.keyboard(' ');
+    expect(toggleThingsSidebar).toBeCalledTimes(3);
   });
 });

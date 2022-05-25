@@ -89,7 +89,11 @@ describe('NavSidebar', () => {
 
       await user.click(twitterLink);
       expect(mockRouter.pathname).toBe(href);
-      expect(toggle.mock.calls.length).toBe(1);
+      expect(toggle).toBeCalledTimes(1);
+
+      twitterLink.focus();
+      await user.keyboard('{Enter}');
+      expect(toggle).toBeCalledTimes(2);
     } else {
       // If we didn't find the twitterLinkObj, we want to throw an error. This is mostly just to keep typescript from worrying that twitterLinkObj might be null, while still throwing an exception if it is.
       expect(twitterLinkObj).toBe(true);

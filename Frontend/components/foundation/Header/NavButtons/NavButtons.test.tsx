@@ -35,6 +35,15 @@ describe('NavButtons', () => {
     expect(hamburgerIcon).toBeVisible();
 
     await user.click(hamburger);
-    expect(toggleNav).toBeCalled();
+    expect(toggleNav).toBeCalledTimes(1);
+
+    const icon = hamburger.closest('svg');
+    icon?.focus();
+
+    await user.keyboard('{Enter}');
+    expect(toggleNav).toBeCalledTimes(2);
+
+    await user.keyboard(' ');
+    expect(toggleNav).toBeCalledTimes(3);
   });
 });

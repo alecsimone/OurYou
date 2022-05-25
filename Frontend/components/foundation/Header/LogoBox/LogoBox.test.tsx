@@ -58,6 +58,15 @@ describe('LogoBox', () => {
 
     await user.click(logo);
     expect(toggleNav).toBeCalledTimes(1);
+
+    const icon = logo.closest('svg');
+    icon?.focus();
+
+    await user.keyboard('{Enter}');
+    expect(toggleNav).toBeCalledTimes(2);
+
+    await user.keyboard(' ');
+    expect(toggleNav).toBeCalledTimes(3);
   });
 
   it('routes to the homepage when clicked above the mobile breakpoint', async () => {
