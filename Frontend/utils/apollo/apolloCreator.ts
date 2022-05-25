@@ -18,7 +18,7 @@ const createHttpLink = (cookie: string | null) => {
 
   if (cookie != null) {
     options.headers = {
-      // cookie,
+      cookie,
     };
   }
 
