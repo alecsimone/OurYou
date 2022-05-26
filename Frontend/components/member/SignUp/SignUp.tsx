@@ -1,6 +1,7 @@
 import Button from '@styles/extendableElements/Button';
 import Input from '@styles/extendableElements/Input';
 import Error from 'components/foundation/Error';
+import cookieWarning from '../cookieWarning';
 import StyledSignUp from './StyledSignUp';
 import useSignUp from './useSignUp';
 
@@ -73,14 +74,7 @@ const SignUp = ({ closeModal }: SignUpProps): JSX.Element => {
         </div>
         <Button type="submit">Sign Up</Button>
       </fieldset>
-      <p className="cookieWarning">
-        When you sign up or log in, we&apos;ll put a cookie on your computer.
-        All it contains is an encoded representation of your member ID, so we
-        can recognize you. It doesn&apos;t track you or anything like that,
-        it&apos;s literally just a string with a property name. By signing up or
-        logging in, you&apos;re agreeing to let us put that cookie there.
-        Thanks!
-      </p>
+      <p className="cookieWarning">{cookieWarning}</p>
     </StyledSignUp>
   );
 };

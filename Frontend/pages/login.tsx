@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import StyledSignUpPage from '@styles/pageStyles/StyledSignUpPage';
-import SignUp from 'components/member/SignUp/SignUp';
 import INITIAL_MEMBER_QUERY from 'utils/initialMemberQuery';
 import runServerSideQueries from 'utils/runServerSideQueries';
+import LogIn from 'components/member/LogIn/LogIn';
 
 // interface SignUpPageProps {}
 const SignUpPage = (): JSX.Element => {
@@ -17,13 +17,13 @@ const SignUpPage = (): JSX.Element => {
 
   if (data && data.authenticatedItem) {
     return (
-      <div>You&apos;re already signed up, silly! Let&apos;s get you home.</div>
+      <div>You&apos;re already logged in, silly! Let&apos;s get you home.</div>
     );
   }
 
   return (
     <StyledSignUpPage>
-      <SignUp />
+      <LogIn />
     </StyledSignUpPage>
   );
 };

@@ -1,6 +1,7 @@
 import Button from '@styles/extendableElements/Button';
 import Input from '@styles/extendableElements/Input';
 import Error from 'components/foundation/Error';
+import cookieWarning from '../cookieWarning';
 import StyledSignUp from '../SignUp/StyledSignUp';
 import useLogIn from './useLogIn';
 
@@ -40,6 +41,7 @@ const LogIn = (): JSX.Element => {
         </div>
         <Button type="submit">Log In</Button>
       </fieldset>
+      <p className="cookieWarning">{cookieWarning}</p>
     </StyledSignUp>
   );
 };
