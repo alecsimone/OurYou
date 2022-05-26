@@ -21,6 +21,10 @@
 - Before the query data comes in, it should say "Authenticating..." as the query is loading.
 - The member box includes a bell icon to alert the user to notifications, as well as their name, rep, and avatar.
 
+### It renders the default avatar if the user has no avatar
+
+- Makes sure that if the member does not have an avatar, the default avatar is rendered instead
+
 ### It links to the user's profile page
 
 - The user's name and rep should be wrapped in a link that takes the user to their profile page

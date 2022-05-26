@@ -7,6 +7,7 @@ import { act } from 'react-dom/test-utils';
 import MockProviders from 'components/foundation/MockProviders';
 import waitForQuery from 'utils/testing/waitForQuery';
 import initialMemberMock, {
+  avatarlessMemberMock,
   loggedOutMock,
   mockDisplayName,
   mockRep,
@@ -55,6 +56,19 @@ describe('MemberBox', () => {
 
     const avatar = screen.getByAltText('avatar');
     expect(avatar).toBeInTheDocument();
+  });
+
+  it('renders the default avatar if the user has no avatar', async () => {
+    render(
+      <MockProviders mocks={avatarlessMemberMock}>
+        <MemberBox toggleThingsSidebar={() => {}} />
+      </MockProviders>
+    );
+
+    await waitForQuery();
+
+    const defaultAvatar = screen.getByTitle('DefaultAvatar');
+    expect(defaultAvatar).toBeInTheDocument();
   });
 
   it("links to the user's profile page", async () => {

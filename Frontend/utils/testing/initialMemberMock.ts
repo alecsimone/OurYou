@@ -27,6 +27,26 @@ const initialMemberMock = [
 
 export default initialMemberMock;
 
+const avatarlessMemberMock = [
+  {
+    request: {
+      query: MEMBER_BOX_QUERY,
+    },
+    result: {
+      data: {
+        authenticatedItem: {
+          __typename: 'Member',
+          displayName: mockDisplayName,
+          rep: mockRep,
+          avatar: '',
+        },
+      },
+    },
+  },
+];
+
+export { avatarlessMemberMock };
+
 const loggedOutMock = [
   {
     request: {
