@@ -14,6 +14,12 @@ So ultimately, this form passes back to the component a formState object (which 
 
 ## [Features](SignUp.test.tsx)
 
-### It ... Description
+### It renders the necessary form fields and lets the user type in them
 
-- Feature 1 that Test 1 Tests
+- Just checks that all the expected parts of the form are present and can be typed in
+
+We need to do a lot more testing here, but I'm not sure how. The features I'd like to test are:
+
+- Alerts the user when they've entered an invalid value. The "toBeVisible" check is failing for the .requirements div here because it's not getting display: none turned off
+- Does not submit form with invalid values. I can't figure out how to test if the form was submitted properly because the submit function comes from the custom hook, not a prop
+- I can't figure out how to test the onCompleted and onError callbacks for useMutation

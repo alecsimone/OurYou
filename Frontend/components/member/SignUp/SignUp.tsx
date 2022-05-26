@@ -24,10 +24,14 @@ const SignUp = ({ closeModal }: SignUpProps): JSX.Element => {
             required
             name="displayName"
             placeholder="Display Name"
+            minLength={3}
             maxLength={24}
             value={displayName}
             onChange={handleFormUpdate}
           />
+          <div className="requirements">
+            Display Name must be at least 3 characters long
+          </div>
         </div>
         <div className="inputWrapper">
           <Input
