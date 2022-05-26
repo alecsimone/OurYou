@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Avatar from 'components/memberUtilities/Avatar';
+import Avatar from 'components/member/Avatar';
 import NotificationBox from './NotificationBox';
 import StyledMemberBox from './StyledMemberBox';
 import { memberDataInterface } from './useMemberBoxQuery';

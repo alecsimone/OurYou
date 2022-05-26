@@ -4,6 +4,8 @@ const StyledMemberBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  color: ${(props) => props.theme.gold};
+  font-weight: 600;
   > * {
     margin-right: 2rem;
     &:last-child {
@@ -12,7 +14,7 @@ const StyledMemberBox = styled.div`
   }
   a.profileLink,
   a.profileLink:visited,
-  button.signUp {
+  button.prompt {
     color: ${(props) => props.theme.gold};
     font-weight: 600;
   }
@@ -20,11 +22,14 @@ const StyledMemberBox = styled.div`
     cursor: pointer; /* The default avatar svg gets this from SVG, but we need it for the img element when there's actually an avatar */
     width: ${(props) => props.theme.smallHead};
   }
-  button.signUp {
+  button.prompt {
     border: none;
     &:hover {
       background: none;
       text-decoration: underline;
+    }
+    &.signUp {
+      margin-right: 0;
     }
   }
 `;

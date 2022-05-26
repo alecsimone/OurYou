@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import Modal from '../Modal';
 import StyledError from './StyledError';
 
 interface ErrorProps {
@@ -7,8 +5,6 @@ interface ErrorProps {
 }
 
 const Error = ({ error }: ErrorProps): JSX.Element | null => {
-  const [showingModal, setShowingModal] = useState(true);
-
   let errorMessage: string;
   if (typeof error === 'string') {
     errorMessage = error;
@@ -26,17 +22,12 @@ const Error = ({ error }: ErrorProps): JSX.Element | null => {
     return null;
   }
 
-  if (showingModal) {
-    return (
-      <Modal close={() => setShowingModal(false)}>
-        <StyledError className="errorBox">
-          <h4>Error:</h4>
-          <div className="message">{errorMessage}</div>
-        </StyledError>
-      </Modal>
-    );
-  }
-  return null;
+  return (
+    <StyledError className="errorBox">
+      <h4>Error:</h4>
+      <div className="message">{errorMessage}</div>
+    </StyledError>
+  );
 };
 
 export default Error;

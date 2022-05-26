@@ -1,5 +1,5 @@
 import { QueryResult, useQuery } from '@apollo/client';
-import MEMBER_BOX_QUERY from './queries';
+import MEMBER_BOX_QUERY from './memberBoxQuery';
 
 interface memberDataInterface {
   displayName: string;

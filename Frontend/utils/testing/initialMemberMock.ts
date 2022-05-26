@@ -1,4 +1,4 @@
-import MEMBER_BOX_QUERY from 'components/foundation/Header/MemberBox/queries';
+import MEMBER_BOX_QUERY from 'components/foundation/Header/MemberBox/memberBoxQuery';
 
 const mockDisplayName = 'Alec';
 const mockRep = 1;

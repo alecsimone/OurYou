@@ -16,7 +16,7 @@ const Modal = ({ close, children }: ModalProps): JSX.Element | null => {
   const modalElement = (
     <StyledModal>
       <div className="modalMolder">
-        {children}
+        <div className="modalContent">{children}</div>
         <FunctionalIcon
           iconName="closeModal"
           titleTextReplacement="Close"

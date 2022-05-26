@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { memberBoxFields } from 'components/foundation/Header/MemberBox/queries';
+import { memberBoxFields } from 'components/foundation/Header/MemberBox/memberBoxQuery';
 
 const INITIAL_MEMBER_QUERY = gql`
   ${memberBoxFields}

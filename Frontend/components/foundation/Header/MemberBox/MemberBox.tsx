@@ -1,4 +1,4 @@
-import Error from 'components/foundation/Error/Error';
+import ErrorAlert from 'components/foundation/Error/ErrorAlert';
 import StyledMemberBox from './StyledMemberBox';
 import useMemberBoxQuery from './useMemberBoxQuery';
 import MemberBoxWithData from './MemberBoxWithData';
@@ -24,7 +24,7 @@ const MemberBox = ({ toggleThingsSidebar }: MemberBoxProps): JSX.Element => {
   }
 
   if (error) {
-    return <Error error={error} />;
+    return <ErrorAlert error={error} />;
   }
 
   return <StyledMemberBox>Unknown Error</StyledMemberBox>;

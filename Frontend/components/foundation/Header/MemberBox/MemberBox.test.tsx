@@ -28,12 +28,15 @@ describe('MemberBox', () => {
 
     await waitForQuery();
 
-    const prompt = screen.getByText(/sign up or log in/i);
-    expect(prompt).toBeInTheDocument();
+    const signUpButton = screen.getByText(/sign up/i);
+    expect(signUpButton).toBeInTheDocument();
 
-    await user.click(prompt);
-    const forms = screen.getByText('Sign up and Log in forms');
-    expect(forms).toBeInTheDocument();
+    const logInButton = screen.getByText(/log in/i);
+    expect(logInButton).toBeInTheDocument();
+
+    await user.click(signUpButton);
+    const signUpForm = screen.getByPlaceholderText('Display Name');
+    expect(signUpForm).toBeInTheDocument();
   });
 
   it('renders the loading state, then the bell, rep, name, and avatar', async () => {

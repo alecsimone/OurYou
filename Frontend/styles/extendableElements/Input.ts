@@ -13,7 +13,10 @@ const Input = styled.input`
     background: ${(props) => props.theme.coolGrey};
   }
   &:focus {
-    border-radius: 3px;
+    outline: 2px solid ${(props) => props.theme.blue};
+  }
+  &:invalid:not(:focus):not(:placeholder-shown) {
+    border: 1px solid ${(props) => props.theme.red};
   }
 `;
 

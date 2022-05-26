@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import MockProviders from 'components/foundation/MockProviders';
 import '@testing-library/jest-dom';
-import Error from './Error';
+import ErrorAlert from './ErrorAlert';
 
 describe('Error', () => {
   const errorString = 'Something went terribly wrong!';
   it('renders the error message when passed a string as a prop', () => {
     render(
       <MockProviders>
-        <Error error={errorString} />
+        <ErrorAlert error={errorString} />
       </MockProviders>
     );
 
@@ -22,7 +22,7 @@ describe('Error', () => {
   it('renders the error message when passed an object with a message property as a prop', () => {
     render(
       <MockProviders>
-        <Error error={errorObject} />
+        <ErrorAlert error={errorObject} />
       </MockProviders>
     );
 

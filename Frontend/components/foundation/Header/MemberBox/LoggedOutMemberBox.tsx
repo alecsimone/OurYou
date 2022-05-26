@@ -1,25 +1,37 @@
 import { useState } from 'react';
 import Button from '@styles/extendableElements/Button';
 import Modal from 'components/foundation/Modal';
+import SignUp from 'components/member/SignUp/SignUp';
 import StyledMemberBox from './StyledMemberBox';
 
 // interface LoggedOutMemberBoxProps {}
 
 const LoggedOutMemberBox = (): JSX.Element => {
   const [showingSignUp, setShowingSignUp] = useState(false);
+  const [showingLogIn, setShowingLogIn] = useState(false);
 
   return (
     <StyledMemberBox>
       <Button
-        className="signUp"
+        className="prompt signUp"
         onClick={() => setShowingSignUp(true)}
       >
-        Sign up or Log in
+        Sign up
+      </Button>
+      or
+      <Button
+        className="prompt logIn"
+        onClick={() => setShowingLogIn(true)}
+      >
+        Log in
       </Button>
       {showingSignUp && (
         <Modal close={() => setShowingSignUp(false)}>
-          Sign up and Log in forms
+          <SignUp closeModal={() => setShowingSignUp(false)} />
         </Modal>
+      )}
+      {showingLogIn && (
+        <Modal close={() => setShowingLogIn(false)}>Log In</Modal>
       )}
     </StyledMemberBox>
   );
