@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { setAlpha, setLightness } from '@styles/functions/modifyColorFunctions';
+import { setAlpha } from '@styles/functions/modifyColorFunctions';
 
 const StyledModal = styled.div`
   display: flex;
@@ -25,25 +25,6 @@ const StyledModal = styled.div`
     height: calc(min(90vh, 90vw) * 0.75); /* Make it a 4:3 aspect ratio */
     max-height: 100%;
     font-size: ${(props) => props.theme.bigText};
-    &.error {
-      /* border-left: 3px solid ${(props) =>
-        setAlpha(props.theme.red, 0.75)}; */
-      /* background: ${(props) => setLightness(props.theme.red, 5)}; */
-      font-weight: bold;
-      .errorBox {
-        border: 2px solid ${(props) => setAlpha(props.theme.red, 0.5)};
-        background: ${(props) => setAlpha(props.theme.lightBlack, 0.75)};
-        padding: 3rem 5rem;
-        border-radius: 0.5rem;
-      }
-      h4 {
-        display: block;
-        font-size: ${(props) => props.theme.smallHead};
-        text-align: center;
-        margin: 0 0 2rem 0;
-        color: ${(props) => setAlpha(props.theme.red, 0.75)};
-      }
-    }
   }
   svg.closeModal {
     position: absolute;

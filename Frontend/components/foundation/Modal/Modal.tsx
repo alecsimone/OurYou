@@ -8,15 +8,14 @@ import useModal from './useModal';
 interface ModalProps {
   close: () => void; // The function that closes the modal. Needs to come from the component that creates the modal so that it knows the modal has been closed.
   children: ReactNode;
-  type?: 'error';
 }
 
-const Modal = ({ close, children, type }: ModalProps): JSX.Element | null => {
+const Modal = ({ close, children }: ModalProps): JSX.Element | null => {
   useModal(close);
 
   const modalElement = (
     <StyledModal>
-      <div className={`modalMolder ${type}`}>
+      <div className="modalMolder">
         {children}
         <FunctionalIcon
           iconName="closeModal"
