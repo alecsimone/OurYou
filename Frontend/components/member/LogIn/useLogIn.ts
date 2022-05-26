@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import {
   useState,
   ChangeEvent,
@@ -23,14 +23,14 @@ const useLogIn = (): [
   logInFormStateInterface,
   ChangeEventHandler<HTMLInputElement>,
   FormEventHandler<HTMLFormElement>,
-  { message: string } | null
+  ApolloError | { message: string } | null
 ] => {
   const [formState, setFormState] = useState(initialState);
   const { email, password } = formState;
 
-  const [logInError, setLogInError] = useState<{ message: string } | null>(
-    null
-  );
+  const [logInError, setLogInError] = useState<
+    ApolloError | { message: string } | null
+  >(null);
 
   const [logIn] = useMutation(LOG_IN_MUTATION, {
     variables: {
@@ -42,7 +42,8 @@ const useLogIn = (): [
         query: INITIAL_MEMBER_QUERY,
       },
     ],
-    onError: (err) => alert(err.message),
+    // eslint-disable-next-line no-alert
+    onError: (e) => setLogInError(e),
     onCompleted: (d) => {
       if (
         d?.authenticateMemberWithPassword?.__typename ===

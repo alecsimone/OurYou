@@ -37,6 +37,16 @@ describe('MemberBox', () => {
     await user.click(signUpButton);
     const signUpForm = screen.getByPlaceholderText('Display Name');
     expect(signUpForm).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+    expect(signUpForm).not.toBeInTheDocument();
+
+    await user.click(logInButton);
+    const logInForm = screen.getByPlaceholderText('Email');
+    expect(logInForm).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+    expect(logInForm).not.toBeInTheDocument();
   });
 
   it('renders the loading state, then the bell, rep, name, and avatar', async () => {

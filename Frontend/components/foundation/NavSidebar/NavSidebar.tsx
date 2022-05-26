@@ -55,7 +55,12 @@ const NavSidebar = ({ isOpen, toggleOpen }: NavSidebarProps): JSX.Element => {
     </Link>
   ));
 
-  navElements.push(<LogOutButton collapsed={collapsed} />);
+  navElements.push(
+    <LogOutButton
+      collapsed={collapsed}
+      key="logOutButton"
+    />
+  );
   return (
     <StyledNavSidebar
       className={className}

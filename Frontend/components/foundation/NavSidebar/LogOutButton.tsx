@@ -44,12 +44,18 @@ const LogOutButton = ({ collapsed }: LogOutButtonProps): JSX.Element => {
   }
 
   return (
-    <StyledLogOutButton onClick={() => logOut()}>
+    <StyledLogOutButton
+      onClick={() => logOut()}
+      key="logOutButton"
+    >
       <div
         className="navLine"
-        key="logOut"
+        key="Log Out"
       >
-        <span className="navIcon">
+        <span
+          className="navIcon"
+          key="log out icon"
+        >
           <FunctionalIcon
             iconName="logOut"
             titleTextReplacement="Log Out"
@@ -57,7 +63,14 @@ const LogOutButton = ({ collapsed }: LogOutButtonProps): JSX.Element => {
             <X color="coolGrey" />
           </FunctionalIcon>
         </span>
-        {!collapsed && <span className="navLabel">Log Out</span>}
+        {!collapsed && (
+          <span
+            className="navLabel"
+            key="log out label"
+          >
+            Log Out
+          </span>
+        )}
       </div>
     </StyledLogOutButton>
   );
