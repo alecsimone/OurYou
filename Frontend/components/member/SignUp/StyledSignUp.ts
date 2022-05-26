@@ -6,7 +6,6 @@ const StyledSignUp = styled(Form)`
   background: ${(props) => props.theme.deepBlack};
   width: 100rem;
   max-width: 90%;
-  font-size: ${(props) => props.theme.bigText};
   input {
     width: 100%;
     &:valid {

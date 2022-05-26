@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '@styles/extendableElements/Button';
 import Modal from 'components/foundation/Modal';
 import SignUp from 'components/member/SignUp/SignUp';
+import LogIn from 'components/member/LogIn/LogIn';
 import StyledMemberBox from './StyledMemberBox';
 
 // interface LoggedOutMemberBoxProps {}
@@ -31,7 +32,9 @@ const LoggedOutMemberBox = (): JSX.Element => {
         </Modal>
       )}
       {showingLogIn && (
-        <Modal close={() => setShowingLogIn(false)}>Log In</Modal>
+        <Modal close={() => setShowingLogIn(false)}>
+          <LogIn />
+        </Modal>
       )}
     </StyledMemberBox>
   );

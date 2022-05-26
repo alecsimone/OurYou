@@ -9,14 +9,14 @@ import {
 } from 'react';
 import SIGN_UP_MUTATION from './signUpMutation';
 
-interface formStateInterface {
+interface signUpFormStateInterface {
   displayName: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-const initialState: formStateInterface = {
+const initialState: signUpFormStateInterface = {
   displayName: '',
   email: '',
   password: '',
@@ -26,13 +26,13 @@ const initialState: formStateInterface = {
 const useSignUp = (
   closeModal: (() => void) | undefined
 ): [
-  formStateInterface,
+  signUpFormStateInterface,
   ChangeEventHandler<HTMLInputElement>,
   FormEventHandler<HTMLFormElement>,
   ApolloError | { message: string } | null
 ] => {
   const [formState, setFormState] = useState(initialState);
-  const [signUpError, setSignupError] = useState<
+  const [signUpError, setSignUpError] = useState<
     ApolloError | { message: string } | null
   >(null);
   const { displayName, email, password, confirmPassword } = formState;
@@ -49,7 +49,7 @@ const useSignUp = (
       if (
         e.message.includes('Unique constraint failed on the fields: (`email`)')
       ) {
-        setSignupError({
+        setSignUpError({
           message:
             "An account already exists for that email. If you've forgotten your password, please try resetting it.",
         });
@@ -58,12 +58,12 @@ const useSignUp = (
       if (
         e.message.includes('Display Name must be at least 3 characters long')
       ) {
-        setSignupError({
+        setSignUpError({
           message: 'Your display name must be at least 3 characters long',
         });
         return;
       }
-      setSignupError(e);
+      setSignUpError(e);
     },
     onCompleted: () => {
       // setFormState(initialState);
