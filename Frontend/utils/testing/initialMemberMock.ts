@@ -1,6 +1,13 @@
 import MEMBER_BOX_QUERY from 'components/foundation/Header/MemberBox/queries';
 
-const basicMemberMock = [
+const mockDisplayName = 'Alec';
+const mockRep = 1;
+const mockAvatar =
+  'https://pbs.twimg.com/profile_images/917202644740956160/lMFbGZ-e_400x400.jpg';
+
+export { mockDisplayName, mockRep, mockAvatar };
+
+const initialMemberMock = [
   {
     request: {
       query: MEMBER_BOX_QUERY,
@@ -9,17 +16,16 @@ const basicMemberMock = [
       data: {
         authenticatedItem: {
           __typename: 'Member',
-          displayName: 'Alec',
-          rep: 1,
-          avatar:
-            'https://pbs.twimg.com/profile_images/917202644740956160/lMFbGZ-e_400x400.jpg',
+          displayName: mockDisplayName,
+          rep: mockRep,
+          avatar: mockAvatar,
         },
       },
     },
   },
 ];
 
-export default basicMemberMock;
+export default initialMemberMock;
 
 const loggedOutMock = [
   {

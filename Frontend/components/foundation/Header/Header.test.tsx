@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import basicMemberMock from 'utils/testing/basicMemberMock';
+import initialMemberMock from 'utils/testing/initialMemberMock';
 import waitForQuery from 'utils/testing/waitForQuery';
 import MockProviders from '../MockProviders';
 import Header from './Header';
@@ -10,7 +10,7 @@ describe('Header', () => {
   it('shows and hides the search bar', async () => {
     const user = userEvent.setup();
     render(
-      <MockProviders mocks={basicMemberMock}>
+      <MockProviders mocks={initialMemberMock}>
         <Header
           toggleNavSidebar={() => {}}
           toggleThingsSidebar={() => {}}

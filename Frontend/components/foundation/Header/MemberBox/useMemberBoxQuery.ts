@@ -1,13 +1,19 @@
 import { QueryResult, useQuery } from '@apollo/client';
 import MEMBER_BOX_QUERY from './queries';
 
-interface memberBoxMemberData {
-  authenticatedItem: {
-    displayName: string;
-    rep: number;
-    avatar: string | null;
-  };
+interface memberDataInterface {
+  displayName: string;
+  rep: number;
+  avatar: string | null;
 }
+
+export type { memberDataInterface };
+
+interface memberBoxMemberData {
+  authenticatedItem: memberDataInterface | null;
+}
+
+export type { memberBoxMemberData };
 
 const useMemberBoxQuery = (): QueryResult<memberBoxMemberData> => {
   const result = useQuery<memberBoxMemberData>(MEMBER_BOX_QUERY, {

@@ -29,9 +29,9 @@ const StyledModal = styled.div`
       /* border-left: 3px solid ${(props) =>
         setAlpha(props.theme.red, 0.75)}; */
       /* background: ${(props) => setLightness(props.theme.red, 5)}; */
-      border: 2px solid ${(props) => setAlpha(props.theme.red, 0.33)};
       font-weight: bold;
       .errorBox {
+        border: 2px solid ${(props) => setAlpha(props.theme.red, 0.5)};
         background: ${(props) => setAlpha(props.theme.lightBlack, 0.75)};
         padding: 3rem 5rem;
         border-radius: 0.5rem;

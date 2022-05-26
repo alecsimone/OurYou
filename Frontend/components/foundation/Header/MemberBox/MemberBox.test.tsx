@@ -6,8 +6,14 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import MockProviders from 'components/foundation/MockProviders';
 import waitForQuery from 'utils/testing/waitForQuery';
-import basicMemberMock, { loggedOutMock } from 'utils/testing/basicMemberMock';
+import initialMemberMock, {
+  loggedOutMock,
+  mockDisplayName,
+  mockRep,
+} from 'utils/testing/initialMemberMock';
 import MemberBox from './MemberBox';
+
+const repAndNameLinkText = `[${mockRep}] ${mockDisplayName}`;
 
 describe('MemberBox', () => {
   it('shows a sign up or log in prompt if not logged in', async () => {
@@ -29,9 +35,9 @@ describe('MemberBox', () => {
     expect(forms).toBeInTheDocument();
   });
 
-  it('renders the bell, rep, name, and avatar', async () => {
+  it('renders the loading state, then the bell, rep, name, and avatar', async () => {
     render(
-      <MockProviders mocks={basicMemberMock}>
+      <MockProviders mocks={initialMemberMock}>
         <MemberBox toggleThingsSidebar={() => {}} />
       </MockProviders>
     );
@@ -44,11 +50,8 @@ describe('MemberBox', () => {
     const bell = screen.getByTitle('Notifications');
     expect(bell).toBeInTheDocument();
 
-    const rep = screen.getByText('1', { exact: false });
-    expect(rep).toBeInTheDocument();
-
-    const name = screen.getByText('Alec', { exact: false });
-    expect(name).toBeInTheDocument();
+    const repAndNameLink = screen.getByText(repAndNameLinkText);
+    expect(repAndNameLink).toBeInTheDocument();
 
     const avatar = screen.getByAltText('avatar');
     expect(avatar).toBeInTheDocument();
@@ -59,7 +62,7 @@ describe('MemberBox', () => {
     const user = userEvent.setup();
 
     render(
-      <MockProviders mocks={basicMemberMock}>
+      <MockProviders mocks={initialMemberMock}>
         <RouterContext.Provider value={mockRouter}>
           <MemberBox toggleThingsSidebar={() => {}} />
         </RouterContext.Provider>
@@ -68,27 +71,17 @@ describe('MemberBox', () => {
 
     await waitForQuery();
 
-    const rep = screen.getByText('1', { exact: false });
-    expect(rep).toBeInTheDocument();
+    const link = screen.getByText(repAndNameLinkText);
+    expect(link).toBeInTheDocument();
 
-    const name = screen.getByText('Alec', { exact: false });
-    expect(name).toBeInTheDocument();
-
-    await user.click(name);
+    await user.click(link);
     expect(mockRouter.pathname).toBe('/me');
 
     act(() => {
       mockRouter.push({ pathname: '/' });
     });
 
-    await user.click(rep);
-    expect(mockRouter.pathname).toBe('/me');
-
-    act(() => {
-      mockRouter.push({ pathname: '/' });
-    });
-
-    name.focus();
+    link.focus();
     await user.keyboard('{Enter}');
     expect(mockRouter.pathname).toBe('/me');
   });
@@ -97,7 +90,7 @@ describe('MemberBox', () => {
     const toggleThingsSidebar = jest.fn(() => {});
     const user = userEvent.setup();
     render(
-      <MockProviders mocks={basicMemberMock}>
+      <MockProviders mocks={initialMemberMock}>
         <MemberBox toggleThingsSidebar={toggleThingsSidebar} />
       </MockProviders>
     );
@@ -110,8 +103,6 @@ describe('MemberBox', () => {
     await user.click(avatar);
     expect(toggleThingsSidebar).toBeCalledTimes(1);
 
-    // const icon = avatar.closest('svg');
-    // icon?.focus();
     avatar.focus();
 
     await user.keyboard('{Enter}');

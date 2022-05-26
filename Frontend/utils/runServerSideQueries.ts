@@ -1,5 +1,5 @@
 import { DocumentNode } from 'graphql';
-import BASIC_MEMBER_QUERY from 'utils/basicMemberQuery';
+import INITIAL_MEMBER_QUERY from 'utils/initialMemberQuery';
 import initializeApollo, {
   saveApolloCacheInPageProps,
 } from './apollo/apolloHandlers';
@@ -11,8 +11,8 @@ const runServerSideQueries = async (
   const { cookie } = context.req.headers;
   const apolloClient = initializeApollo(cookie);
 
-  // We want every page to include the basic member query, so we'll add it here
-  const queriesWithMemberQuery = queries.concat(BASIC_MEMBER_QUERY);
+  // We want every page to include the initial member query, so we'll add it here
+  const queriesWithMemberQuery = queries.concat(INITIAL_MEMBER_QUERY);
 
   const queryResults = [];
   for (const query of queriesWithMemberQuery) {

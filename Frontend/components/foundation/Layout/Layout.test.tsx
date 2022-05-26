@@ -5,7 +5,7 @@ import mockRouter from 'next-router-mock';
 import { act } from 'react-dom/test-utils';
 import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 import waitForQuery from 'utils/testing/waitForQuery';
-import basicMemberMock from 'utils/testing/basicMemberMock';
+import initialMemberMock from 'utils/testing/initialMemberMock';
 import MockProviders from '../MockProviders';
 import Layout from './Layout';
 
@@ -18,7 +18,7 @@ describe('Layout', () => {
     mockRouter.setCurrentUrl('/');
     window.innerWidth = mobileBreakpointPx + 1;
     render(
-      <MockProviders mocks={basicMemberMock}>
+      <MockProviders mocks={initialMemberMock}>
         <Layout>
           <div>Page component</div>
         </Layout>
@@ -64,7 +64,7 @@ describe('Layout', () => {
     mockRouter.setCurrentUrl('/twitter');
     window.innerWidth = desktopBreakpointPx + 1;
     render(
-      <MockProviders mocks={basicMemberMock}>
+      <MockProviders mocks={initialMemberMock}>
         <Layout>
           <div>Page component</div>
         </Layout>
