@@ -5,28 +5,9 @@ import mockRouter from 'next-router-mock';
 import { act } from 'react-dom/test-utils';
 import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 import waitForQuery from 'utils/testing/waitForQuery';
+import basicMemberMock from 'utils/testing/basicMemberMock';
 import MockProviders from '../MockProviders';
-import MEMBER_BOX_QUERY from '../Header/MemberBox/queries';
 import Layout from './Layout';
-
-const mocks = [
-  {
-    request: {
-      query: MEMBER_BOX_QUERY,
-    },
-    result: {
-      data: {
-        authenticatedItem: {
-          __typename: 'Member',
-          displayName: 'Alec',
-          rep: 1,
-          avatar:
-            'https://pbs.twimg.com/profile_images/917202644740956160/lMFbGZ-e_400x400.jpg',
-        },
-      },
-    },
-  },
-];
 
 // eslint-disable-next-line global-require
 jest.mock('next/router', () => require('next-router-mock'));
@@ -37,7 +18,7 @@ describe('Layout', () => {
     mockRouter.setCurrentUrl('/');
     window.innerWidth = mobileBreakpointPx + 1;
     render(
-      <MockProviders mocks={mocks}>
+      <MockProviders mocks={basicMemberMock}>
         <Layout>
           <div>Page component</div>
         </Layout>
@@ -83,7 +64,7 @@ describe('Layout', () => {
     mockRouter.setCurrentUrl('/twitter');
     window.innerWidth = desktopBreakpointPx + 1;
     render(
-      <MockProviders mocks={mocks}>
+      <MockProviders mocks={basicMemberMock}>
         <Layout>
           <div>Page component</div>
         </Layout>

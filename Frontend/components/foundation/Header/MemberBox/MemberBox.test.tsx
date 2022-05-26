@@ -6,47 +6,15 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import MockProviders from 'components/foundation/MockProviders';
 import waitForQuery from 'utils/testing/waitForQuery';
+import basicMemberMock, { loggedOutMock } from 'utils/testing/basicMemberMock';
 import MemberBox from './MemberBox';
-import MEMBER_BOX_QUERY from './queries';
-
-const mocks = [
-  {
-    request: {
-      query: MEMBER_BOX_QUERY,
-    },
-    result: {
-      data: {
-        authenticatedItem: {
-          __typename: 'Member',
-          displayName: 'Alec',
-          rep: 1,
-          avatar:
-            'https://pbs.twimg.com/profile_images/917202644740956160/lMFbGZ-e_400x400.jpg',
-        },
-      },
-    },
-  },
-];
-
-const loggedOutMocks = [
-  {
-    request: {
-      query: MEMBER_BOX_QUERY,
-    },
-    result: {
-      data: {
-        authenticatedItem: null,
-      },
-    },
-  },
-];
 
 describe('MemberBox', () => {
   it('shows a sign up or log in prompt if not logged in', async () => {
     const user = userEvent.setup();
 
     render(
-      <MockProviders mocks={loggedOutMocks}>
+      <MockProviders mocks={loggedOutMock}>
         <MemberBox toggleThingsSidebar={() => {}} />
       </MockProviders>
     );
@@ -63,7 +31,7 @@ describe('MemberBox', () => {
 
   it('renders the bell, rep, name, and avatar', async () => {
     render(
-      <MockProviders mocks={mocks}>
+      <MockProviders mocks={basicMemberMock}>
         <MemberBox toggleThingsSidebar={() => {}} />
       </MockProviders>
     );
@@ -91,7 +59,7 @@ describe('MemberBox', () => {
     const user = userEvent.setup();
 
     render(
-      <MockProviders mocks={mocks}>
+      <MockProviders mocks={basicMemberMock}>
         <RouterContext.Provider value={mockRouter}>
           <MemberBox toggleThingsSidebar={() => {}} />
         </RouterContext.Provider>
@@ -129,7 +97,7 @@ describe('MemberBox', () => {
     const toggleThingsSidebar = jest.fn(() => {});
     const user = userEvent.setup();
     render(
-      <MockProviders mocks={mocks}>
+      <MockProviders mocks={basicMemberMock}>
         <MemberBox toggleThingsSidebar={toggleThingsSidebar} />
       </MockProviders>
     );
