@@ -65,11 +65,5 @@ const navLinks: linkInterface[] = [
     iconName: 'avatar',
     href: '/me',
   },
-  {
-    icon: <X color="coolGrey" />,
-    text: 'Log Out',
-    iconName: 'logOut',
-    href: '/new',
-  },
 ];
 export default navLinks;

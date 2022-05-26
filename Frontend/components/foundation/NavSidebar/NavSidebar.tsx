@@ -4,6 +4,7 @@ import ArrowIcon from '@icons/Arrow';
 import FunctionalIcon from '@icons/FunctionalIcon';
 import StyledNavSidebar from './StyledNavSidebar';
 import navLinks from './NavLinks';
+import LogOutButton from './LogOutButton';
 
 interface NavSidebarProps {
   isOpen: boolean;
@@ -53,6 +54,8 @@ const NavSidebar = ({ isOpen, toggleOpen }: NavSidebarProps): JSX.Element => {
       </a>
     </Link>
   ));
+
+  navElements.push(<LogOutButton collapsed={collapsed} />);
   return (
     <StyledNavSidebar
       className={className}
