@@ -28,7 +28,14 @@ const Form = styled.form`
   }
   button[type='submit'] {
     display: block;
+    transition: opacity 0.2s;
     margin: 2rem auto 0;
+    background: ${(props) => setAlpha(props.theme.blue, 0.8)};
+    &[aria-disabled='true'] {
+      opacity: 0.5;
+      background: ${(props) => setAlpha(props.theme.blue, 0.25)};
+      color: ${(props) => props.theme.coolGrey};
+    }
   }
 `;
 

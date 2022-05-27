@@ -6,6 +6,9 @@ import {
   ChangeEventHandler,
   FormEvent,
   FormEventHandler,
+  useEffect,
+  useRef,
+  RefObject,
 } from 'react';
 import SIGN_UP_MUTATION from './signUpMutation';
 
@@ -26,8 +29,10 @@ const initialState: signUpFormStateInterface = {
 const useSignUp = (
   closeModal: (() => void) | undefined
 ): [
+  RefObject<HTMLFormElement>,
   signUpFormStateInterface,
   ChangeEventHandler<HTMLInputElement>,
+  boolean,
   FormEventHandler<HTMLFormElement>,
   ApolloError | { message: string } | null
 ] => {
@@ -36,6 +41,20 @@ const useSignUp = (
     ApolloError | { message: string } | null
   >(null);
   const { displayName, email, password, confirmPassword } = formState;
+
+  const [allInputsValid, setAllInputsValid] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (formRef.current == null) return;
+    const inputs = formRef.current.querySelectorAll('input');
+    let inputValidityCheck = true;
+    for (const input of inputs) {
+      if (!input.checkValidity()) {
+        inputValidityCheck = false;
+      }
+    }
+    setAllInputsValid(inputValidityCheck);
+  }, [formState]);
 
   const router = useRouter();
 
@@ -91,7 +110,14 @@ const useSignUp = (
     createMember();
   };
 
-  return [formState, handleFormUpdate, submitForm, signUpError];
+  return [
+    formRef,
+    formState,
+    handleFormUpdate,
+    allInputsValid,
+    submitForm,
+    signUpError,
+  ];
 };
 
 export default useSignUp;
