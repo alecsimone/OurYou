@@ -9,19 +9,21 @@ import {
 import { useRouter } from 'next/router';
 import SIGN_UP_MUTATION from './signUpMutation';
 
-interface signUpFormStateInterface {
+interface signUpFormInterface {
+  [key: string]: string;
   displayName: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-const initialState: signUpFormStateInterface = {
+const initialState: signUpFormInterface = {
   displayName: '',
   email: '',
   password: '',
   confirmPassword: '',
 };
+export type { signUpFormInterface };
 
 interface createMemberVariables {
   displayName: string;
@@ -59,7 +61,7 @@ const errorTranslator = (e: ApolloError) => {
 const useSignUp = (
   closeModal: (() => void) | undefined
 ): [
-  signUpFormStateInterface,
+  signUpFormInterface,
   createMemberMutateType,
   (e: ApolloError) => ApolloError | { message: string }
 ] => {

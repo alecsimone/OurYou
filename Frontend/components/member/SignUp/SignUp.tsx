@@ -4,7 +4,7 @@ import FormField from 'components/foundation/Form/FormField';
 import cookieWarning from '../cookieWarning';
 import StyledSignUp from './StyledSignUp';
 import useForm from './useForm';
-import useSignUp from './useSignUp';
+import useSignUp, { signUpFormInterface } from './useSignUp';
 
 interface SignUpProps {
   closeModal?: () => void;
@@ -19,7 +19,7 @@ const SignUp = ({ closeModal }: SignUpProps): JSX.Element => {
     allInputsValid,
     submitForm,
     error,
-  ] = useForm(initialState, createMember, errorTranslator);
+  ] = useForm<signUpFormInterface>(initialState, createMember, errorTranslator);
 
   const { displayName, email, password, confirmPassword } = formState;
 
