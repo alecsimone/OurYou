@@ -3,6 +3,7 @@ import Error from 'components/foundation/Error';
 import FormField from 'components/foundation/Form/FormField';
 import cookieWarning from '../cookieWarning';
 import StyledSignUp from './StyledSignUp';
+import useForm from './useForm';
 import useSignUp from './useSignUp';
 
 interface SignUpProps {
@@ -10,14 +11,15 @@ interface SignUpProps {
 }
 
 const SignUp = ({ closeModal }: SignUpProps): JSX.Element => {
+  const [initialState, createMember, errorTranslator] = useSignUp(closeModal);
   const [
     formRef,
     formState,
     handleFormUpdate,
     allInputsValid,
     submitForm,
-    signUpError,
-  ] = useSignUp(closeModal);
+    error,
+  ] = useForm(initialState, createMember, errorTranslator);
 
   const { displayName, email, password, confirmPassword } = formState;
 
@@ -26,7 +28,7 @@ const SignUp = ({ closeModal }: SignUpProps): JSX.Element => {
       onSubmit={submitForm}
       ref={formRef}
     >
-      {signUpError && <Error error={signUpError} />}
+      {error && <Error error={error} />}
       <fieldset>
         <FormField
           fieldType="input"
