@@ -6,11 +6,14 @@
 
 This hook handles the following functionality:
 
-1. Sets up the state for the Sign Up form and creates a handleFormUpdate function that it passes back to the SignUp component to update the form
-1. Creates the submitForm function which it passes back to the component.
-1. Handles the createMember mutation and its onCompleted and onError hooks. onCompleted, it routes to the /verify page. onError, it passes an error back to the component.
+1. Creates a createMember mutation which will be called when the form is submitted
+1. Sets up the initialState for the form
+1. Creates an errorTranslator function that turns expected errors from the createMember mutation into a more readable format
+1. Passes the initialState, createMember mutation, and errorTranslator to the [useForm](../../foundation/Form/readme.md) hook, which returns a state object, state update function, and formCreator HOC
+1. Creates the form fields this form will use
+1. Returns the formCreator HOC and the formFields to the SignUp component
 
-So ultimately, this form passes back to the component a formState object (which holds all the form data), a handleFormUpdate function (which handles updating the form data), a submitForm function (which submits the form), and a signUpError variable (which holds any error message returned by the createMember mutation).
+So basically, this hook takes in a closeModal function, sets up initial state and a submit callback for the form, then sets up all the fields the form will have, and returns a formCreator HOC as well as the formFields which will go in it.
 
 ## [Features](SignUp.test.tsx)
 
@@ -18,8 +21,13 @@ So ultimately, this form passes back to the component a formState object (which 
 
 - Just checks that all the expected parts of the form are present and can be typed in
 
+### It disables the submit button if all inputs are not valid
+
+- Grabs the submit button and makes sure it's disabled to start
+- Types a couple characters in each form field, then makes sure the submit button is still disabled
+- Types a valid input in each form field, then makes sure the submit button is now enabled
+
 We need to do a lot more testing here, but I'm not sure how. The features I'd like to test are:
 
-- Alerts the user when they've entered an invalid value. The "toBeVisible" check is failing for the .requirements div here because it's not getting display: none turned off
-- Does not submit form with invalid values. I can't figure out how to test if the form was submitted properly because the submit function comes from the custom hook, not a prop
+- Alerts the user when they've entered an invalid value. The "toBeVisible" check is failing for the .requirements div here because it's not getting display: none turned off. I believe this is because jest can't handle the ~ selector in our CSS which accomplishes this
 - I can't figure out how to test the onCompleted and onError callbacks for useMutation

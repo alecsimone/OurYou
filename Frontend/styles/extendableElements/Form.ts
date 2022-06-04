@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { setAlpha } from '@styles/functions/modifyColorFunctions';
 
-const Form = styled.form`
+const StyledForm = styled.form`
   fieldset {
     border: none;
   }
@@ -19,6 +19,10 @@ const Form = styled.form`
     margin: 1.5rem 0;
     border: 1px solid ${(props) => props.theme.coolGrey};
     padding: 1.5rem;
+    width: 100%;
+    &:valid {
+      border: 1px solid ${(props) => setAlpha(props.theme.green, 0.5)};
+    }
     &:invalid:not(:placeholder-shown):not(:focus) {
       margin-top: calc(1.5rem + ${(props) => props.theme.smallText});
       & ~ .requirements {
@@ -39,4 +43,4 @@ const Form = styled.form`
   }
 `;
 
-export default Form;
+export default StyledForm;

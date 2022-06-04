@@ -1,45 +1,22 @@
-import { ApolloError } from '@apollo/client';
 import {
-  useState,
   ChangeEvent,
-  ChangeEventHandler,
   FormEvent,
-  FormEventHandler,
   useEffect,
   useRef,
-  RefObject,
+  useState,
+  ReactNode,
 } from 'react';
-
-interface callBackMutationInterface<formInterface> {
-  (options: {
-    variables: formInterface;
-    onError: (err: ApolloError) => void;
-  }): void;
-}
-
-interface errorTranslatorInterface {
-  (e: ApolloError): ApolloError | { message: string };
-}
-
-interface useFormInterface {
-  <formInterface>(
-    initialState: formInterface,
-    callbackMutation: callBackMutationInterface<formInterface>,
-    errorTranslator: errorTranslatorInterface
-  ): [
-    RefObject<HTMLFormElement>,
-    formInterface,
-    ChangeEventHandler<HTMLInputElement>,
-    boolean,
-    FormEventHandler<HTMLFormElement>,
-    ApolloError | { message: string } | null
-  ];
-}
+import { ApolloError } from '@apollo/client';
+import StyledForm from '@styles/extendableElements/Form';
+import Button from '@styles/extendableElements/Button';
+import Error from '../Error';
+import useFormInterface from './types';
 
 const useForm: useFormInterface = (
   initialState,
   callbackMutation,
-  errorTranslator
+  errorTranslator,
+  submitButtonText = 'Submit'
 ) => {
   // First let's handle the basic form state and our updater.
   const [formState, setFormState] = useState(initialState);
@@ -92,14 +69,26 @@ const useForm: useFormInterface = (
     });
   };
 
-  return [
-    formRef,
-    formState,
-    handleFormUpdate,
-    allInputsValid,
-    submitForm,
-    error,
-  ];
+  // Now we can create our formCreator HOC, which will wrap FormFields and create a form with all our functionality.
+  const formCreator = (children: ReactNode) => (
+    <StyledForm
+      onSubmit={submitForm}
+      ref={formRef}
+    >
+      {error && <Error error={error} />}
+      <fieldset>
+        {children}
+        <Button
+          type="submit"
+          aria-disabled={!allInputsValid}
+        >
+          {submitButtonText}
+        </Button>
+      </fieldset>
+    </StyledForm>
+  );
+
+  return [formState, handleFormUpdate, formCreator];
 };
 
 export default useForm;
