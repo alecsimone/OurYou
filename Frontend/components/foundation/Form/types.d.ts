@@ -1,9 +1,18 @@
 import { ApolloError } from '@apollo/client';
 import { ChangeEventHandler, ReactNode } from 'react';
 
-interface callBackMutationInterface<formInterface> {
+interface logInResponse {
+  authenticateMemberWithPassword: {
+    __typename:
+      | 'MemberAuthenticationWithPasswordSuccess'
+      | 'MemberAuthenticationWithPasswordFailure';
+  };
+}
+
+interface submitMutationInterface<formInterface> {
   (options: {
     variables: formInterface;
+    onCompleted?: (d: any) => void; // This is just for the edge case of the log in mutation, which has a weird response and needs to be handled specially
     onError: (err: ApolloError) => void;
   }): void;
 }
@@ -15,7 +24,7 @@ interface errorTranslatorInterface {
 interface useFormInterface {
   <formInterface>(
     initialState: formInterface,
-    callbackMutation: callBackMutationInterface<formInterface>,
+    callbackMutation: submitMutationInterface<formInterface>,
     errorTranslator?: errorTranslatorInterface,
     submitButtonText?: string
   ): [

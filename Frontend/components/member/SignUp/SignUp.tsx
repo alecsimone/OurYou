@@ -1,3 +1,4 @@
+import cookieWarning from '../cookieWarning';
 import StyledSignUp from './StyledSignUp';
 import useSignUp from './useSignUp';
 
@@ -8,7 +9,12 @@ interface SignUpProps {
 const SignUp = ({ closeModal }: SignUpProps): JSX.Element => {
   const [formCreator, formFields] = useSignUp(closeModal);
 
-  return <StyledSignUp>{formCreator(formFields)}</StyledSignUp>;
+  return (
+    <StyledSignUp>
+      {formCreator(formFields)}
+      <p className="cookieWarning">{cookieWarning}</p>
+    </StyledSignUp>
+  );
 };
 
 export default SignUp;

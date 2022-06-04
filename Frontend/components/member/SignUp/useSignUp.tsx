@@ -24,7 +24,6 @@ const useSignUp = (
     createMemberVariables
   >(SIGN_UP_MUTATION, {
     onCompleted: () => {
-      // setFormState(initialState);
       if (closeModal) {
         closeModal();
       }
@@ -32,12 +31,13 @@ const useSignUp = (
     },
   });
 
-  const [formState, handleFormUpdate, formCreator] = useForm(
-    initialState,
-    createMember,
-    signUpErrorTranslator,
-    'Sign Up'
-  );
+  const [formState, handleFormUpdate, formCreator] =
+    useForm<signUpFormInterface>(
+      initialState,
+      createMember,
+      signUpErrorTranslator,
+      'Sign Up'
+    );
 
   const { displayName, email, password, confirmPassword } = formState;
 
