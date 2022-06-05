@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { gql, useQuery } from '@apollo/client';
 import StyledVerificationPage from '@styles/pageStyles/StyledVerifyPage';
-import ErrorAlert from 'components/foundation/Error/ErrorAlert';
 import runServerSideQueries from 'utils/runServerSideQueries';
+import ErrorAlert from 'components/foundation/Error/ErrorAlert';
 
 const FINISH_SIGNUP_QUERY = gql`
   query FINISH_SIGNUP_QUERY($id: ID!, $code: String!) {
@@ -19,7 +19,6 @@ const VerificationPage = (): JSX.Element => {
   const { query } = router;
   let id;
   let code;
-  console.log(query);
   if (query != null) {
     id = query.id;
     code = query.code;
@@ -61,6 +60,18 @@ const VerificationPage = (): JSX.Element => {
 };
 
 export async function getServerSideProps(context: any) {
+  const { query } = context;
+  if (query && query.id && query.code) {
+    return runServerSideQueries(context, [
+      {
+        query: FINISH_SIGNUP_QUERY,
+        variables: {
+          id: query.id,
+          code: query.code,
+        },
+      },
+    ]);
+  }
   return runServerSideQueries(context);
 }
 
