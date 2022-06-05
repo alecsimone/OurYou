@@ -6,6 +6,8 @@ import {
   select,
   text,
 } from '@keystone-6/core/fields';
+import getRandomString from '../../../utils/getRandomString';
+import sendEmail from '../../../utils/sendEmail';
 import createdAt from '../../common/createdAt';
 import privacy from '../../common/privacy';
 
@@ -99,6 +101,16 @@ const Member = list({
       many: true,
     }),
 
+    verificationToken: text({
+      hooks: {
+        resolveInput({ resolvedData, inputData, operation }) {
+          if (inputData.verificationToken == null && operation === 'create') {
+            return getRandomString(24);
+          }
+          return resolvedData.verificationToken;
+        },
+      },
+    }),
     // verificationToken: String
     // verificationTokenExpiry: Float
 
@@ -137,6 +149,33 @@ const Member = list({
         field: 'role',
         direction: 'ASC',
       },
+    },
+  },
+  hooks: {
+    afterOperation: ({ item, operation, context }) => {
+      // Send out the verification email
+      if (operation === 'create') {
+        if (typeof item.verificationToken !== 'string') {
+          throw new Error('Invalid token');
+        }
+        const emailParams = {
+          domain: process.env.FRONTEND_URL || 'localhost',
+          memberId: item.id.toString(),
+          verificationToken: item.verificationToken,
+        };
+        if (typeof item.email !== 'string') {
+          throw new Error('Invalid email');
+        }
+        if (typeof item.displayName !== 'string') {
+          throw new Error('Invalid name');
+        }
+        sendEmail(
+          [{ email: item.email, name: item.displayName }],
+          1,
+          context,
+          emailParams
+        );
+      }
     },
   },
 });

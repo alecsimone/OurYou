@@ -3,6 +3,9 @@ import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import useForm from 'components/foundation/Form/useForm';
 import FormField from 'components/foundation/Form/FormField';
+import INITIAL_MEMBER_QUERY from 'utils/initialMemberQuery';
+import LOG_IN_MUTATION from '../LogIn/logInMutation';
+import { logInFormStateInterface } from '../LogIn/useLogIn';
 import SIGN_UP_MUTATION from './signUpMutation';
 import { createMemberVariables, signUpFormInterface } from './types';
 import signUpErrorTranslator from './signUpErrorTranslator';
@@ -19,6 +22,17 @@ const useSignUp = (
 ): [(children: ReactNode) => JSX.Element, JSX.Element[]] => {
   const router = useRouter();
 
+  const [logIn] = useMutation<logInFormStateInterface, logInFormStateInterface>(
+    LOG_IN_MUTATION,
+    {
+      refetchQueries: [
+        {
+          query: INITIAL_MEMBER_QUERY,
+        },
+      ],
+    }
+  );
+
   const [createMember] = useMutation<
     createMemberVariables,
     createMemberVariables
@@ -27,7 +41,15 @@ const useSignUp = (
       if (closeModal) {
         closeModal();
       }
-      router.push({ pathname: '/verify' });
+      router.push({ pathname: '/verification' });
+      logIn({
+        variables: {
+          // eslint-disable-next-line no-use-before-define
+          email: formState.email,
+          // eslint-disable-next-line no-use-before-define
+          password: formState.password,
+        },
+      });
     },
   });
 

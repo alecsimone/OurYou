@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { config } from '@keystone-6/core';
 import lists from './lists';
 import { withAuth, session } from './auth';
+import extendGraphqlSchema from './lists/resolvers';
 
 export default withAuth(
   config({
@@ -16,6 +17,7 @@ export default withAuth(
       url: process.env.DATABASE_URL || 'postgres://',
       useMigrations: true,
     },
+    extendGraphqlSchema,
     ui: {
       isAccessAllowed: (context) => !!context.session?.data,
     },

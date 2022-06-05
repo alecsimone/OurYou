@@ -10,6 +10,8 @@ interface logInFormStateInterface {
   password: string;
 }
 
+export type { logInFormStateInterface };
+
 const initialState = {
   email: '',
   password: '',
