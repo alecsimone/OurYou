@@ -3,9 +3,11 @@ import { memberBoxFields } from 'components/foundation/Header/MemberBox/memberBo
 
 const INITIAL_MEMBER_QUERY = gql`
   ${memberBoxFields}
-  query MEMBER_BOX_QUERY {
+  query INITIAL_MEMBER_QUERY {
     authenticatedItem {
       ... on Member {
+        id
+        role
         ...MemberBoxFields
       }
     }

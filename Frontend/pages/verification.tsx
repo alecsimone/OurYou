@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router';
 import { gql, useQuery } from '@apollo/client';
+import { useEffect } from 'react';
 import StyledVerificationPage from '@styles/pageStyles/StyledVerifyPage';
 import runServerSideQueries from 'utils/runServerSideQueries';
 import ErrorAlert from 'components/foundation/Error/ErrorAlert';
+import useMemberData from 'utils/useMemberData';
 
 const FINISH_SIGNUP_QUERY = gql`
   query FINISH_SIGNUP_QUERY($id: ID!, $code: String!) {
@@ -15,6 +17,7 @@ const FINISH_SIGNUP_QUERY = gql`
 // interface VerificationPageProps {}
 
 const VerificationPage = (): JSX.Element => {
+  const { role } = useMemberData('role');
   const router = useRouter();
   const { query } = router;
   let id;
@@ -26,8 +29,27 @@ const VerificationPage = (): JSX.Element => {
 
   const { data, loading, error } = useQuery(FINISH_SIGNUP_QUERY, {
     variables: { id, code },
-    skip: query == null || id == null || code == null,
+    skip:
+      query == null ||
+      id == null ||
+      code == null ||
+      ['Member', 'Moderator', 'Editor', 'Admin'].includes(role),
   });
+
+  useEffect(() => {
+    if (role != null && role !== 'Unverified') {
+      router.push({ pathname: '/' });
+    }
+  }, [role, router]);
+
+  if (role != null && role !== 'Unverified') {
+    return (
+      <StyledVerificationPage>
+        You don&apos;t need to be here. Let&apos;s get you back home, little
+        buddy.
+      </StyledVerificationPage>
+    );
+  }
 
   if (code == null && id == null) {
     return (
@@ -56,7 +78,7 @@ const VerificationPage = (): JSX.Element => {
     return <StyledVerificationPage>Verifying...</StyledVerificationPage>;
   }
 
-  return <StyledVerificationPage>VerifyPage</StyledVerificationPage>;
+  return <StyledVerificationPage>Verification Page</StyledVerificationPage>;
 };
 
 export async function getServerSideProps(context: any) {
