@@ -1,22 +1,26 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import StyledSignUpPage from '@styles/pageStyles/StyledSignUpPage';
-import SignUp from 'components/member/SignUp/SignUp';
+import SignUp from 'components/member/SignUp';
 import runServerSideQueries from 'utils/runServerSideQueries';
 import useMemberData from 'utils/member/useMemberData';
 
 // interface SignUpPageProps {}
 const SignUpPage = (): JSX.Element => {
   const { id } = useMemberData('id');
+  const router = useRouter();
 
   useEffect(() => {
     if (id) {
-      window.location.replace('/');
+      router.push({ pathname: '/' });
     }
   });
 
   if (id) {
     return (
-      <div>You&apos;re already signed up, silly! Let&apos;s get you home.</div>
+      <StyledSignUpPage>
+        You&apos;re already signed up, silly! Let&apos;s get you home.
+      </StyledSignUpPage>
     );
   }
 
