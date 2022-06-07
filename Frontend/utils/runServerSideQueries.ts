@@ -1,5 +1,5 @@
 import { DocumentNode } from 'graphql';
-import INITIAL_MEMBER_QUERY from 'utils/initialMemberQuery';
+import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
 import initializeApollo, {
   saveApolloCacheInPageProps,
 } from './apollo/apolloHandlers';

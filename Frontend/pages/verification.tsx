@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import StyledVerificationPage from '@styles/pageStyles/StyledVerifyPage';
 import runServerSideQueries from 'utils/runServerSideQueries';
 import ErrorAlert from 'components/foundation/Error/ErrorAlert';
-import useMemberData from 'utils/useMemberData';
+import useMemberData from 'utils/member/useMemberData';
 
 const FINISH_SIGNUP_QUERY = gql`
   query FINISH_SIGNUP_QUERY($id: ID!, $code: String!) {

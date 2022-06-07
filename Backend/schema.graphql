@@ -61,6 +61,10 @@ type Query {
   commentsCount(where: CommentWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
+  validateMemberPasswordResetToken(
+    email: String!
+    token: String!
+  ): ValidateMemberPasswordResetTokenResult
 }
 
 type Member {
@@ -109,6 +113,9 @@ type Member {
   ): [Connection!]
   createdConnectionsCount(where: ConnectionWhereInput! = {}): Int
   createdAt: DateTime
+  passwordResetToken: PasswordState
+  passwordResetIssuedAt: DateTime
+  passwordResetRedeemedAt: DateTime
 }
 
 type PasswordState {
@@ -143,6 +150,9 @@ input MemberWhereInput {
   verificationToken: StringFilter
   createdConnections: ConnectionManyRelationFilter
   createdAt: DateTimeNullableFilter
+  passwordResetToken: PasswordFilter
+  passwordResetIssuedAt: DateTimeNullableFilter
+  passwordResetRedeemedAt: DateTimeNullableFilter
 }
 
 input IDFilter {
@@ -256,6 +266,8 @@ input MemberOrderByInput {
   defaultPrivacy: OrderDirection
   verificationToken: OrderDirection
   createdAt: OrderDirection
+  passwordResetIssuedAt: OrderDirection
+  passwordResetRedeemedAt: OrderDirection
 }
 
 enum OrderDirection {
@@ -278,6 +290,9 @@ input MemberUpdateInput {
   verificationToken: String
   createdConnections: ConnectionRelateToManyForUpdateInput
   createdAt: DateTime
+  passwordResetToken: String
+  passwordResetIssuedAt: DateTime
+  passwordResetRedeemedAt: DateTime
 }
 
 input VoteRelateToManyForUpdateInput {
@@ -335,6 +350,9 @@ input MemberCreateInput {
   verificationToken: String
   createdConnections: ConnectionRelateToManyForCreateInput
   createdAt: DateTime
+  passwordResetToken: String
+  passwordResetIssuedAt: DateTime
+  passwordResetRedeemedAt: DateTime
 }
 
 input VoteRelateToManyForCreateInput {
@@ -1029,6 +1047,12 @@ type Mutation {
   createInitialMember(
     data: CreateInitialMemberInput!
   ): MemberAuthenticationWithPasswordSuccess!
+  sendMemberPasswordResetLink(email: String!): Boolean!
+  redeemMemberPasswordResetToken(
+    email: String!
+    token: String!
+    password: String!
+  ): RedeemMemberPasswordResetTokenResult
 }
 
 union MemberAuthenticationWithPasswordResult =
@@ -1050,7 +1074,23 @@ input CreateInitialMemberInput {
   password: String
 }
 
+type RedeemMemberPasswordResetTokenResult {
+  code: PasswordResetRedemptionErrorCode!
+  message: String!
+}
+
+enum PasswordResetRedemptionErrorCode {
+  FAILURE
+  TOKEN_EXPIRED
+  TOKEN_REDEEMED
+}
+
 union AuthenticatedItem = Member
+
+type ValidateMemberPasswordResetTokenResult {
+  code: PasswordResetRedemptionErrorCode!
+  message: String!
+}
 
 type KeystoneMeta {
   adminMeta: KeystoneAdminMeta!

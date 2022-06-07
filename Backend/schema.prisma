@@ -12,21 +12,24 @@ generator client {
 }
 
 model Member {
-  id                 String       @id @default(cuid())
-  email              String       @unique @default("")
-  displayName        String       @unique @default("")
-  avatar             String       @default("")
-  password           String?
-  role               String       @default("Unverified")
-  rep                Int?         @default(0)
-  defaultPrivacy     String       @default("Friends")
-  votes              Vote[]       @relation("Vote_voter")
-  createdThings      Thing[]      @relation("Thing_author")
-  ownedTags          Tag[]        @relation("Tag_author")
-  comments           Comment[]    @relation("Comment_author")
-  verificationToken  String       @default("")
-  createdConnections Connection[] @relation("Connection_creator")
-  createdAt          DateTime?    @default(now())
+  id                      String       @id @default(cuid())
+  email                   String       @unique @default("")
+  displayName             String       @unique @default("")
+  avatar                  String       @default("")
+  password                String?
+  role                    String       @default("Unverified")
+  rep                     Int?         @default(0)
+  defaultPrivacy          String       @default("Friends")
+  votes                   Vote[]       @relation("Vote_voter")
+  createdThings           Thing[]      @relation("Thing_author")
+  ownedTags               Tag[]        @relation("Tag_author")
+  comments                Comment[]    @relation("Comment_author")
+  verificationToken       String       @default("")
+  createdConnections      Connection[] @relation("Connection_creator")
+  createdAt               DateTime?    @default(now())
+  passwordResetToken      String?
+  passwordResetIssuedAt   DateTime?
+  passwordResetRedeemedAt DateTime?
 }
 
 model Thing {

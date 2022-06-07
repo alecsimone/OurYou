@@ -59,19 +59,6 @@ const useForm: useFormInterface = (
 
     submitMutation({
       variables: formState,
-      onCompleted: (d) => {
-        // The response to the log in mutation is weird, so we have to handle it specially here
-        if (
-          d?.authenticateMemberWithPassword?.__typename ===
-          'MemberAuthenticationWithPasswordFailure'
-        ) {
-          setError({
-            message: 'No member found for that email and password combination',
-          });
-        } else {
-          setFormState(initialState);
-        }
-      },
       onError: (err) => {
         if (errorTranslator) {
           setError(errorTranslator(err));

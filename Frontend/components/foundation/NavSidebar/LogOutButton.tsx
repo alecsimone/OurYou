@@ -5,7 +5,7 @@ import { useState } from 'react';
 import FunctionalIcon from '@icons/FunctionalIcon';
 import X from '@icons/X';
 import Button from '@styles/extendableElements/Button';
-import INITIAL_MEMBER_QUERY from 'utils/initialMemberQuery';
+import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
 import ErrorAlert from '../Error/ErrorAlert';
 
 const StyledLogOutButton = styled(Button)`

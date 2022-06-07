@@ -1,21 +1,20 @@
-import { useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import StyledSignUpPage from '@styles/pageStyles/StyledSignUpPage';
 import SignUp from 'components/member/SignUp/SignUp';
-import INITIAL_MEMBER_QUERY from 'utils/initialMemberQuery';
 import runServerSideQueries from 'utils/runServerSideQueries';
+import useMemberData from 'utils/member/useMemberData';
 
 // interface SignUpPageProps {}
 const SignUpPage = (): JSX.Element => {
-  const { data } = useQuery(INITIAL_MEMBER_QUERY);
+  const { id } = useMemberData('id');
 
   useEffect(() => {
-    if (data && data.authenticatedItem) {
+    if (id) {
       window.location.replace('/');
     }
   });
 
-  if (data && data.authenticatedItem) {
+  if (id) {
     return (
       <div>You&apos;re already signed up, silly! Let&apos;s get you home.</div>
     );

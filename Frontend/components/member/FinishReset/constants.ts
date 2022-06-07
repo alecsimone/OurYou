@@ -1,0 +1,14 @@
+import { logInResult } from '../LogIn/useLogIn';
+
+const resetFailed =
+  'Reset failed. Please check that you entered the correct email address, and make sure you came here through the link in your password reset email.';
+export { resetFailed };
+
+const expiredToken =
+  'Your token has expired. Please begin the reset process again.';
+export { expiredToken };
+
+const didLoginWork = (logInData: logInResult) =>
+  logInData?.authenticateMemberWithPassword?.__typename ===
+  'MemberAuthenticationWithPasswordSuccess';
+export { didLoginWork };

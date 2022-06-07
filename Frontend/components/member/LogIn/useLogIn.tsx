@@ -1,24 +1,43 @@
 import { useMutation } from '@apollo/client';
-import { ReactNode } from 'react';
-import FormField from 'components/foundation/Form/FormField';
+import { ReactNode, useState } from 'react';
 import useForm from 'components/foundation/Form/useForm';
-import INITIAL_MEMBER_QUERY from 'utils/initialMemberQuery';
+import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
+import {
+  makeEmailField,
+  makePasswordField,
+} from 'components/foundation/Form/fieldGenerators';
 import LOG_IN_MUTATION from './logInMutation';
 
 interface logInFormStateInterface {
   email: string;
   password: string;
 }
-
 export type { logInFormStateInterface };
+
+interface logInResult {
+  authenticateMemberWithPassword: {
+    __typename:
+      | 'MemberAuthenticationWithPasswordFailure'
+      | 'MemberAuthenticationWithPasswordSuccess';
+  };
+}
+export type { logInResult };
 
 const initialState = {
   email: '',
   password: '',
 };
 
-const useLogIn = (): [(children: ReactNode) => JSX.Element, JSX.Element[]] => {
-  const [logIn] = useMutation<logInFormStateInterface, logInFormStateInterface>(
+const useLogIn = (): [
+  (children: ReactNode) => JSX.Element,
+  JSX.Element[],
+  { message: string } | null
+] => {
+  const [logInError, setLogInError] = useState<{ message: string } | null>(
+    null
+  );
+
+  const [logIn] = useMutation<logInResult, logInFormStateInterface>(
     LOG_IN_MUTATION,
     {
       refetchQueries: [
@@ -26,6 +45,16 @@ const useLogIn = (): [(children: ReactNode) => JSX.Element, JSX.Element[]] => {
           query: INITIAL_MEMBER_QUERY,
         },
       ],
+      onCompleted: (d) => {
+        if (
+          d?.authenticateMemberWithPassword?.__typename ===
+          'MemberAuthenticationWithPasswordFailure'
+        ) {
+          setLogInError({
+            message: 'No member found for that email and password combination',
+          });
+        }
+      },
     }
   );
 
@@ -34,42 +63,12 @@ const useLogIn = (): [(children: ReactNode) => JSX.Element, JSX.Element[]] => {
 
   const { email, password } = formState;
 
-  const emailField = (
-    <FormField
-      key="email"
-      fieldType="input"
-      requirements="Must be a valid email address"
-      fieldProps={{
-        type: 'email',
-        name: 'email',
-        placeholder: 'Email',
-        value: email,
-        onChange: handleFormUpdate,
-        required: true,
-      }}
-    />
-  );
+  const formFields = [
+    makeEmailField(email, handleFormUpdate),
+    makePasswordField(password, handleFormUpdate),
+  ];
 
-  const passwordField = (
-    <FormField
-      key="password"
-      fieldType="input"
-      requirements="Password must be at least 8 characters long"
-      fieldProps={{
-        type: 'password',
-        name: 'password',
-        placeholder: 'Password',
-        value: password,
-        onChange: handleFormUpdate,
-        required: true,
-        minLength: 8,
-      }}
-    />
-  );
-
-  const formFields = [emailField, passwordField];
-
-  return [formCreator, formFields];
+  return [formCreator, formFields, logInError];
 };
 
 export default useLogIn;

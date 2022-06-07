@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { createAuth } from '@keystone-6/auth';
 import { statelessSessions } from '@keystone-6/core/session';
+import sendEmail from '../utils/sendEmail';
 
 let sessionSecret = process.env.SESSION_SECRET;
 
@@ -28,6 +29,21 @@ const { withAuth } = createAuth({
     // If there are no items in the database, keystone will ask you to create
     // a new user, filling in these fields.
     fields: ['displayName', 'email', 'password'],
+  },
+  passwordResetLink: {
+    sendToken: ({ identity, token, context }) => {
+      const emailParams = {
+        domain: process.env.FRONTEND_URL || 'localhost',
+        resetToken: token,
+      };
+      sendEmail(
+        [{ email: identity, name: 'Ouryou Member' }],
+        13,
+        context,
+        emailParams
+      );
+    },
+    tokensValidForMins: 120,
   },
 });
 
