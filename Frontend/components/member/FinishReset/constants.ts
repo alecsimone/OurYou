@@ -8,6 +8,10 @@ const expiredToken =
   'Your token has expired. Please begin the reset process again.';
 export { expiredToken };
 
+const redeemedToken =
+  'That token has already been redeemed. Did you reset your password already?';
+export { redeemedToken };
+
 const didLoginWork = (logInData: logInResult) =>
   logInData?.authenticateMemberWithPassword?.__typename ===
   'MemberAuthenticationWithPasswordSuccess';

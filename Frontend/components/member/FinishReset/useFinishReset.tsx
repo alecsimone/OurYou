@@ -14,7 +14,7 @@ import {
   useFinishResetInterface,
 } from './types';
 import RESET_PASSWORD_MUTATION from './resetPasswordMutation';
-import { expiredToken, resetFailed } from './constants';
+import { expiredToken, redeemedToken, resetFailed } from './constants';
 import getResetCode from './getResetCode';
 import useLogInForCallback from './useLogInForCallback';
 
@@ -61,6 +61,10 @@ const useFinishReset: useFinishResetInterface = () => {
         } else if (d.redeemMemberPasswordResetToken.code === 'TOKEN_EXPIRED') {
           setResetError({
             message: expiredToken,
+          });
+        } else if (d.redeemMemberPasswordResetToken.code === 'TOKEN_REDEEMED') {
+          setResetError({
+            message: redeemedToken,
           });
         }
       },
