@@ -2,7 +2,6 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useForm from 'components/foundation/Form/useForm';
-import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
 import {
   makeConfirmPasswordField,
   makeEmailField,
@@ -45,13 +44,9 @@ const useFinishReset: useFinishResetInterface = () => {
       variables: {
         code,
       },
-      refetchQueries: [
-        {
-          query: INITIAL_MEMBER_QUERY,
-        },
-      ],
       onCompleted: (d) => {
         if (d.redeemMemberPasswordResetToken == null) {
+          // If the reset is successful, the redeemMemberPasswordResetToken object will be null. In that case, we want to log in with the email and password the user just provided. This has to be done in the onCompleted callback so that the password will have already been changed.
           logIn({
             variables: {
               email,
@@ -59,6 +54,7 @@ const useFinishReset: useFinishResetInterface = () => {
             },
           });
         } else if (d.redeemMemberPasswordResetToken.code === 'FAILURE') {
+          // If the reset was not successful, we get an error code, which we'll translate for the user
           setResetError({
             message: resetFailed,
           });

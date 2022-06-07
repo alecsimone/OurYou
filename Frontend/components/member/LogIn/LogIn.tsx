@@ -20,7 +20,7 @@ const LogIn = (): JSX.Element => {
           className="back"
           onClick={() => setShowingReset(false)}
         >
-          back
+          go back to log in
         </Button>
       </StyledSignUp>
     );

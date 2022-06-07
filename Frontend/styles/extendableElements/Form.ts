@@ -3,7 +3,9 @@ import { setAlpha } from '@styles/functions/modifyColorFunctions';
 
 const StyledForm = styled.form`
   fieldset {
+    margin: 0;
     border: none;
+    padding: 0;
   }
   .inputWrapper {
     position: relative;
