@@ -3,15 +3,16 @@ import { useRouter } from 'next/router';
 import { SetStateAction } from 'react';
 import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
 import LOG_IN_MUTATION from '../LogIn/logInMutation';
-import { logInFormStateInterface, logInResult } from '../LogIn/useLogIn';
+import { logInFormStateInterface, logInResult } from '../LogIn/types';
 import { didLoginWork } from './constants';
 
 const useLogInForCallback = (
-  setResetError: (
+  setError: (
     value: SetStateAction<{
       message: string;
     } | null>
-  ) => void
+  ) => void,
+  redirect: boolean = true
 ) => {
   const router = useRouter();
 
@@ -20,9 +21,11 @@ const useLogInForCallback = (
     {
       onCompleted: (logInData) => {
         if (didLoginWork(logInData)) {
-          router.push({ pathname: '/' });
+          if (redirect) {
+            router.push({ pathname: '/' });
+          }
         } else {
-          setResetError({
+          setError({
             message: 'Log In failed',
           });
         }

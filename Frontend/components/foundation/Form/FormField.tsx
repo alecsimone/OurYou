@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import Input from '@styles/extendableElements/Input';
 import Error from '../Error';
 
@@ -27,9 +27,22 @@ const FormField = ({
 }: FormFieldProps): JSX.Element => {
   let formElement;
 
+  const fieldRef = useRef<HTMLInputElement>(null);
+  const [isValid, setIsValid] = useState(true);
+
+  useEffect(() => {
+    if (fieldRef.current == null) return;
+    if (fieldProps.value && !fieldRef.current.checkValidity()) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  }, [fieldProps.value]);
+
   if (fieldType === 'input') {
     formElement = (
       <Input
+        ref={fieldRef}
         title={requirements}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...fieldProps}
@@ -42,7 +55,7 @@ const FormField = ({
   return (
     <div className="inputWrapper">
       {formElement}
-      {requirements != null && (
+      {requirements != null && !isValid && (
         <div className="requirements">{requirements}</div>
       )}
     </div>

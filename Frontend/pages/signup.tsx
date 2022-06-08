@@ -1,22 +1,13 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import StyledSignUpPage from '@styles/pageStyles/StyledSignUpPage';
 import SignUp from 'components/member/SignUp';
 import runServerSideQueries from 'utils/runServerSideQueries';
-import useMemberData from 'utils/member/useMemberData';
+import useSendLoggedInMembersHome from 'utils/member/useSendLoggedInMembersHome';
 
 // interface SignUpPageProps {}
 const SignUpPage = (): JSX.Element => {
-  const { id } = useMemberData('id');
-  const router = useRouter();
+  const isLoggedIn = useSendLoggedInMembersHome();
 
-  useEffect(() => {
-    if (id) {
-      router.push({ pathname: '/' });
-    }
-  });
-
-  if (id) {
+  if (isLoggedIn) {
     return (
       <StyledSignUpPage>
         You&apos;re already signed up, silly! Let&apos;s get you home.

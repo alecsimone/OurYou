@@ -4,6 +4,7 @@ import {
   MutationFunctionOptions,
   DefaultContext,
 } from '@apollo/client';
+import { ReactNode } from 'react';
 
 interface signUpFormInterface {
   displayName: string;
@@ -19,6 +20,15 @@ interface createMemberVariables {
   password: string;
 }
 export type { createMemberVariables };
+
+interface useSignUpInterface {
+  (closeModal: (() => void) | undefined): [
+    (children: ReactNode) => JSX.Element,
+    JSX.Element[],
+    { message: string } | null
+  ];
+}
+export type { useSignUpInterface };
 
 type createMemberMutateType = (
   options?:

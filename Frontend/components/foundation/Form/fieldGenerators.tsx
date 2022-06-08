@@ -19,6 +19,7 @@ const makeDisplayNameField: fieldGenerator = (value, onChange) => (
       maxLength: 24,
       value,
       onChange,
+      pattern: '.{3,24}',
     }}
   />
 );
@@ -56,6 +57,7 @@ const makePasswordField: fieldGenerator = (value, onChange) => (
       onChange,
       required: true,
       minLength: 8,
+      pattern: '.{8,}',
     }}
   />
 );

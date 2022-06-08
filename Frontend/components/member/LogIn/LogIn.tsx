@@ -28,8 +28,8 @@ const LogIn = (): JSX.Element => {
 
   return (
     <StyledSignUp>
-      {formCreator(formFields)}
       {logInError && <Error error={logInError} />}
+      {formCreator(formFields)}
       <Button
         className="resetPassword"
         onClick={() => setShowingReset(true)}

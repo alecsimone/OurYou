@@ -1,4 +1,4 @@
-import { logInResult } from '../LogIn/useLogIn';
+import { logInResult } from '../LogIn/types';
 
 const resetFailed =
   'Reset failed. Please check that you entered the correct email address, and make sure you came here through the link in your password reset email.';

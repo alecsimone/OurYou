@@ -5,7 +5,7 @@ import {
   FetchResult,
 } from '@apollo/client';
 import { ReactNode } from 'react';
-import { logInFormStateInterface, logInResult } from '../LogIn/useLogIn';
+import { logInFormStateInterface, logInResult } from '../LogIn/types';
 
 interface finishResetInterface {
   email: string;

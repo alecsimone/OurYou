@@ -1,18 +1,20 @@
 import { useMutation } from '@apollo/client';
-import { ReactNode } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import useForm from 'components/foundation/Form/useForm';
-import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
 import {
   makeConfirmPasswordField,
   makeDisplayNameField,
   makeEmailField,
   makePasswordField,
 } from 'components/foundation/Form/fieldGenerators';
-import LOG_IN_MUTATION from '../LogIn/logInMutation';
-import { logInFormStateInterface } from '../LogIn/useLogIn';
+import useLogInForCallback from '../FinishReset/useLogInForCallback';
 import SIGN_UP_MUTATION from './signUpMutation';
-import { createMemberVariables, signUpFormInterface } from './types';
+import {
+  createMemberVariables,
+  signUpFormInterface,
+  useSignUpInterface,
+} from './types';
 import signUpErrorTranslator from './signUpErrorTranslator';
 
 const initialState: signUpFormInterface = {
@@ -22,21 +24,13 @@ const initialState: signUpFormInterface = {
   confirmPassword: '',
 };
 
-const useSignUp = (
-  closeModal: (() => void) | undefined
-): [(children: ReactNode) => JSX.Element, JSX.Element[]] => {
+const useSignUp: useSignUpInterface = (closeModal) => {
+  const [signUpError, setSignUpError] = useState<{ message: string } | null>(
+    null
+  );
   const router = useRouter();
 
-  const [logIn] = useMutation<logInFormStateInterface, logInFormStateInterface>(
-    LOG_IN_MUTATION,
-    {
-      refetchQueries: [
-        {
-          query: INITIAL_MEMBER_QUERY,
-        },
-      ],
-    }
-  );
+  const logIn = useLogInForCallback(setSignUpError, false);
 
   const [createMember] = useMutation<
     createMemberVariables,
@@ -75,7 +69,7 @@ const useSignUp = (
     makeConfirmPasswordField(confirmPassword, handleFormUpdate, password),
   ];
 
-  return [formCreator, formFields];
+  return [formCreator, formFields, signUpError];
 };
 
 export default useSignUp;

@@ -9,9 +9,14 @@ const StyledForm = styled.form`
   }
   .inputWrapper {
     position: relative;
+    &:focus-within {
+      .requirements {
+        display: none;
+      }
+    }
   }
   .requirements {
-    display: none;
+    /* display: none; */
     position: absolute;
     top: 0;
     color: ${(props) => setAlpha(props.theme.red, 0.75)};
@@ -27,9 +32,9 @@ const StyledForm = styled.form`
     }
     &:invalid:not(:placeholder-shown):not(:focus) {
       margin-top: calc(1.5rem + ${(props) => props.theme.smallText});
-      & ~ .requirements {
+      /* & ~ .requirements {
         display: block;
-      }
+      } */
     }
   }
   button[type='submit'] {

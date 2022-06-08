@@ -6,24 +6,11 @@ import {
   makeEmailField,
   makePasswordField,
 } from 'components/foundation/Form/fieldGenerators';
+import { didLoginWork } from '../FinishReset/constants';
 import LOG_IN_MUTATION from './logInMutation';
+import { logInFormStateInterface, logInResult } from './types';
 
-interface logInFormStateInterface {
-  email: string;
-  password: string;
-}
-export type { logInFormStateInterface };
-
-interface logInResult {
-  authenticateMemberWithPassword: {
-    __typename:
-      | 'MemberAuthenticationWithPasswordFailure'
-      | 'MemberAuthenticationWithPasswordSuccess';
-  };
-}
-export type { logInResult };
-
-const initialState = {
+const initialState: logInFormStateInterface = {
   email: '',
   password: '',
 };
@@ -46,10 +33,7 @@ const useLogIn = (): [
         },
       ],
       onCompleted: (d) => {
-        if (
-          d?.authenticateMemberWithPassword?.__typename ===
-          'MemberAuthenticationWithPasswordFailure'
-        ) {
+        if (!didLoginWork(d)) {
           setLogInError({
             message: 'No member found for that email and password combination',
           });
