@@ -7,6 +7,13 @@ const StyledForm = styled.form`
     border: none;
     padding: 0;
   }
+  .requirements {
+    /* display: none; */
+    position: absolute;
+    top: 0;
+    color: ${(props) => setAlpha(props.theme.red, 0.75)};
+    font-weight: bold;
+  }
   .inputWrapper {
     position: relative;
     &:focus-within {
@@ -14,13 +21,6 @@ const StyledForm = styled.form`
         display: none;
       }
     }
-  }
-  .requirements {
-    /* display: none; */
-    position: absolute;
-    top: 0;
-    color: ${(props) => setAlpha(props.theme.red, 0.75)};
-    font-weight: bold;
   }
   input {
     margin: 1.5rem 0;

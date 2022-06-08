@@ -9,8 +9,12 @@ import useLogIn from './useLogIn';
 // interface LogInProps {}
 
 const LogIn = (): JSX.Element => {
-  const [formCreator, formFields, logInError] = useLogIn();
+  const [formCreator, formFields, logInSuccess, logInError] = useLogIn();
   const [showingReset, setShowingReset] = useState(false);
+
+  if (logInSuccess) {
+    return <StyledSignUp>You are now logged in!</StyledSignUp>;
+  }
 
   if (showingReset) {
     return (

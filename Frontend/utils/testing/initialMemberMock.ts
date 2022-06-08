@@ -16,6 +16,8 @@ const initialMemberMock = [
       data: {
         authenticatedItem: {
           __typename: 'Member',
+          id: '123',
+          role: 'Member',
           displayName: mockDisplayName,
           rep: mockRep,
           avatar: mockAvatar,
@@ -36,6 +38,8 @@ const avatarlessMemberMock = [
       data: {
         authenticatedItem: {
           __typename: 'Member',
+          id: '123',
+          role: 'Member',
           displayName: mockDisplayName,
           rep: mockRep,
           avatar: '',

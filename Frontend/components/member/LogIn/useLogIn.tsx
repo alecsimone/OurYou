@@ -18,11 +18,13 @@ const initialState: logInFormStateInterface = {
 const useLogIn = (): [
   (children: ReactNode) => JSX.Element,
   JSX.Element[],
+  boolean,
   { message: string } | null
 ] => {
   const [logInError, setLogInError] = useState<{ message: string } | null>(
     null
   );
+  const [logInSuccess, setLogInSuccess] = useState(false);
 
   const [logIn] = useMutation<logInResult, logInFormStateInterface>(
     LOG_IN_MUTATION,
@@ -33,7 +35,9 @@ const useLogIn = (): [
         },
       ],
       onCompleted: (d) => {
-        if (!didLoginWork(d)) {
+        if (didLoginWork(d)) {
+          setLogInSuccess(true);
+        } else {
           setLogInError({
             message: 'No member found for that email and password combination',
           });
@@ -52,7 +56,7 @@ const useLogIn = (): [
     makePasswordField(password, handleFormUpdate),
   ];
 
-  return [formCreator, formFields, logInError];
+  return [formCreator, formFields, logInSuccess, logInError];
 };
 
 export default useLogIn;

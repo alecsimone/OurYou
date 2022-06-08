@@ -14,16 +14,27 @@ This hook handles the following functionality:
 
 So basically, this hook sets up initial state and a submit callback for the form, then sets up all the fields the form will have, and returns a formCreator HOC as well as the formFields which will go in it.
 
-Please note: Keystone.js's log in mutation is weird in that it fails successfully. That is, when you provide invalid credentials, the mutation successfully completes, but the data returned indicates that the log in failed. This requires special handling, but that handling has to be done within the useForm hook so that it has access to the setError function. Thus the handling for a failed log in is hard coded into the useForm hook. This is an unsatisfying way of handling that, but it's the best I was able to come up with so far.
-
 ## [Features](LogIn.test.tsx)
 
 ### It renders the necessary form fields and lets the user type in them
 
 - Just checks that all the expected parts of the form are present and can be typed in
 
-### It disables the submit button if all inputs are not valid
+### It disables the submit button if all inputs are not valid and tells the user why
 
 - Grabs the submit button and makes sure it's disabled to start
 - Types a couple characters in each form field, then makes sure the submit button is still disabled
+- Checks that the requirement text is shown explaining why the input is invalid
 - Types a valid input in each form field, then makes sure the submit button is now enabled
+
+### It alerts the user when they enter an invalid login
+
+- Enters valid inputs into the email and password fields, then triggers the submit button
+- MockedProvider gets an error response
+- Looks for the error message that should be displayed to the user and expects it to be in the document
+
+### It logs in the user when they enter a valid login
+
+- Enters valid inputs to the email and password fields, then triggers the submit button
+- MockedProvider gets a success response
+- Checks for the log in success message
