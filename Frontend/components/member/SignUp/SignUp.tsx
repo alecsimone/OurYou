@@ -12,7 +12,7 @@ const SignUp = ({ closeModal }: SignUpProps): JSX.Element => {
 
   return (
     <StyledSignUp>
-      {signUpError && <Error error={signUpError} />}
+      <Error error={signUpError} />
       {form}
       <p className="cookieWarning">{cookieWarning}</p>
     </StyledSignUp>

@@ -14,7 +14,7 @@ const FinishReset = (): JSX.Element => {
   return (
     <StyledFinishReset>
       <h3>Reset Password</h3>
-      {resetError && <Error error={resetError} />}
+      <Error error={resetError} />
       {form}
     </StyledFinishReset>
   );

@@ -75,7 +75,7 @@ const useForm: useFormInterface = (
       onSubmit={submitForm}
       ref={formRef}
     >
-      {error && <Error error={error} />}
+      <Error error={error} />
       <fieldset>
         {children}
         <Button

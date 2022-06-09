@@ -32,7 +32,7 @@ const LogIn = (): JSX.Element => {
 
   return (
     <StyledSignUp>
-      {logInError && <Error error={logInError} />}
+      <Error error={logInError} />
       {form}
       <Button
         className="resetPassword"
