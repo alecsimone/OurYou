@@ -99,9 +99,10 @@ const useFinishReset: useFinishResetInterface = () => {
     makeConfirmPasswordField(confirmPassword, handleFormUpdate, password),
   ];
 
+  // And put together our form
   const form = formCreator(formFields);
 
-  // Send back our form and error message state
+  // Send back our form and our success and error message states
   return [form, resetSuccess, resetError];
 };
 
