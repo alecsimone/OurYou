@@ -8,6 +8,7 @@ const REQUEST_RESET_MUTATION = gql`
     sendMemberPasswordResetLink(email: $email)
   }
 `;
+export { REQUEST_RESET_MUTATION };
 
 const useRequestReset = (): [
   (children: ReactNode) => JSX.Element,
