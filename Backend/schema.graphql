@@ -3,6 +3,7 @@
 
 type Query {
   verifyMember(id: ID!, code: String!): Member
+  getProfileSidebarData(id: ID): Member
   members(
     where: MemberWhereInput! = {}
     orderBy: [MemberOrderByInput!]! = []
@@ -75,7 +76,9 @@ type Member {
   password: PasswordState
   role: String
   rep: Int
+  giveableRep: Int
   defaultPrivacy: String
+  twitchName: String
   votes(
     where: VoteWhereInput! = {}
     orderBy: [VoteOrderByInput!]! = []
@@ -105,6 +108,7 @@ type Member {
   ): [Comment!]
   commentsCount(where: CommentWhereInput! = {}): Int
   verificationToken: String
+  twitterUserName: String
   createdConnections(
     where: ConnectionWhereInput! = {}
     orderBy: [ConnectionOrderByInput!]! = []
@@ -142,12 +146,15 @@ input MemberWhereInput {
   password: PasswordFilter
   role: StringFilter
   rep: IntNullableFilter
+  giveableRep: IntNullableFilter
   defaultPrivacy: StringFilter
+  twitchName: StringFilter
   votes: VoteManyRelationFilter
   createdThings: ThingManyRelationFilter
   ownedTags: TagManyRelationFilter
   comments: CommentManyRelationFilter
   verificationToken: StringFilter
+  twitterUserName: StringFilter
   createdConnections: ConnectionManyRelationFilter
   createdAt: DateTimeNullableFilter
   passwordResetToken: PasswordFilter
@@ -263,8 +270,11 @@ input MemberOrderByInput {
   avatar: OrderDirection
   role: OrderDirection
   rep: OrderDirection
+  giveableRep: OrderDirection
   defaultPrivacy: OrderDirection
+  twitchName: OrderDirection
   verificationToken: OrderDirection
+  twitterUserName: OrderDirection
   createdAt: OrderDirection
   passwordResetIssuedAt: OrderDirection
   passwordResetRedeemedAt: OrderDirection
@@ -282,12 +292,15 @@ input MemberUpdateInput {
   password: String
   role: String
   rep: Int
+  giveableRep: Int
   defaultPrivacy: String
+  twitchName: String
   votes: VoteRelateToManyForUpdateInput
   createdThings: ThingRelateToManyForUpdateInput
   ownedTags: TagRelateToManyForUpdateInput
   comments: CommentRelateToManyForUpdateInput
   verificationToken: String
+  twitterUserName: String
   createdConnections: ConnectionRelateToManyForUpdateInput
   createdAt: DateTime
   passwordResetToken: String
@@ -342,12 +355,15 @@ input MemberCreateInput {
   password: String
   role: String
   rep: Int
+  giveableRep: Int
   defaultPrivacy: String
+  twitchName: String
   votes: VoteRelateToManyForCreateInput
   createdThings: ThingRelateToManyForCreateInput
   ownedTags: TagRelateToManyForCreateInput
   comments: CommentRelateToManyForCreateInput
   verificationToken: String
+  twitterUserName: String
   createdConnections: ConnectionRelateToManyForCreateInput
   createdAt: DateTime
   passwordResetToken: String

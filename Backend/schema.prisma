@@ -19,12 +19,15 @@ model Member {
   password                String?
   role                    String       @default("Unverified")
   rep                     Int?         @default(0)
+  giveableRep             Int?         @default(0)
   defaultPrivacy          String       @default("Friends")
+  twitchName              String       @default("")
   votes                   Vote[]       @relation("Vote_voter")
   createdThings           Thing[]      @relation("Thing_author")
   ownedTags               Tag[]        @relation("Tag_author")
   comments                Comment[]    @relation("Comment_author")
   verificationToken       String       @default("")
+  twitterUserName         String       @default("")
   createdConnections      Connection[] @relation("Connection_creator")
   createdAt               DateTime?    @default(now())
   passwordResetToken      String?

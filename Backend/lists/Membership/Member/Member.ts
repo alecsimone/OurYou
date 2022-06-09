@@ -55,7 +55,13 @@ const Member = list({
       },
     }),
     // points: Int! @default(value: 0)
-    // giveableRep: Int! @default(value: 0)
+    giveableRep: integer({
+      defaultValue: 0,
+      validation: {
+        min: 0,
+        max: 500,
+      },
+    }),
 
     // color: String
     defaultPrivacy: privacy,
@@ -65,7 +71,7 @@ const Member = list({
     // friendRequests: [Member] @relation(name:"FriendRequests")
     // ignoredFriendRequests: [Member] @relation(name:"IgnoredFriendRequests")
 
-    // twitchName: String
+    twitchName: text(),
 
     votes: relationship({
       ref: 'Vote.voter',
@@ -114,7 +120,7 @@ const Member = list({
     // verificationToken: String
     // verificationTokenExpiry: Float
 
-    // twitterUserName: String
+    twitterUserName: text(),
     // twitterListsObject: String
     // twitterSeenIDs: [String] @scalarList(strategy: RELATION)
     // twitterUserID: String
