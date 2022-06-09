@@ -3,7 +3,7 @@
 import useRequestReset from './useRequestReset';
 
 const RequestReset = (): JSX.Element => {
-  const [formCreator, formFields, resetRequested] = useRequestReset();
+  const [form, resetRequested] = useRequestReset();
 
   if (resetRequested) {
     return (
@@ -13,7 +13,7 @@ const RequestReset = (): JSX.Element => {
     );
   }
 
-  return formCreator(formFields);
+  return form;
 };
 
 export default RequestReset;

@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import useForm from 'components/foundation/Form/useForm';
 import { makeEmailField } from 'components/foundation/Form/fieldGenerators';
@@ -10,11 +10,7 @@ const REQUEST_RESET_MUTATION = gql`
 `;
 export { REQUEST_RESET_MUTATION };
 
-const useRequestReset = (): [
-  (children: ReactNode) => JSX.Element,
-  JSX.Element[],
-  boolean
-] => {
+const useRequestReset = (): [JSX.Element, boolean] => {
   // Confirmation state to let the user know their reset has been initiated
   const [resetRequested, setResetRequested] = useState(false);
 
@@ -36,8 +32,10 @@ const useRequestReset = (): [
   // And our form fields
   const formFields = [makeEmailField(formState.email, handleFormUpdate)];
 
+  const form = formCreator(formFields);
+
   // Send back the form pieces and the confirmation state
-  return [formCreator, formFields, resetRequested];
+  return [form, resetRequested];
 };
 
 export default useRequestReset;

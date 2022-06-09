@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import useForm from 'components/foundation/Form/useForm';
 import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
 import {
@@ -15,12 +15,7 @@ const initialState: logInFormStateInterface = {
   password: '',
 };
 
-const useLogIn = (): [
-  (children: ReactNode) => JSX.Element,
-  JSX.Element[],
-  boolean,
-  { message: string } | null
-] => {
+const useLogIn = (): [JSX.Element, boolean, { message: string } | null] => {
   // Because Keystone's log in mutation sends error data as a success message, we have to handle it specially here instead of letting the form from useForm handle it. So we make an error message state to hold that successful error message
   const [logInError, setLogInError] = useState<{ message: string } | null>(
     null
@@ -61,8 +56,10 @@ const useLogIn = (): [
     makePasswordField(password, handleFormUpdate),
   ];
 
-  // Send back our form pieces and our success and error messages
-  return [formCreator, formFields, logInSuccess, logInError];
+  const form = formCreator(formFields);
+
+  // Send back our form and our success and error messages
+  return [form, logInSuccess, logInError];
 };
 
 export default useLogIn;

@@ -124,7 +124,7 @@ describe('SignUp', () => {
 
     await waitForQuery();
 
-    const success = screen.getByText('You are now logged in!');
+    const success = screen.getByText('Success!');
     expect(success).toBeInTheDocument();
   });
 });

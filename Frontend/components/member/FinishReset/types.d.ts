@@ -4,7 +4,6 @@ import {
   DefaultContext,
   FetchResult,
 } from '@apollo/client';
-import { ReactNode } from 'react';
 import { logInFormStateInterface, logInResult } from '../LogIn/types';
 
 interface finishResetInterface {
@@ -31,12 +30,7 @@ interface finishResetResult {
 export type { finishResetResult };
 
 interface useFinishResetInterface {
-  (): [
-    (children: ReactNode) => JSX.Element,
-    JSX.Element[],
-    boolean,
-    { message: string } | null
-  ];
+  (): [JSX.Element, boolean, { message: string } | null];
 }
 export type { useFinishResetInterface };
 

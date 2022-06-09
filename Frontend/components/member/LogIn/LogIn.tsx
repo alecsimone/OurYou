@@ -9,11 +9,11 @@ import useLogIn from './useLogIn';
 // interface LogInProps {}
 
 const LogIn = (): JSX.Element => {
-  const [formCreator, formFields, logInSuccess, logInError] = useLogIn();
+  const [form, logInSuccess, logInError] = useLogIn();
   const [showingReset, setShowingReset] = useState(false);
 
   if (logInSuccess) {
-    return <StyledSignUp>You are now logged in!</StyledSignUp>;
+    return <StyledSignUp>Success!</StyledSignUp>;
   }
 
   if (showingReset) {
@@ -33,7 +33,7 @@ const LogIn = (): JSX.Element => {
   return (
     <StyledSignUp>
       {logInError && <Error error={logInError} />}
-      {formCreator(formFields)}
+      {form}
       <Button
         className="resetPassword"
         onClick={() => setShowingReset(true)}

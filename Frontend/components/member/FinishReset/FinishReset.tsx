@@ -5,7 +5,7 @@ import useFinishReset from './useFinishReset';
 // interface FinishResetProps {}
 
 const FinishReset = (): JSX.Element => {
-  const [formCreator, formFields, resetSuccess, resetError] = useFinishReset();
+  const [form, resetSuccess, resetError] = useFinishReset();
 
   if (resetSuccess) {
     return <StyledFinishReset>Success!</StyledFinishReset>;
@@ -15,7 +15,7 @@ const FinishReset = (): JSX.Element => {
     <StyledFinishReset>
       <h3>Reset Password</h3>
       {resetError && <Error error={resetError} />}
-      {formCreator(formFields)}
+      {form}
     </StyledFinishReset>
   );
 };
