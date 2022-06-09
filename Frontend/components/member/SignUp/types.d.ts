@@ -13,6 +13,14 @@ interface signUpFormInterface {
 }
 export type { signUpFormInterface };
 
+interface createMemberResult {
+  __typename: 'Member';
+  id: string;
+  email: string;
+  displayName: string;
+}
+export type { createMemberResult };
+
 interface createMemberVariables {
   displayName: string;
   email: string;

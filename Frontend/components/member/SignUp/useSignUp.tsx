@@ -11,6 +11,7 @@ import {
 import useLogInForCallback from '../FinishReset/useLogInForCallback';
 import SIGN_UP_MUTATION from './signUpMutation';
 import {
+  createMemberResult,
   createMemberVariables,
   signUpFormInterface,
   useSignUpInterface,
@@ -37,25 +38,25 @@ const useSignUp: useSignUpInterface = (closeModal) => {
   const logIn = useLogInForCallback(setSignUpError, false);
 
   // The createMember mutation, which routes to the verification page and logs the user in on completion. Errors will be handled by the form created by the useForm hook.
-  const [createMember] = useMutation<
-    createMemberVariables,
-    createMemberVariables
-  >(SIGN_UP_MUTATION, {
-    onCompleted: () => {
-      if (closeModal) {
-        closeModal();
-      }
-      router.push({ pathname: '/verification' });
-      logIn({
-        variables: {
-          // eslint-disable-next-line no-use-before-define
-          email: formState.email,
-          // eslint-disable-next-line no-use-before-define
-          password: formState.password,
-        },
-      });
-    },
-  });
+  const [createMember] = useMutation<createMemberResult, createMemberVariables>(
+    SIGN_UP_MUTATION,
+    {
+      onCompleted: () => {
+        if (closeModal) {
+          closeModal();
+        }
+        router.push({ pathname: '/verification' });
+        logIn({
+          variables: {
+            // eslint-disable-next-line no-use-before-define
+            email: formState.email,
+            // eslint-disable-next-line no-use-before-define
+            password: formState.password,
+          },
+        });
+      },
+    }
+  );
 
   // Get our form pieces
   const [formState, handleFormUpdate, formCreator] =
