@@ -18,8 +18,32 @@
 
 - Just checks that all the expected parts of the form are present and can be typed in
 
-### It disables the submit button if all inputs are not valid
+### It disables the submit button if all inputs are not valid and tells the user why
 
 - Grabs the submit button and makes sure it's disabled to start
 - Types a couple characters in each field, then makes sure the submit button is still disabled
 - Types a valid input in each field, then makes sure the submit button is now enabled
+
+### It resets the password with valid inputs
+
+- Enters valid inputs into all the form fields and clicks the submit button
+- MockedProvider gets a success response
+- Checks for a success message to be displayed
+
+### It fails with an error message on a bad token
+
+- Enters valid inputs into all the form fields and clicks the submit button
+- MockedProvider gets a failure response
+- Checks for the correct error message to be displayed
+
+### It fails with an error message on an expired token
+
+- Enters valid inputs into all the form fields and clicks the submit button
+- MockedProvider gets an expired token response
+- Checks for the correct error message to be displayed
+
+### It fails with an error message on an already redeemed token
+
+- Enters valid inputs into all the form fields and clicks the submit button
+- MockedProvider gets an already redeemed token error response
+- Checks for the correct error message to be displayed

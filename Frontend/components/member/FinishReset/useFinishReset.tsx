@@ -36,6 +36,9 @@ const useFinishReset: useFinishResetInterface = () => {
     null
   );
 
+  // And a success state to let the component know the password has been reset successfully
+  const [resetSuccess, setResetSuccess] = useState(false);
+
   // We need to pass the logIn mutation to the useForm hook, but the logIn mutation needs the email and password variables which will be defined by the useForm hook. This isn't actually a problem, because the logIn mutation won't be called until after the useForm hook has run, but it upsets eslint and typescript. So we initialize these values before the logIn mutation and then populate them with the result of the useForm hook.
   let email = '';
   let password = '';
@@ -53,6 +56,7 @@ const useFinishReset: useFinishResetInterface = () => {
       onCompleted: (d) => {
         if (d.redeemMemberPasswordResetToken == null) {
           // If the reset is successful, the redeemMemberPasswordResetToken object will be null. In that case, we want to log in with the email and password the user just provided. This has to be done in the onCompleted callback so that the password will have already been changed.
+          setResetSuccess(true);
           logIn({
             variables: {
               email,
@@ -96,7 +100,7 @@ const useFinishReset: useFinishResetInterface = () => {
   ];
 
   // Send back our form pieces and error message state
-  return [formCreator, formFields, resetError];
+  return [formCreator, formFields, resetSuccess, resetError];
 };
 
 export default useFinishReset;

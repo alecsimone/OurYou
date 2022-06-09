@@ -34,6 +34,7 @@ interface useFinishResetInterface {
   (): [
     (children: ReactNode) => JSX.Element,
     JSX.Element[],
+    boolean,
     { message: string } | null
   ];
 }
