@@ -25,13 +25,18 @@ const initialState: signUpFormInterface = {
 };
 
 const useSignUp: useSignUpInterface = (closeModal) => {
+  // We need an error state that can hold any errors in the log in mutation
   const [signUpError, setSignUpError] = useState<{ message: string } | null>(
     null
   );
+
+  // We'll need a router to route to the verification page after signing up
   const router = useRouter();
 
+  // Once the user signs up, we want to log them in. We'll use this mutation to do so.
   const logIn = useLogInForCallback(setSignUpError, false);
 
+  // The createMember mutation, which routes to the verification page and logs the user in on completion. Errors will be handled by the form created by the useForm hook.
   const [createMember] = useMutation<
     createMemberVariables,
     createMemberVariables
@@ -52,6 +57,7 @@ const useSignUp: useSignUpInterface = (closeModal) => {
     },
   });
 
+  // Get our form pieces
   const [formState, handleFormUpdate, formCreator] =
     useForm<signUpFormInterface>(
       initialState,
@@ -60,8 +66,8 @@ const useSignUp: useSignUpInterface = (closeModal) => {
       'Sign Up'
     );
 
+  // Create our form fields
   const { displayName, email, password, confirmPassword } = formState;
-
   const formFields = [
     makeDisplayNameField(displayName, handleFormUpdate),
     makeEmailField(email, handleFormUpdate),
@@ -69,7 +75,11 @@ const useSignUp: useSignUpInterface = (closeModal) => {
     makeConfirmPasswordField(confirmPassword, handleFormUpdate, password),
   ];
 
-  return [formCreator, formFields, signUpError];
+  // Put the form together
+  const form = formCreator(formFields);
+
+  // Send back the form and an error message state
+  return [form, signUpError];
 };
 
 export default useSignUp;

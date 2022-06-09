@@ -14,13 +14,17 @@ const useRequestReset = (): [
   JSX.Element[],
   boolean
 ] => {
+  // Confirmation state to let the user know their reset has been initiated
   const [resetRequested, setResetRequested] = useState(false);
+
+  // The request reset mutation
   const [requestPasswordReset] = useMutation(REQUEST_RESET_MUTATION, {
     onCompleted: () => {
       setResetRequested(true);
     },
   });
 
+  // Get our form pieces
   const [formState, handleFormUpdate, formCreator] = useForm(
     { email: '' },
     requestPasswordReset,
@@ -28,8 +32,10 @@ const useRequestReset = (): [
     'Request Reset'
   );
 
+  // And our form fields
   const formFields = [makeEmailField(formState.email, handleFormUpdate)];
 
+  // Send back the form pieces and the confirmation state
   return [formCreator, formFields, resetRequested];
 };
 

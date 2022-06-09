@@ -8,12 +8,12 @@ interface SignUpProps {
 }
 
 const SignUp = ({ closeModal }: SignUpProps): JSX.Element => {
-  const [formCreator, formFields, signUpError] = useSignUp(closeModal);
+  const [form, signUpError] = useSignUp(closeModal);
 
   return (
     <StyledSignUp>
       {signUpError && <Error error={signUpError} />}
-      {formCreator(formFields)}
+      {form}
       <p className="cookieWarning">{cookieWarning}</p>
     </StyledSignUp>
   );

@@ -25,9 +25,13 @@ const initialState = {
 };
 
 const useFinishReset: useFinishResetInterface = () => {
+  // We need a router to route to the home page after the reset is completed
   const router = useRouter();
+
+  // We need to get the verification token out of the url and make sure it's a string
   const code = getResetCode(router);
 
+  // We need an error state to hold any errors from the log in callback
   const [resetError, setResetError] = useState<{ message: string } | null>(
     null
   );
@@ -36,8 +40,10 @@ const useFinishReset: useFinishResetInterface = () => {
   let email = '';
   let password = '';
 
+  // After they reset their password, we want to log them in with the new credentials. We'll get the logIn mutation that does that here
   const logIn = useLogInForCallback(setResetError);
 
+  // The reset password mutation. Logs the user in and sends them to the homepage when successful; shows an error when not
   const [resetPassword] = useMutation<finishResetResult, finishResetVariables>(
     RESET_PASSWORD_MUTATION,
     {
@@ -71,6 +77,7 @@ const useFinishReset: useFinishResetInterface = () => {
     }
   );
 
+  // Get our form pieces
   const [formState, handleFormUpdate, formCreator] =
     useForm<finishResetInterface>(
       initialState,
@@ -79,15 +86,16 @@ const useFinishReset: useFinishResetInterface = () => {
       'Reset Password'
     );
 
+  // Make our form fields
   ({ email, password } = formState);
   const { confirmPassword } = formState;
-
   const formFields = [
     makeEmailField(email, handleFormUpdate),
     makePasswordField(password, handleFormUpdate),
     makeConfirmPasswordField(confirmPassword, handleFormUpdate, password),
   ];
 
+  // Send back our form pieces and error message state
   return [formCreator, formFields, resetError];
 };
 
