@@ -16,10 +16,7 @@ const cloudinary = {
   cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
   apiKey: process.env.CLOUDINARY_KEY || '',
   apiSecret: process.env.CLOUDINARY_SECRET || '',
-  folder:
-    process.env.NODE_ENV === 'production'
-      ? 'pisano-family-photos'
-      : 'pisano-family-photos-dev',
+  folder: process.env.NODE_ENV === 'production' ? 'ouryou' : 'ouryou-dev',
 };
 
 const Member = list({

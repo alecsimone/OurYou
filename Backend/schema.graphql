@@ -69,7 +69,7 @@ type Query {
 }
 
 type Mutation {
-  setAvatar(newAvatarLink: String, uploadedAvatar: Upload): Member
+  setAvatar(newAvatarLink: String, uploadedAvatar: [Upload]): Member
   createMember(data: MemberCreateInput!): Member
   createMembers(data: [MemberCreateInput!]!): [Member]
   updateMember(where: MemberWhereUniqueInput!, data: MemberUpdateInput!): Member

@@ -9,7 +9,7 @@ import Error from 'components/foundation/Error';
 const SET_AVATAR_MUTATION = gql`
   mutation SET_AVATAR_MUTATION(
     $newAvatarLink: String
-    $uploadedAvatar: Upload
+    $uploadedAvatar: [Upload]
   ) {
     setAvatar(newAvatarLink: $newAvatarLink, uploadedAvatar: $uploadedAvatar) {
       __typename
@@ -56,7 +56,9 @@ const useEditableAvatar = (): [
 
   const [setAvatar] = useMutation(SET_AVATAR_MUTATION, {
     optimisticResponse,
-    onCompleted: () => setEditingAvatar(false),
+    onCompleted: () => {
+      setEditingAvatar(false);
+    },
   });
 
   // Get our form pieces

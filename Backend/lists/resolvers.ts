@@ -10,7 +10,7 @@ const extendGraphqlSchema = graphQLSchemaExtension({
       getProfileSidebarData(id: ID): Member
     }
     type Mutation {
-      setAvatar(newAvatarLink: String, uploadedAvatar: Upload): Member
+      setAvatar(newAvatarLink: String, uploadedAvatar: [Upload]): Member
     }
   `,
   resolvers: {

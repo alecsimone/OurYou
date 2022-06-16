@@ -77,6 +77,8 @@ const useForm: useFormInterface = (
         }
       },
     });
+
+    setFormState(initialState);
   };
 
   // Now we can create our formCreator HOC, which will wrap FormFields and create a form with all our functionality.
