@@ -93,6 +93,13 @@
       "LabeledStatement",
       "WithStatement"
     ],
-    "no-underscore-dangle": ["error", { "allow": ["__typename"] }]
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
+    "@next/next/no-img-element": "off",
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "controlComponents": ["FormField"]
+      }
+    ]
   }
 }

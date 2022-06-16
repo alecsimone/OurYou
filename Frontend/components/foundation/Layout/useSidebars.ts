@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from 'react';
 import { useRouter } from 'next/router';
+import { cloneDeep } from 'lodash';
 import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 
 interface sidebarStateInterface {
@@ -18,7 +19,7 @@ const useSidebars = (): [boolean, boolean, () => void, () => void] => {
       | 'closeThings'
       | 'closeAll'
   ): sidebarStateInterface => {
-    const newState = JSON.parse(JSON.stringify(state));
+    const newState = cloneDeep(state);
 
     if (action === 'nav') {
       // This action always toggles the nav

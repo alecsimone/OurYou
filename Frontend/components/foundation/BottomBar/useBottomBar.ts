@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import { useReducer } from 'react';
 
 type bottomBarActions = 'search' | 'new' | 'clear' | { newInput: string };
@@ -19,7 +20,7 @@ const useBottomBar = () => {
     state: bottomBarStateInterface,
     action: bottomBarActions
   ): bottomBarStateInterface => {
-    let newState = JSON.parse(JSON.stringify(state));
+    let newState = cloneDeep(state);
 
     if (action === 'search' || action === 'new') {
       if (state.currentForm === action) {

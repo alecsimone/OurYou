@@ -16,6 +16,7 @@ model Member {
   email                   String       @unique @default("")
   displayName             String       @unique @default("")
   avatar                  String       @default("")
+  avatarUpload            Json?
   password                String?
   role                    String       @default("Unverified")
   rep                     Int?         @default(0)

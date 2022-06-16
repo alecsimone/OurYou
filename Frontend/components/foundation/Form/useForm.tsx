@@ -16,15 +16,23 @@ const useForm: useFormInterface = (
   initialState,
   submitMutation,
   errorTranslator,
-  submitButtonText = 'Submit'
+  submitButtonText,
+  cancelFunction
 ) => {
   // First let's handle the basic form state and our updater.
   const [formState, setFormState] = useState(initialState);
   const handleFormUpdate = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormState((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    if (e.target.files) {
+      setFormState((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.files,
+      }));
+    } else {
+      setFormState((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }));
+    }
   };
 
   // Then we'll handle checking the validity. This state will be passed to the submit button and will disable it if all the inputs aren't valid
@@ -57,6 +65,8 @@ const useForm: useFormInterface = (
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!allInputsValid) return;
+
     submitMutation({
       variables: formState,
       onError: (err) => {
@@ -78,12 +88,22 @@ const useForm: useFormInterface = (
       <Error error={error} />
       <fieldset>
         {children}
-        <Button
-          type="submit"
-          aria-disabled={!allInputsValid}
-        >
-          {submitButtonText}
-        </Button>
+        <div className="buttons">
+          {cancelFunction != null && (
+            <Button
+              className="cancel"
+              onClick={cancelFunction}
+            >
+              Cancel
+            </Button>
+          )}
+          <Button
+            type="submit"
+            aria-disabled={!allInputsValid}
+          >
+            {submitButtonText == null ? 'Submit' : submitButtonText}
+          </Button>
+        </div>
       </fieldset>
     </StyledForm>
   );

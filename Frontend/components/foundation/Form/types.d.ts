@@ -26,7 +26,8 @@ interface useFormInterface {
     initialState: formInterface,
     callbackMutation: submitMutationInterface<formInterface>,
     errorTranslator?: errorTranslatorInterface,
-    submitButtonText?: string
+    submitButtonText?: string,
+    cancelFunction?: () => void
   ): [
     formInterface,
     ChangeEventHandler<HTMLInputElement>,

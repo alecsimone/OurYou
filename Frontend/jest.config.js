@@ -17,6 +17,7 @@ const customJestConfig = {
     '@icons/(.*)': '<rootDir>/components/icons/$1',
     '@styles/(.*)': '<rootDir>/styles/$1',
   },
+  setupFiles: ['jsdom-worker'],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

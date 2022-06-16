@@ -3,7 +3,8 @@ import Input from '@styles/extendableElements/Input';
 import Error from '../Error';
 
 interface FormFieldInterface {
-  type: 'text' | 'email' | 'password';
+  type: 'text' | 'email' | 'password' | 'url';
+  id?: string;
   name: string;
   placeholder: string;
   value: string;
@@ -54,10 +55,10 @@ const FormField = ({
 
   return (
     <div className="inputWrapper">
-      {formElement}
       {requirements != null && !isValid && (
         <div className="requirements">{requirements}</div>
       )}
+      {formElement}
     </div>
   );
 };

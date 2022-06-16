@@ -4,7 +4,7 @@ async function verifyMember(
   root: any,
   { id, code }: { id: string; code: string },
   ctx: KeystoneContext
-): Promise<{ id: string; email: string; verificationToken: string }> {
+) {
   // We need to use the prisma API so we can access the database directly, bypassing any access controls, as the user is probably not logged in yet at this point.
   const existingUser = await ctx.prisma.member.findUnique({
     where: {

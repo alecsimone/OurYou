@@ -68,11 +68,81 @@ type Query {
   ): ValidateMemberPasswordResetTokenResult
 }
 
+type Mutation {
+  setAvatar(newAvatarLink: String, uploadedAvatar: Upload): Member
+  createMember(data: MemberCreateInput!): Member
+  createMembers(data: [MemberCreateInput!]!): [Member]
+  updateMember(where: MemberWhereUniqueInput!, data: MemberUpdateInput!): Member
+  updateMembers(data: [MemberUpdateArgs!]!): [Member]
+  deleteMember(where: MemberWhereUniqueInput!): Member
+  deleteMembers(where: [MemberWhereUniqueInput!]!): [Member]
+  createThing(data: ThingCreateInput!): Thing
+  createThings(data: [ThingCreateInput!]!): [Thing]
+  updateThing(where: ThingWhereUniqueInput!, data: ThingUpdateInput!): Thing
+  updateThings(data: [ThingUpdateArgs!]!): [Thing]
+  deleteThing(where: ThingWhereUniqueInput!): Thing
+  deleteThings(where: [ThingWhereUniqueInput!]!): [Thing]
+  createContentPiece(data: ContentPieceCreateInput!): ContentPiece
+  createContentPieces(data: [ContentPieceCreateInput!]!): [ContentPiece]
+  updateContentPiece(
+    where: ContentPieceWhereUniqueInput!
+    data: ContentPieceUpdateInput!
+  ): ContentPiece
+  updateContentPieces(data: [ContentPieceUpdateArgs!]!): [ContentPiece]
+  deleteContentPiece(where: ContentPieceWhereUniqueInput!): ContentPiece
+  deleteContentPieces(where: [ContentPieceWhereUniqueInput!]!): [ContentPiece]
+  createTag(data: TagCreateInput!): Tag
+  createTags(data: [TagCreateInput!]!): [Tag]
+  updateTag(where: TagWhereUniqueInput!, data: TagUpdateInput!): Tag
+  updateTags(data: [TagUpdateArgs!]!): [Tag]
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createVote(data: VoteCreateInput!): Vote
+  createVotes(data: [VoteCreateInput!]!): [Vote]
+  updateVote(where: VoteWhereUniqueInput!, data: VoteUpdateInput!): Vote
+  updateVotes(data: [VoteUpdateArgs!]!): [Vote]
+  deleteVote(where: VoteWhereUniqueInput!): Vote
+  deleteVotes(where: [VoteWhereUniqueInput!]!): [Vote]
+  createConnection(data: ConnectionCreateInput!): Connection
+  createConnections(data: [ConnectionCreateInput!]!): [Connection]
+  updateConnection(
+    where: ConnectionWhereUniqueInput!
+    data: ConnectionUpdateInput!
+  ): Connection
+  updateConnections(data: [ConnectionUpdateArgs!]!): [Connection]
+  deleteConnection(where: ConnectionWhereUniqueInput!): Connection
+  deleteConnections(where: [ConnectionWhereUniqueInput!]!): [Connection]
+  createComment(data: CommentCreateInput!): Comment
+  createComments(data: [CommentCreateInput!]!): [Comment]
+  updateComment(
+    where: CommentWhereUniqueInput!
+    data: CommentUpdateInput!
+  ): Comment
+  updateComments(data: [CommentUpdateArgs!]!): [Comment]
+  deleteComment(where: CommentWhereUniqueInput!): Comment
+  deleteComments(where: [CommentWhereUniqueInput!]!): [Comment]
+  endSession: Boolean!
+  authenticateMemberWithPassword(
+    email: String!
+    password: String!
+  ): MemberAuthenticationWithPasswordResult
+  createInitialMember(
+    data: CreateInitialMemberInput!
+  ): MemberAuthenticationWithPasswordSuccess!
+  sendMemberPasswordResetLink(email: String!): Boolean!
+  redeemMemberPasswordResetToken(
+    email: String!
+    token: String!
+    password: String!
+  ): RedeemMemberPasswordResetTokenResult
+}
+
 type Member {
   id: ID!
   email: String
   displayName: String
   avatar: String
+  avatarUpload: CloudinaryImage_File
   password: PasswordState
   role: String
   rep: Int
@@ -120,6 +190,55 @@ type Member {
   passwordResetToken: PasswordState
   passwordResetIssuedAt: DateTime
   passwordResetRedeemedAt: DateTime
+}
+
+type CloudinaryImage_File {
+  id: ID
+  filename: String
+  originalFilename: String
+  mimetype: String
+  encoding: String
+  publicUrl: String
+  publicUrlTransformed(transformation: CloudinaryImageFormat): String
+}
+
+"""
+Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
+All options are strings as they ultimately end up in a URL.
+"""
+input CloudinaryImageFormat {
+  """
+  Rewrites the filename to be this pretty string. Do not include `/` or `.`
+  """
+  prettyName: String
+  width: String
+  height: String
+  crop: String
+  aspect_ratio: String
+  gravity: String
+  zoom: String
+  x: String
+  y: String
+  format: String
+  fetch_format: String
+  quality: String
+  radius: String
+  angle: String
+  effect: String
+  opacity: String
+  border: String
+  background: String
+  overlay: String
+  underlay: String
+  default_image: String
+  delay: String
+  color: String
+  color_space: String
+  dpr: String
+  page: String
+  density: String
+  flags: String
+  transformation: String
 }
 
 type PasswordState {
@@ -289,6 +408,7 @@ input MemberUpdateInput {
   email: String
   displayName: String
   avatar: String
+  avatarUpload: Upload
   password: String
   role: String
   rep: Int
@@ -307,6 +427,11 @@ input MemberUpdateInput {
   passwordResetIssuedAt: DateTime
   passwordResetRedeemedAt: DateTime
 }
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
 
 input VoteRelateToManyForUpdateInput {
   disconnect: [VoteWhereUniqueInput!]
@@ -352,6 +477,7 @@ input MemberCreateInput {
   email: String
   displayName: String
   avatar: String
+  avatarUpload: Upload
   password: String
   role: String
   rep: Int
@@ -1002,74 +1128,6 @@ scalar JSON
   @specifiedBy(
     url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"
   )
-
-type Mutation {
-  createMember(data: MemberCreateInput!): Member
-  createMembers(data: [MemberCreateInput!]!): [Member]
-  updateMember(where: MemberWhereUniqueInput!, data: MemberUpdateInput!): Member
-  updateMembers(data: [MemberUpdateArgs!]!): [Member]
-  deleteMember(where: MemberWhereUniqueInput!): Member
-  deleteMembers(where: [MemberWhereUniqueInput!]!): [Member]
-  createThing(data: ThingCreateInput!): Thing
-  createThings(data: [ThingCreateInput!]!): [Thing]
-  updateThing(where: ThingWhereUniqueInput!, data: ThingUpdateInput!): Thing
-  updateThings(data: [ThingUpdateArgs!]!): [Thing]
-  deleteThing(where: ThingWhereUniqueInput!): Thing
-  deleteThings(where: [ThingWhereUniqueInput!]!): [Thing]
-  createContentPiece(data: ContentPieceCreateInput!): ContentPiece
-  createContentPieces(data: [ContentPieceCreateInput!]!): [ContentPiece]
-  updateContentPiece(
-    where: ContentPieceWhereUniqueInput!
-    data: ContentPieceUpdateInput!
-  ): ContentPiece
-  updateContentPieces(data: [ContentPieceUpdateArgs!]!): [ContentPiece]
-  deleteContentPiece(where: ContentPieceWhereUniqueInput!): ContentPiece
-  deleteContentPieces(where: [ContentPieceWhereUniqueInput!]!): [ContentPiece]
-  createTag(data: TagCreateInput!): Tag
-  createTags(data: [TagCreateInput!]!): [Tag]
-  updateTag(where: TagWhereUniqueInput!, data: TagUpdateInput!): Tag
-  updateTags(data: [TagUpdateArgs!]!): [Tag]
-  deleteTag(where: TagWhereUniqueInput!): Tag
-  deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
-  createVote(data: VoteCreateInput!): Vote
-  createVotes(data: [VoteCreateInput!]!): [Vote]
-  updateVote(where: VoteWhereUniqueInput!, data: VoteUpdateInput!): Vote
-  updateVotes(data: [VoteUpdateArgs!]!): [Vote]
-  deleteVote(where: VoteWhereUniqueInput!): Vote
-  deleteVotes(where: [VoteWhereUniqueInput!]!): [Vote]
-  createConnection(data: ConnectionCreateInput!): Connection
-  createConnections(data: [ConnectionCreateInput!]!): [Connection]
-  updateConnection(
-    where: ConnectionWhereUniqueInput!
-    data: ConnectionUpdateInput!
-  ): Connection
-  updateConnections(data: [ConnectionUpdateArgs!]!): [Connection]
-  deleteConnection(where: ConnectionWhereUniqueInput!): Connection
-  deleteConnections(where: [ConnectionWhereUniqueInput!]!): [Connection]
-  createComment(data: CommentCreateInput!): Comment
-  createComments(data: [CommentCreateInput!]!): [Comment]
-  updateComment(
-    where: CommentWhereUniqueInput!
-    data: CommentUpdateInput!
-  ): Comment
-  updateComments(data: [CommentUpdateArgs!]!): [Comment]
-  deleteComment(where: CommentWhereUniqueInput!): Comment
-  deleteComments(where: [CommentWhereUniqueInput!]!): [Comment]
-  endSession: Boolean!
-  authenticateMemberWithPassword(
-    email: String!
-    password: String!
-  ): MemberAuthenticationWithPasswordResult
-  createInitialMember(
-    data: CreateInitialMemberInput!
-  ): MemberAuthenticationWithPasswordSuccess!
-  sendMemberPasswordResetLink(email: String!): Boolean!
-  redeemMemberPasswordResetToken(
-    email: String!
-    token: String!
-    password: String!
-  ): RedeemMemberPasswordResetTokenResult
-}
 
 union MemberAuthenticationWithPasswordResult =
     MemberAuthenticationWithPasswordSuccess

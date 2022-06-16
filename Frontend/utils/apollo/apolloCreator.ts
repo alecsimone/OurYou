@@ -1,17 +1,18 @@
 /* eslint-disable no-console */
-import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, from, InMemoryCache } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import { onError } from '@apollo/client/link/error';
 import { endpoint } from 'globalConstants';
 
-interface HttpLinkOptions {
+interface UploadLinkOptions {
   uri: string;
   credentials: 'include';
   headers?: {
     cookie: string;
   };
 }
-const createHttpLink = (cookie: string | null) => {
-  const options: HttpLinkOptions = {
+const uploadLinkCreator = (cookie: string | null) => {
+  const options: UploadLinkOptions = {
     uri: endpoint,
     credentials: 'include',
   };
@@ -22,7 +23,8 @@ const createHttpLink = (cookie: string | null) => {
     };
   }
 
-  return new HttpLink(options);
+  const uploadLink = createUploadLink(options);
+  return uploadLink;
 };
 
 const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
@@ -44,7 +46,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 const createApolloClient = (cookie: string | null) =>
   new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: from([errorLink, createHttpLink(cookie)]),
+    link: from([errorLink, uploadLinkCreator(cookie)]),
     cache: new InMemoryCache(),
   });
 

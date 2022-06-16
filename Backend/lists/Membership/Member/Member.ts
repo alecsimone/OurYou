@@ -1,3 +1,4 @@
+import { cloudinaryImage } from '@keystone-6/cloudinary';
 import { list } from '@keystone-6/core';
 import {
   integer,
@@ -10,6 +11,16 @@ import getRandomString from '../../../utils/getRandomString';
 import sendEmail from '../../../utils/sendEmail';
 import createdAt from '../../common/createdAt';
 import privacy from '../../common/privacy';
+
+const cloudinary = {
+  cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
+  apiKey: process.env.CLOUDINARY_KEY || '',
+  apiSecret: process.env.CLOUDINARY_SECRET || '',
+  folder:
+    process.env.NODE_ENV === 'production'
+      ? 'pisano-family-photos'
+      : 'pisano-family-photos-dev',
+};
 
 const Member = list({
   description: 'All the information for each member of the site. AKA Users.',
@@ -31,6 +42,8 @@ const Member = list({
       isIndexed: 'unique',
     }),
     avatar: text(),
+    // We don't use avatarUpload for something, but we need to have at least one field of a cloudinaryImage type so that we can use the Upload scalar, which we'll handle manually to set the avatar field
+    avatarUpload: cloudinaryImage({ cloudinary }),
     password: password(),
     role: select({
       options: [
