@@ -8,6 +8,7 @@ interface FileUploadInputProps {
   files: File[] | null;
   handleChange: ChangeEventHandler<HTMLInputElement>;
   removeFile: (index: number) => void;
+  uploadingIndex: number;
 }
 
 const FileUploadInput = ({
@@ -16,10 +17,10 @@ const FileUploadInput = ({
   files,
   handleChange,
   removeFile,
+  uploadingIndex,
 }: FileUploadInputProps): JSX.Element => {
   const filePreviews = [];
   if (files != null) {
-    // for (const file of files) {
     for (let index = 0; index < files.length; index += 1) {
       const file = files[index];
       const remove = () => removeFile(index);
@@ -29,6 +30,8 @@ const FileUploadInput = ({
             key={file.name}
             file={file}
             removeFile={remove}
+            uploading={uploadingIndex === index}
+            uploaded={uploadingIndex > index}
           />
         );
       }

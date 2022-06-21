@@ -8,7 +8,7 @@ interface uploadedFile {
   encoding: string;
   createReadStream: () => {
     _writeStream: {
-      _path: any;
+      _path: string;
     };
   };
 }

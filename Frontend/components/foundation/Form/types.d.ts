@@ -14,7 +14,7 @@ interface submitMutationInterface<formInterface> {
     variables: formInterface;
     onCompleted?: (d: any) => void; // This is just for the edge case of the log in mutation, which has a weird response and needs to be handled specially
     onError: (err: ApolloError) => void;
-  }): void;
+  }): Promise;
 }
 
 interface errorTranslatorInterface {

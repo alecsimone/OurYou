@@ -74,7 +74,7 @@ const useForm: useFormInterface = (
 
     if (!allInputsValid) return;
 
-    submitMutation({
+    await submitMutation({
       variables: formState,
       onError: (err) => {
         if (errorTranslator) {

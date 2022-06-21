@@ -54,7 +54,7 @@ const useEditableAvatar = (): [
     },
   };
 
-  const [setAvatar] = useMutation(SET_AVATAR_MUTATION, {
+  const [setAvatar, { loading }] = useMutation(SET_AVATAR_MUTATION, {
     optimisticResponse,
     onCompleted: () => {
       setEditingAvatar(false);
@@ -71,7 +71,9 @@ const useEditableAvatar = (): [
       () => setEditingAvatar(false)
     );
 
-  optimisticResponse.setAvatar.avatar = formState.newAvatarLink;
+  if (formState.newAvatarLink !== '') {
+    optimisticResponse.setAvatar.avatar = formState.newAvatarLink;
+  }
 
   const removeFile = (index: number) => {
     if (formState.uploadedAvatar == null) return;
@@ -99,6 +101,7 @@ const useEditableAvatar = (): [
       handleChange={handleFormUpdate}
       removeFile={removeFile}
       key="upload"
+      uploadingIndex={loading ? 0 : -1}
     />
   );
 
@@ -125,11 +128,6 @@ const useEditableAvatar = (): [
         'You have both entered a link and uploaded a file, please enter only one',
     };
   }
-  // if (formState.newAvatarLink === avatar) {
-  //   error = {
-  //     message: 'That image is already your avatar.',
-  //   };
-  // }
 
   const form = (
     <div className="editAvatarWrapper">
