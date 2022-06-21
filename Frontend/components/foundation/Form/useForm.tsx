@@ -10,7 +10,7 @@ import { ApolloError } from '@apollo/client';
 import StyledForm from '@styles/extendableElements/Form';
 import Button from '@styles/extendableElements/Button';
 import Error from '../Error';
-import useFormInterface from './types';
+import useFormInterface, { manualUpdateObj } from './types';
 
 const useForm: useFormInterface = (
   initialState,
@@ -33,6 +33,13 @@ const useForm: useFormInterface = (
         [e.target.name]: e.target.value,
       }));
     }
+  };
+
+  const manualFormUpdate = (updateObj: manualUpdateObj) => {
+    setFormState((prev) => ({
+      ...prev,
+      [updateObj.name]: updateObj.newValue,
+    }));
   };
 
   // Then we'll handle checking the validity. This state will be passed to the submit button and will disable it if all the inputs aren't valid
@@ -110,7 +117,7 @@ const useForm: useFormInterface = (
     </StyledForm>
   );
 
-  return [formState, handleFormUpdate, formCreator];
+  return [formState, handleFormUpdate, formCreator, manualFormUpdate];
 };
 
 export default useForm;

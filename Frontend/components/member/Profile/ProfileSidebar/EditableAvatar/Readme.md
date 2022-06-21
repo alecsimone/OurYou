@@ -29,3 +29,5 @@ This hook creates the setAvatar mutation and passes it to the useForm hook, alon
 - This should show an error message, and we check that it does
 
 ### It disables the submit button when the entered link is the same as the current avatar
+
+### It displays mutation error messages to the user

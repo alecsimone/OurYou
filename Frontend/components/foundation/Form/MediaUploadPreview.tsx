@@ -1,11 +1,21 @@
+import FunctionalIcon from '@icons/FunctionalIcon';
+import X from '@icons/X';
 import formatFileSize from 'utils/formatFileSize';
 import StyledMediaUploadPreview from './StyledMediaUploadPreview';
 
 interface MediaUploadPreviewProps {
   file: File;
+  removeFile: () => void;
+  uploading?: boolean;
+  uploaded?: boolean;
 }
 
-const MediaUploadPreview = ({ file }: MediaUploadPreviewProps): JSX.Element => {
+const MediaUploadPreview = ({
+  file,
+  removeFile,
+  uploading = false,
+  uploaded = false,
+}: MediaUploadPreviewProps): JSX.Element => {
   const { name: fileName, size: fileSize, type: fileType } = file;
   let thumb;
   if (fileType.includes('image')) {
@@ -25,18 +35,16 @@ const MediaUploadPreview = ({ file }: MediaUploadPreviewProps): JSX.Element => {
         <div className="fileName">{fileName}</div>
         <div className="fileSize">
           {formatFileSize(fileSize)}
-          {/* {currentlyUploadingIndex === index && ': Uploading...'}
-          {currentlyUploadingIndex !== -1 &&
-            currentlyUploadingIndex > index &&
-            ': Uploaded'} */}
+          {uploading && ': Uploading...'}
+          {uploaded && ': Uploaded'}
         </div>
       </div>
-      {/* {!loading && (
-        <X
-          className="removeFile"
-          onClick={() => removeFile(index)}
-        />
-      )} */}
+      <FunctionalIcon
+        iconName="removeMedia"
+        onTrigger={removeFile}
+      >
+        <X />
+      </FunctionalIcon>
     </StyledMediaUploadPreview>
   );
 };

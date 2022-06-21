@@ -62,7 +62,7 @@ const useEditableAvatar = (): [
   });
 
   // Get our form pieces
-  const [formState, handleFormUpdate, formCreator] =
+  const [formState, handleFormUpdate, formCreator, manualFormUpdate] =
     useForm<avatarStateInterface>(
       initialState,
       setAvatar,
@@ -73,15 +73,31 @@ const useEditableAvatar = (): [
 
   optimisticResponse.setAvatar.avatar = formState.newAvatarLink;
 
+  const removeFile = (index: number) => {
+    if (formState.uploadedAvatar == null) return;
+
+    const newFiles = [...formState.uploadedAvatar];
+    newFiles?.splice(index, 1);
+
+    manualFormUpdate({
+      name: 'uploadedAvatar',
+      newValue: newFiles,
+    });
+  };
+
   // Create our form fields
   const uploadInput = (
     <FileUploadInput
       labelText={
-        formState.uploadedAvatar == null ? 'Upload Image' : 'Change Upload'
+        formState.uploadedAvatar == null ||
+        formState.uploadedAvatar.length === 0
+          ? 'Upload Image'
+          : 'Change Upload'
       }
       name="uploadedAvatar"
       files={formState.uploadedAvatar}
       handleChange={handleFormUpdate}
+      removeFile={removeFile}
       key="upload"
     />
   );

@@ -120,6 +120,44 @@ describe('EditableAvatar', () => {
     expect(submitButton).toHaveAttribute('aria-disabled', 'false');
   });
 
+  it('can add and remove file uploads', async () => {
+    const user = userEvent.setup();
+    const fileName = 'test.jpg';
+
+    render(
+      <MockProviders>
+        <EditableAvatar />
+      </MockProviders>
+    );
+
+    const changeButton = screen.getByText('Change Avatar');
+    expect(changeButton).toBeInTheDocument();
+
+    await user.click(changeButton);
+
+    const uploadButton = screen.getByText('Upload Image');
+
+    const str = JSON.stringify({
+      name: fileName,
+      size: 100,
+    });
+    const blob = new Blob([str]);
+    const file = new File([blob], fileName, {
+      type: 'image/jpg',
+    });
+
+    await user.upload(uploadButton, file);
+
+    const preview = screen.getByText(fileName);
+    expect(preview).toBeInTheDocument();
+
+    const removeButton = screen.getByTitle('RemoveMedia');
+    expect(removeButton).toBeInTheDocument();
+
+    await user.click(removeButton);
+    expect(preview).not.toBeInTheDocument();
+  });
+
   it('shows an error when both a link is entered and a file is uploaded', async () => {
     const user = userEvent.setup();
 

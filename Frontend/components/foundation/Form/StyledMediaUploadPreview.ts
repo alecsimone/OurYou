@@ -3,6 +3,7 @@ import { setAlpha } from '@styles/functions/modifyColorFunctions';
 
 const StyledMediaUploadPreview = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: space-between;
   border: 1px solid ${(props) => setAlpha(props.theme.coolGrey, 0.5)};
@@ -27,6 +28,16 @@ const StyledMediaUploadPreview = styled.div`
     .fileSize {
       opacity: 0.65;
       font-size: ${(props) => props.theme.tinyText};
+    }
+  }
+  svg.removeMedia {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    opacity: 0.6;
+    width: ${(props) => props.theme.miniText};
+    &:hover {
+      opacity: 0.8;
     }
   }
 `;

@@ -21,6 +21,12 @@ interface errorTranslatorInterface {
   (e: ApolloError): ApolloError | { message: string };
 }
 
+interface manualUpdateObj {
+  name: string;
+  newValue: any;
+}
+export type { manualUpdateObj };
+
 interface useFormInterface {
   <formInterface>(
     initialState: formInterface,
@@ -31,7 +37,8 @@ interface useFormInterface {
   ): [
     formInterface,
     ChangeEventHandler<HTMLInputElement>,
-    (children: ReactNode) => JSX.Element
+    (children: ReactNode) => JSX.Element,
+    (manualUpdateObj: manualUpdateObj) => void
   ];
 }
 
