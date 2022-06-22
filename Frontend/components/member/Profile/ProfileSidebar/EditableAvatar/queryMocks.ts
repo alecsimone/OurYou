@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { GraphQLError } from 'graphql';
 import { mockAvatar } from 'utils/testing/initialMemberMock';
-import { SET_AVATAR_MUTATION } from './useEditableAvatar';
+import { SET_AVATAR_MUTATION } from './EditAvatarForm/useEditAvatarForm';
 
 const avatarMock = [
   {

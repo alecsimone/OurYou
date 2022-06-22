@@ -1,12 +1,15 @@
 import Button from '@styles/extendableElements/Button';
 import Avatar from 'components/member/Avatar';
+import { useState } from 'react';
+import useMemberData from 'utils/member/useMemberData';
+import EditAvatarForm from './EditAvatarForm/EditAvatarForm';
 import StyledEditableAvatar from './StyledEditableAvatar';
-import useEditableAvatar from './useEditableAvatar';
 
 // interface EditableAvatarProps {}
 
 const EditableAvatar = (): JSX.Element => {
-  const [form, avatar, editingAvatar, setEditingAvatar] = useEditableAvatar();
+  const { avatar } = useMemberData('id avatar');
+  const [editingAvatar, setEditingAvatar] = useState(false);
 
   return (
     <StyledEditableAvatar className="editableAvatar">
@@ -14,7 +17,7 @@ const EditableAvatar = (): JSX.Element => {
         avatar={avatar}
         key="editableAvatar"
       />
-      {editingAvatar && form}
+      {editingAvatar && <EditAvatarForm setEditingAvatar={setEditingAvatar} />}
       {!editingAvatar && (
         <Button
           className="changeAvatar"

@@ -5,13 +5,13 @@ import MockProviders from 'components/foundation/MockProviders';
 import '@testing-library/jest-dom';
 import waitForQuery from 'utils/testing/waitForQuery';
 import { mockAvatar } from 'utils/testing/initialMemberMock';
-import EditableAvatar from './EditableAvatar';
+import EditableAvatar from '../EditableAvatar';
 import {
   avatarMock,
   mutationErrorMock,
   mutationSuccessMock,
   replacementAvatar,
-} from './queryMocks';
+} from '../queryMocks';
 
 describe('EditableAvatar', () => {
   window.URL.createObjectURL = () => 'test.jpg';

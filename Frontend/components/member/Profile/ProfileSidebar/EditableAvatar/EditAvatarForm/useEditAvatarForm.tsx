@@ -38,14 +38,10 @@ const initialState: avatarStateInterface = {
   uploadedAvatar: null,
 };
 
-const useEditableAvatar = (): [
-  JSX.Element,
-  string,
-  boolean,
-  Dispatch<SetStateAction<boolean>>
-] => {
+const useEditAvatarForm = (
+  setEditingAvatar: (value: boolean) => void
+): JSX.Element => {
   const { id, avatar } = useMemberData('id avatar');
-  const [editingAvatar, setEditingAvatar] = useState(false);
 
   const optimisticResponse: setAvatarResponse = {
     setAvatar: {
@@ -135,7 +131,7 @@ const useEditableAvatar = (): [
       {formCreator([uploadInput, linkInput])}
     </div>
   );
-  return [form, avatar, editingAvatar, setEditingAvatar];
+  return form;
 };
 
-export default useEditableAvatar;
+export default useEditAvatarForm;

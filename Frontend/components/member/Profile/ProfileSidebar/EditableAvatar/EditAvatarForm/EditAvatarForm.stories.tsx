@@ -1,15 +1,18 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import StyledForm from '@styles/extendableElements/Form';
 import FormField from 'components/foundation/Form/FormField';
-import EditableAvatar from './EditableAvatar';
+import StyledEditableAvatar from '../StyledEditableAvatar';
+import EditAvatarForm from './EditAvatarForm';
 
 export default {
-  title: 'Member/Profile/Profile Sidebar/Editable Avatar',
-  component: EditableAvatar,
-} as ComponentMeta<typeof EditableAvatar>;
+  title: 'Member/Profile/Profile Sidebar/Edit Avatar Form',
+  component: EditAvatarForm,
+} as ComponentMeta<typeof EditAvatarForm>;
 
-export const Basic: ComponentStory<typeof EditableAvatar> = () => (
-  <EditableAvatar />
+export const Basic: ComponentStory<typeof EditAvatarForm> = () => (
+  <StyledEditableAvatar>
+    <EditAvatarForm setEditingAvatar={() => {}} />
+  </StyledEditableAvatar>
 );
 
 export const ValidFormField: ComponentStory<typeof FormField> = () => (
