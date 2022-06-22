@@ -2,12 +2,6 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import useForm from 'components/foundation/Form/useForm';
-import {
-  makeConfirmPasswordField,
-  makeDisplayNameField,
-  makeEmailField,
-  makePasswordField,
-} from 'components/foundation/Form/fieldGenerators';
 import useLogInForCallback from '../FinishReset/useLogInForCallback';
 import SIGN_UP_MUTATION from './signUpMutation';
 import {
@@ -17,6 +11,10 @@ import {
   useSignUpInterface,
 } from './types';
 import signUpErrorTranslator from './signUpErrorTranslator';
+import DisplayNameField from 'components/foundation/Form/FormFields/DisplayNameField';
+import EmailField from 'components/foundation/Form/FormFields/EmailField';
+import PasswordField from 'components/foundation/Form/FormFields/PasswordField';
+import ConfirmPasswordField from 'components/foundation/Form/FormFields/ConfirmPasswordField';
 
 const initialState: signUpFormInterface = {
   displayName: '',
@@ -70,10 +68,23 @@ const useSignUp: useSignUpInterface = (closeModal) => {
   // Create our form fields
   const { displayName, email, password, confirmPassword } = formState;
   const formFields = [
-    makeDisplayNameField(displayName, handleFormUpdate),
-    makeEmailField(email, handleFormUpdate),
-    makePasswordField(password, handleFormUpdate),
-    makeConfirmPasswordField(confirmPassword, handleFormUpdate, password),
+    <DisplayNameField
+      value={displayName}
+      onChange={handleFormUpdate}
+    />,
+    <EmailField
+      value={email}
+      onChange={handleFormUpdate}
+    />,
+    <PasswordField
+      value={password}
+      onChange={handleFormUpdate}
+    />,
+    <ConfirmPasswordField
+      value={confirmPassword}
+      onChange={handleFormUpdate}
+      firstPasswordEntry={password}
+    />,
   ];
 
   // Put the form together

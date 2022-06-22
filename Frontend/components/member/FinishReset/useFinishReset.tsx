@@ -3,11 +3,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useForm from 'components/foundation/Form/useForm';
 import {
-  makeConfirmPasswordField,
-  makeEmailField,
-  makePasswordField,
-} from 'components/foundation/Form/fieldGenerators';
-import {
   finishResetInterface,
   finishResetResult,
   finishResetVariables,
@@ -17,6 +12,9 @@ import RESET_PASSWORD_MUTATION from './resetPasswordMutation';
 import { expiredToken, redeemedToken, resetFailed } from './constants';
 import getResetCode from './getResetCode';
 import useLogInForCallback from './useLogInForCallback';
+import EmailField from 'components/foundation/Form/FormFields/EmailField';
+import PasswordField from 'components/foundation/Form/FormFields/PasswordField';
+import ConfirmPasswordField from 'components/foundation/Form/FormFields/ConfirmPasswordField';
 
 const initialState = {
   email: '',
@@ -94,9 +92,19 @@ const useFinishReset: useFinishResetInterface = () => {
   ({ email, password } = formState);
   const { confirmPassword } = formState;
   const formFields = [
-    makeEmailField(email, handleFormUpdate),
-    makePasswordField(password, handleFormUpdate),
-    makeConfirmPasswordField(confirmPassword, handleFormUpdate, password),
+    <EmailField
+      value={email}
+      onChange={handleFormUpdate}
+    />,
+    <PasswordField
+      value={password}
+      onChange={handleFormUpdate}
+    />,
+    <ConfirmPasswordField
+      value={confirmPassword}
+      onChange={handleFormUpdate}
+      firstPasswordEntry={password}
+    />,
   ];
 
   // And put together our form

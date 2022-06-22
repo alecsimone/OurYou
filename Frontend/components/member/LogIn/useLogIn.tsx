@@ -2,13 +2,11 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import useForm from 'components/foundation/Form/useForm';
 import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
-import {
-  makeEmailField,
-  makePasswordField,
-} from 'components/foundation/Form/fieldGenerators';
 import { didLoginWork } from '../FinishReset/constants';
 import LOG_IN_MUTATION from './logInMutation';
 import { logInFormStateInterface, logInResult } from './types';
+import EmailField from 'components/foundation/Form/FormFields/EmailField';
+import PasswordField from 'components/foundation/Form/FormFields/PasswordField';
 
 const initialState: logInFormStateInterface = {
   email: '',
@@ -52,8 +50,14 @@ const useLogIn = (): [JSX.Element, boolean, { message: string } | null] => {
   // Make our form fields
   const { email, password } = formState;
   const formFields = [
-    makeEmailField(email, handleFormUpdate),
-    makePasswordField(password, handleFormUpdate),
+    <EmailField
+      value={email}
+      onChange={handleFormUpdate}
+    />,
+    <PasswordField
+      value={password}
+      onChange={handleFormUpdate}
+    />,
   ];
 
   const form = formCreator(formFields);

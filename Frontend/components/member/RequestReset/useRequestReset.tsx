@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import useForm from 'components/foundation/Form/useForm';
-import { makeEmailField } from 'components/foundation/Form/fieldGenerators';
+import EmailField from 'components/foundation/Form/FormFields/EmailField';
 
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -30,7 +30,12 @@ const useRequestReset = (): [JSX.Element, boolean] => {
   );
 
   // And our form fields
-  const formFields = [makeEmailField(formState.email, handleFormUpdate)];
+  const formFields = [
+    <EmailField
+      value={formState.email}
+      onChange={handleFormUpdate}
+    />,
+  ];
 
   const form = formCreator(formFields);
 
