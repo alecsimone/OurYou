@@ -1,0 +1,76 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { screen, userEvent } from '@storybook/testing-library';
+import EditableAvatar from './EditableAvatar';
+import FormField from '../../../../Form/FormField';
+import waitForQuery from 'utils/testing/waitForQuery';
+
+<Meta
+  title="Member/Profile/Profile Sidebar/Editable Avatar"
+  component={EditableAvatar}
+/>
+
+# The Basic Component
+
+<Story name="Basic">
+  <EditableAvatar />
+</Story>
+
+# After Clicking
+
+<Story
+  name="Button Clicked"
+  play={async () => {
+    const changeButton = screen.getByText('Change Avatar');
+    await userEvent.click(changeButton);
+  }}
+>
+  <EditableAvatar />
+</Story>
+
+# Invalid Text Entered
+
+<Story
+  name="Invalid Text Entered"
+  play={async () => {
+    const changeButton = screen.getByText('Change Avatar');
+    await userEvent.click(changeButton);
+    const linkInput = screen.getByPlaceholderText('Link to image');
+    await userEvent.type(linkInput, 'abc');
+    linkInput.blur();
+  }}
+>
+  <EditableAvatar />
+</Story>
+
+# Valid Text Entered
+
+<Story
+  name="Valid Text Entered"
+  play={async () => {
+    const changeButton = screen.getByText('Change Avatar');
+    await userEvent.click(changeButton);
+    const linkInput = screen.getByPlaceholderText('Link to image');
+    await userEvent.type(linkInput, 'https://www.reddit.com');
+    linkInput.blur();
+  }}
+>
+  <EditableAvatar />
+</Story>
+
+<Story
+  name="Valid Form Field"
+>
+  <FormField
+    fieldType="input"
+    requirements="Must be a valid URL that is not the same as your current avatar."
+    fieldProps={{
+      type: 'url',
+      name: 'newAvatarLink',
+      placeholder: 'Link to image',
+      value: 'https://www.reddit.com',
+      onChange: () => {},
+      pattern: `(?!${avatar}$).*`,
+    }}
+    key="link"
+  />
+</Story>

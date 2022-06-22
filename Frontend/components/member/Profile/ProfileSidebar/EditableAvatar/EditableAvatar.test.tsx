@@ -32,7 +32,7 @@ describe('EditableAvatar', () => {
     expect(changeButton).toBeInTheDocument();
   });
 
-  it("displays the member's avatar and a change avatar button by default", async () => {
+  it('displays the edit avatar form after clicking the button', async () => {
     const user = userEvent.setup();
 
     render(
