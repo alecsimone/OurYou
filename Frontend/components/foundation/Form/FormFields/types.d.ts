@@ -5,4 +5,5 @@ interface BasicFieldProps {
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export type { BasicFieldProps };

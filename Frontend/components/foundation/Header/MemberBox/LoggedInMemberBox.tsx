@@ -18,9 +18,12 @@ const LoggedInMemberBox = ({
   return (
     <StyledMemberBox>
       <NotificationBox />
-      <Link href="/me">
+      <Link
+        href="/me"
+        passHref
+      >
         <a
-          href="/me"
+          href="replace"
           className="profileLink"
         >
           {`[${rep}]`} {displayName}

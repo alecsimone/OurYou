@@ -34,6 +34,7 @@ const useRequestReset = (): [JSX.Element, boolean] => {
     <EmailField
       value={formState.email}
       onChange={handleFormUpdate}
+      key="email"
     />,
   ];
 
