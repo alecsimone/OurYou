@@ -2,6 +2,9 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useForm from 'components/foundation/Form/useForm';
+import EmailField from 'components/foundation/Form/FormFields/EmailField';
+import PasswordField from 'components/foundation/Form/FormFields/PasswordField';
+import ConfirmPasswordField from 'components/foundation/Form/FormFields/ConfirmPasswordField';
 import {
   finishResetInterface,
   finishResetResult,
@@ -12,9 +15,6 @@ import RESET_PASSWORD_MUTATION from './resetPasswordMutation';
 import { expiredToken, redeemedToken, resetFailed } from './constants';
 import getResetCode from './getResetCode';
 import useLogInForCallback from './useLogInForCallback';
-import EmailField from 'components/foundation/Form/FormFields/EmailField';
-import PasswordField from 'components/foundation/Form/FormFields/PasswordField';
-import ConfirmPasswordField from 'components/foundation/Form/FormFields/ConfirmPasswordField';
 
 const initialState = {
   email: '',
@@ -95,15 +95,18 @@ const useFinishReset: useFinishResetInterface = () => {
     <EmailField
       value={email}
       onChange={handleFormUpdate}
+      key="email"
     />,
     <PasswordField
       value={password}
       onChange={handleFormUpdate}
+      key="password"
     />,
     <ConfirmPasswordField
       value={confirmPassword}
       onChange={handleFormUpdate}
       firstPasswordEntry={password}
+      key="confirmPassword"
     />,
   ];
 

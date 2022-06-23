@@ -1,7 +1,7 @@
 import StyledError from './StyledError';
 
 interface ErrorProps {
-  error: string | { message: string } | null;
+  error?: string | { message: string } | null;
 }
 
 const Error = ({ error }: ErrorProps): JSX.Element | null => {
