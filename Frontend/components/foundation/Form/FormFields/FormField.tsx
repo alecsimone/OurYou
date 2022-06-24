@@ -1,6 +1,6 @@
 import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import Input from '@styles/extendableElements/Input';
-import Error from '../Error';
+import Error from '../../Error';
 
 interface FormFieldInterface {
   type: 'text' | 'email' | 'password' | 'url';

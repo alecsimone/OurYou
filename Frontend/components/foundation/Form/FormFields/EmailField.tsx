@@ -1,4 +1,4 @@
-import FormField from '../FormField';
+import FormField from './FormField';
 import { BasicFieldProps } from './types';
 
 const EmailField = ({ value, onChange }: BasicFieldProps): JSX.Element => (

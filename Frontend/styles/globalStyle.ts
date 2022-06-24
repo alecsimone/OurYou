@@ -38,6 +38,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: ${theme.smallText};
     font-weight: 300;
   }
+  img {
+    font-size: ${theme.tinyText};
+  }
   #__next {
     height: 100%;
     min-height: 100%;

@@ -1,8 +1,8 @@
 import { ChangeEventHandler } from 'react';
-import MediaUploadPreview from './MediaUploadPreview';
 import StyledFileUploadInput from './StyledFileUploadInput';
+import MediaUploadPreview from './MediaUploadPreview';
 
-interface FileUploadInputProps {
+export interface FileUploadInputProps {
   labelText: string;
   name: string;
   files: File[] | null;

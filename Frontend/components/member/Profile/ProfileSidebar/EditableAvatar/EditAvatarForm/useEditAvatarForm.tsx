@@ -1,8 +1,8 @@
 import { gql, useMutation } from '@apollo/client';
 import useForm from 'components/foundation/Form/useForm';
 import useMemberData from 'utils/member/useMemberData';
-import FormField from 'components/foundation/Form/FormField';
-import FileUploadInput from 'components/foundation/Form/FileUploadInput';
+import FormField from 'components/foundation/Form/FormFields/FormField';
+import FileUploadInput from 'components/foundation/Form/FileUploadInput/FileUploadInput';
 import Error from 'components/foundation/Error';
 
 const SET_AVATAR_MUTATION = gql`

@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import StyledForm from '@styles/extendableElements/Form';
-import FormField from 'components/foundation/Form/FormField';
+import FormField from 'components/foundation/Form/FormFields/FormField';
 import StyledEditableAvatar from '../StyledEditableAvatar';
 import EditAvatarForm from './EditAvatarForm';
 

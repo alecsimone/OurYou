@@ -9,6 +9,7 @@ const StyledMediaUploadPreview = styled.div`
   border: 1px solid ${(props) => setAlpha(props.theme.coolGrey, 0.5)};
   border-radius: 3px;
   background: ${(props) => setAlpha(props.theme.coolGrey, 0.25)};
+  padding-right: ${(props) => props.theme.tinyText};
   .thumb {
     width: 10rem;
     height: 100%;
