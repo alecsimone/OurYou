@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import FileUploadInput, { FileUploadInputProps } from './FileUploadInput';
+import FileUploadInput from './FileUploadInput';
 
 export default {
   title: 'Foundation/Form/File Upload Input',
@@ -31,7 +31,7 @@ const fileOne = new File([blobOne], fileNameOne, {
   type: 'image/jpg',
 });
 
-const fileNameTwo = 'test-1.jpg';
+const fileNameTwo = 'test-2.jpg';
 const strTwo = JSON.stringify({
   name: fileNameTwo,
   size: 100,
@@ -41,7 +41,7 @@ const fileTwo = new File([blobTwo], fileNameTwo, {
   type: 'image/jpg',
 });
 
-const fileNameThree = 'test-1.jpg';
+const fileNameThree = 'test-3.jpg';
 const strThree = JSON.stringify({
   name: fileNameOne,
   size: 100,
@@ -52,7 +52,7 @@ const fileThree = new File([blobThree], fileNameThree, {
 });
 
 export const WithFile = Template.bind({});
-const WithFileArgs: FileUploadInputProps = {
+const WithFileArgs = {
   labelText: 'Upload',
   name: 'upload',
   files: [fileOne],
