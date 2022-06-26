@@ -1,35 +1,22 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import MockProviders from 'components/foundation/MockProviders';
-import ArrowIcon from '../Arrow';
-import FunctionalIcon from './FunctionalIcon';
+import { composeStories } from '@storybook/testing-react';
+import * as stories from './FunctionalIcon.stories';
+
+const { Basic, TitleTextReplacement, ExtraClass } = composeStories(stories);
 
 describe('FunctionalIcon', () => {
   it('passes its icon name as a title with the first letter capitalized', () => {
-    render(
-      <MockProviders>
-        <FunctionalIcon iconName="iconNameTest">
-          <ArrowIcon />
-        </FunctionalIcon>
-      </MockProviders>
-    );
+    render(<Basic {...Basic.args} />);
 
     const title = screen.getByTitle('IconNameTest');
     expect(title).toBeInTheDocument();
   });
 
   it('overrides the icon name when given a titleTextReplacement prop', () => {
-    render(
-      <MockProviders>
-        <FunctionalIcon
-          iconName="iconNameTest"
-          titleTextReplacement="Something Else"
-        >
-          <ArrowIcon />
-        </FunctionalIcon>
-      </MockProviders>
-    );
+    render(<TitleTextReplacement {...TitleTextReplacement.args} />);
 
     const failedTitle = screen.queryByTitle('IconNameTest');
     expect(failedTitle).not.toBeInTheDocument();
@@ -43,14 +30,10 @@ describe('FunctionalIcon', () => {
     const user = userEvent.setup();
 
     render(
-      <MockProviders>
-        <FunctionalIcon
-          iconName="iconNameTest"
-          onTrigger={onTrigger}
-        >
-          <ArrowIcon />
-        </FunctionalIcon>
-      </MockProviders>
+      <Basic
+        {...Basic.args}
+        onTrigger={onTrigger}
+      />
     );
 
     const title = screen.getByTitle('IconNameTest');
@@ -73,16 +56,7 @@ describe('FunctionalIcon', () => {
 
   it('adds its extraClass prop as a class', () => {
     const extraClass = 'extraClassTest';
-    render(
-      <MockProviders>
-        <FunctionalIcon
-          iconName="iconNameTest"
-          extraClass={extraClass}
-        >
-          <ArrowIcon />
-        </FunctionalIcon>
-      </MockProviders>
-    );
+    render(<ExtraClass {...ExtraClass.args} />);
 
     const title = screen.getByTitle('IconNameTest');
     expect(title).toBeInTheDocument();
