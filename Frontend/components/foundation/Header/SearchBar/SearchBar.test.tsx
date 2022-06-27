@@ -1,19 +1,14 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MockProviders from 'components/foundation/MockProviders';
-import SearchBar from './SearchBar';
+import { composeStories } from '@storybook/testing-react';
+import * as stories from './SearchBar.stories';
+
+const { Basic, ShowingSearch, WithText } = composeStories(stories);
 
 describe('SearchBar', () => {
   it('renders a search icon and a search bar', () => {
-    render(
-      <MockProviders>
-        <SearchBar
-          showingSearch
-          toggleShowingSearch={() => {}}
-        />
-      </MockProviders>
-    );
+    render(<ShowingSearch />);
     const searchIcon = screen.getByTitle('Search');
     expect(searchIcon).toBeInTheDocument();
 
@@ -22,14 +17,7 @@ describe('SearchBar', () => {
   });
 
   it('only shows the search bar when the showingSearch prop is present', () => {
-    render(
-      <MockProviders>
-        <SearchBar
-          showingSearch={false}
-          toggleShowingSearch={() => {}}
-        />
-      </MockProviders>
-    );
+    render(<Basic />);
     const searchIcon = screen.getByTitle('Search');
     expect(searchIcon).toBeInTheDocument();
 
@@ -40,14 +28,7 @@ describe('SearchBar', () => {
   it('calls toggle showing search when the search icon is clicked', async () => {
     const user = userEvent.setup();
     const toggleShowingSearch = jest.fn();
-    render(
-      <MockProviders>
-        <SearchBar
-          showingSearch
-          toggleShowingSearch={toggleShowingSearch}
-        />
-      </MockProviders>
-    );
+    render(<Basic toggleShowingSearch={toggleShowingSearch} />);
     const searchIcon = screen.getByTitle('Search');
     expect(searchIcon).toBeInTheDocument();
 
@@ -66,15 +47,7 @@ describe('SearchBar', () => {
 
   it('lets you type in the search box', async () => {
     const user = userEvent.setup();
-    const toggleShowingSearch = jest.fn();
-    render(
-      <MockProviders>
-        <SearchBar
-          showingSearch
-          toggleShowingSearch={toggleShowingSearch}
-        />
-      </MockProviders>
-    );
+    render(<ShowingSearch />);
     const searchBar = screen.getByPlaceholderText('Search');
     expect(searchBar).toBeInTheDocument();
 
