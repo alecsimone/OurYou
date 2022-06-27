@@ -1,17 +1,15 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { composeStories } from '@storybook/testing-react';
 import { desktopBreakpointPx } from '@styles/breakpoints';
-import MockProviders from 'components/foundation/MockProviders';
-import NavButtons from './NavButtons';
+import * as stories from './NavButtons.stories';
+
+const { WithHamburger } = composeStories(stories);
 
 describe('NavButtons', () => {
   it('renders a hamburger icon and a plus icon', () => {
-    render(
-      <MockProviders>
-        <NavButtons toggleNavSidebar={() => {}} />
-      </MockProviders>
-    );
+    render(<WithHamburger />);
 
     const hamburger = screen.getByTitle('Show Nav Sidebar');
     expect(hamburger).toBeInTheDocument();
@@ -24,11 +22,7 @@ describe('NavButtons', () => {
     window.innerWidth = desktopBreakpointPx;
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <NavButtons toggleNavSidebar={toggleNav} />
-      </MockProviders>
-    );
+    render(<WithHamburger toggleNavSidebar={toggleNav} />);
 
     const hamburger = screen.getByTitle('Show Nav Sidebar');
     const hamburgerIcon = hamburger.parentElement;
