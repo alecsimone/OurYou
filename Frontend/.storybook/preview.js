@@ -44,7 +44,7 @@ export const parameters = {
   viewport: {
     viewports: {
       mobile: {
-        name: 'Below Mobile',
+        name: 'BelowMobile',
         styles: {
           width: `${mobileBreakpointPx - 1}px`,
           height: '800px',

@@ -3,17 +3,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
-import MockProviders from '../MockProviders';
-import BottomBar from './BottomBar';
+import { composeStories } from '@storybook/testing-react';
+import * as stories from './BottomBar.stories';
+
+const { Basic } = composeStories(stories);
 
 describe('BottomBar', () => {
   it('Shows search and new thing forms and moves seamlessly between them', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <BottomBar />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     // To start with, we should have Search, Home, and New Thing buttons, but no form
     const searchButton = screen.getByTitle('Search');
@@ -83,11 +81,7 @@ describe('BottomBar', () => {
     const user = userEvent.setup();
     // console.log = jest.fn();
     jest.spyOn(console, 'log').mockImplementation();
-    render(
-      <MockProviders>
-        <BottomBar />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     // Search
     // Make sure the search button is in the document
@@ -148,11 +142,9 @@ describe('BottomBar', () => {
     const user = userEvent.setup();
     mockRouter.setCurrentUrl('/twitter');
     render(
-      <MockProviders>
-        <RouterContext.Provider value={mockRouter}>
-          <BottomBar />
-        </RouterContext.Provider>
-      </MockProviders>
+      <RouterContext.Provider value={mockRouter}>
+        <Basic />
+      </RouterContext.Provider>
     );
 
     const homeButton = screen.getByTitle('Home');
