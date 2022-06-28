@@ -3,20 +3,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
-import MockProviders from '../MockProviders';
+import { composeStories } from '@storybook/testing-react';
 import navLinks from './NavLinks';
-import NavSidebar from './NavSidebar';
+import * as stories from './NavSidebar.stories';
+
+const { Basic } = composeStories(stories);
 
 describe('NavSidebar', () => {
   it('renders the nav links', () => {
-    render(
-      <MockProviders>
-        <NavSidebar
-          isOpen
-          toggleOpen={() => {}}
-        />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     navLinks.forEach((linkObj) => {
       const navLine = screen.getByText(linkObj.text, {
@@ -28,14 +23,7 @@ describe('NavSidebar', () => {
 
   it('collapses and Expands', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <NavSidebar
-          isOpen
-          toggleOpen={() => {}}
-        />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     // The Nav Sidebar should start expanded
     const navSidebar = screen.getByTestId('navSidebar');
@@ -66,14 +54,9 @@ describe('NavSidebar', () => {
     const user = userEvent.setup();
     const toggle = jest.fn(() => {});
     render(
-      <MockProviders>
-        <RouterContext.Provider value={mockRouter}>
-          <NavSidebar
-            isOpen
-            toggleOpen={toggle}
-          />
-        </RouterContext.Provider>
-      </MockProviders>
+      <RouterContext.Provider value={mockRouter}>
+        <Basic toggleOpen={toggle} />
+      </RouterContext.Provider>
     );
 
     const twitterLinkObj = navLinks.find(

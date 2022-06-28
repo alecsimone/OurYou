@@ -12,9 +12,3 @@ Allows the user to toggle showing the search bar. When the search bar is shown o
 - **[MemberBox](MemberBox/readme.md)**: Shows the user's information, toggles the things sidebar.
 - **[NavButtons](NavButtons/readme.md)**: Hosts a create post button, as well as a hamburger icon to toggle showing the nav sidebar on smaller screens.
 - **[SearchBar](SearchBar/readme.md)**: Allows the user to search things on the site. Expandable on smaller screens.
-
-## [Features](Header.test.tsx)
-
-### It shows and hides the search bar
-
-- Between the mobile and desktop breakpoints, Clicking the search icon should show the search bar and hide the LogoBox.
