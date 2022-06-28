@@ -1,12 +1,12 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
-import { RouterContext } from 'next/dist/shared/lib/router-context';
-import MockProviders from 'components/foundation/MockProviders';
 import '@testing-library/jest-dom';
+import { composeStories } from '@storybook/testing-react';
 import waitForQuery from 'utils/testing/waitForQuery';
-import SignUp from './SignUp';
-import { duplicateSignUpMock, validSignUpMock } from './mutationMocks';
+import * as stories from './SignUp.stories';
+
+const { Basic, ValidSignUp, DuplicateSignUp } = composeStories(stories);
 
 const necessaryFormFields = [
   'Display Name',
@@ -18,11 +18,7 @@ const necessaryFormFields = [
 describe('SignUp', () => {
   it('renders the necessary form fields and lets the user type in them', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <SignUp />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const [displayNameInput, emailInput, passwordInput, confirmPasswordInput] =
       necessaryFormFields.map((field) => screen.getByPlaceholderText(field));
@@ -44,11 +40,7 @@ describe('SignUp', () => {
 
   it('disables the submit button if all inputs are not valid and tells the user why', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <SignUp />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const submitButton = screen.getByText('Sign Up', { selector: 'button' });
     expect(submitButton).toHaveAttribute('aria-disabled', 'true');
@@ -107,13 +99,7 @@ describe('SignUp', () => {
 
   it('creates a new member with valid inputs', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders mocks={validSignUpMock}>
-        <RouterContext.Provider value={mockRouter}>
-          <SignUp />
-        </RouterContext.Provider>
-      </MockProviders>
-    );
+    render(<ValidSignUp />);
 
     const submitButton = screen.getByText('Sign Up', { selector: 'button' });
 
@@ -136,11 +122,7 @@ describe('SignUp', () => {
 
   it('shows an error message when sign up fails', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders mocks={duplicateSignUpMock}>
-        <SignUp />
-      </MockProviders>
-    );
+    render(<DuplicateSignUp />);
 
     const submitButton = screen.getByText('Sign Up', { selector: 'button' });
 
