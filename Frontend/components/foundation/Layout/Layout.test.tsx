@@ -3,11 +3,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 import { act } from 'react-dom/test-utils';
+import { composeStories } from '@storybook/testing-react';
 import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
 import waitForQuery from 'utils/testing/waitForQuery';
-import initialMemberMock from 'utils/testing/initialMemberMock';
-import MockProviders from '../MockProviders';
-import Layout from './Layout';
+import * as stories from './Layout.stories';
+
+const { Home, NotHome } = composeStories(stories);
 
 // eslint-disable-next-line global-require
 jest.mock('next/router', () => require('next-router-mock'));
@@ -17,13 +18,7 @@ describe('Layout', () => {
   it('toggles the sidebars', async () => {
     mockRouter.setCurrentUrl('/');
     window.innerWidth = mobileBreakpointPx + 1;
-    render(
-      <MockProviders mocks={initialMemberMock}>
-        <Layout>
-          <div>Page component</div>
-        </Layout>
-      </MockProviders>
-    );
+    render(<Home />);
 
     await waitForQuery();
 
@@ -61,15 +56,8 @@ describe('Layout', () => {
   });
 
   it('does not render the things sidebar at first if not on the homepage, but can still open it', async () => {
-    mockRouter.setCurrentUrl('/twitter');
     window.innerWidth = desktopBreakpointPx + 1;
-    render(
-      <MockProviders mocks={initialMemberMock}>
-        <Layout>
-          <div>Page component</div>
-        </Layout>
-      </MockProviders>
-    );
+    render(<NotHome />);
 
     await waitForQuery();
 

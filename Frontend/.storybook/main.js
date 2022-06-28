@@ -11,6 +11,7 @@ module.exports = {
     '@storybook/addon-interactions',
     'storybook-addon-apollo-client',
     'storybook-addon-styled-component-theme/dist/preset',
+    'storybook-addon-next-router',
   ],
   framework: '@storybook/react',
   core: {

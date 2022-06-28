@@ -1,5 +1,6 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { ThemeProvider } from 'styled-components';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import GlobalStyle from '@styles/globalStyle';
 import theme from '../styles/theme';
 import ourTheme from './ourTheme';
@@ -95,6 +96,9 @@ export const parameters = {
   },
   apolloClient: {
     MockedProvider,
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
   },
 };
 
