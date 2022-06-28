@@ -1,21 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MockProviders from 'components/foundation/MockProviders';
 import '@testing-library/jest-dom';
+import { composeStories } from '@storybook/testing-react';
 import waitForQuery from 'utils/testing/waitForQuery';
-import LogIn from './LogIn';
-import { invalidLoginMock, validLoginMock } from './mutationMocks';
+import * as stories from './LogIn.stories';
+
+const { Basic, InvalidLogIn, ValidLogIn } = composeStories(stories);
 
 const necessaryFormFields = ['Email', 'Password'];
 
-describe('SignUp', () => {
+describe('LogIn', () => {
   it('renders the necessary form fields and lets the user type in them', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <LogIn />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const [emailInput, passwordInput] = necessaryFormFields.map((field) =>
       screen.getByPlaceholderText(field)
@@ -34,11 +31,7 @@ describe('SignUp', () => {
 
   it('disables the submit button if all inputs are not valid and tells the user why', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <LogIn />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const submitButton = screen.getByText('Log In', { selector: 'button' });
     expect(submitButton).toHaveAttribute('aria-disabled', 'true');
@@ -76,11 +69,7 @@ describe('SignUp', () => {
 
   it('alerts the user when they enter an invalid login', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders mocks={invalidLoginMock}>
-        <LogIn />
-      </MockProviders>
-    );
+    render(<InvalidLogIn />);
 
     const submitButton = screen.getByText('Log In', { selector: 'button' });
 
@@ -104,11 +93,7 @@ describe('SignUp', () => {
 
   it('logs in the user when they enter a valid login', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders mocks={validLoginMock}>
-        <LogIn />
-      </MockProviders>
-    );
+    render(<ValidLogIn />);
     const submitButton = screen.getByText('Log In', { selector: 'button' });
     expect(submitButton).toBeInTheDocument();
 
