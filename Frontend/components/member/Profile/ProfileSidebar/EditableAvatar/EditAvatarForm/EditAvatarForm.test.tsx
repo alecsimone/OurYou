@@ -66,7 +66,7 @@ describe('EditableAvatar', () => {
     const user = userEvent.setup();
 
     render(
-      <MockProviders>
+      <MockProviders mocks={avatarMock}>
         <EditableAvatar />
       </MockProviders>
     );

@@ -4,27 +4,33 @@ import { RouterContext } from 'next/dist/shared/lib/router-context';
 import mockRouter from 'next-router-mock';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
+import { composeStories } from '@storybook/testing-react';
 import MockProviders from 'components/foundation/MockProviders';
 import waitForQuery from 'utils/testing/waitForQuery';
 import initialMemberMock, {
-  avatarlessMemberMock,
-  loggedOutMock,
   mockDisplayName,
   mockRep,
 } from 'utils/testing/initialMemberMock';
 import MemberBox from './MemberBox';
+import * as stories from './MemberBox.stories';
+
+const { Loading, LoggedOut, LoggedIn, LoggedInNoAvatar } =
+  composeStories(stories);
 
 const repAndNameLinkText = `[${mockRep}] ${mockDisplayName}`;
 
 describe('MemberBox', () => {
+  it('shows a loading state', async () => {
+    render(<Loading />);
+
+    const loadingState = screen.getByText('Authenticating...');
+    expect(loadingState).toBeInTheDocument();
+  });
+
   it('shows a sign up or log in prompt if not logged in', async () => {
     const user = userEvent.setup();
 
-    render(
-      <MockProviders mocks={loggedOutMock}>
-        <MemberBox toggleThingsSidebar={() => {}} />
-      </MockProviders>
-    );
+    render(<LoggedOut />);
 
     await waitForQuery();
 
@@ -50,11 +56,7 @@ describe('MemberBox', () => {
   });
 
   it('renders the loading state, then the bell, rep, name, and avatar', async () => {
-    render(
-      <MockProviders mocks={initialMemberMock}>
-        <MemberBox toggleThingsSidebar={() => {}} />
-      </MockProviders>
-    );
+    render(<LoggedIn />);
 
     const loadingText = screen.getByText('Authenticating...');
     expect(loadingText).toBeInTheDocument();
@@ -72,11 +74,7 @@ describe('MemberBox', () => {
   });
 
   it('renders the default avatar if the user has no avatar', async () => {
-    render(
-      <MockProviders mocks={avatarlessMemberMock}>
-        <MemberBox toggleThingsSidebar={() => {}} />
-      </MockProviders>
-    );
+    render(<LoggedInNoAvatar />);
 
     await waitForQuery();
 
@@ -116,11 +114,7 @@ describe('MemberBox', () => {
   it('toggles the things sidebar', async () => {
     const toggleThingsSidebar = jest.fn(() => {});
     const user = userEvent.setup();
-    render(
-      <MockProviders mocks={initialMemberMock}>
-        <MemberBox toggleThingsSidebar={toggleThingsSidebar} />
-      </MockProviders>
-    );
+    render(<LoggedIn toggleThingsSidebar={toggleThingsSidebar} />);
 
     await waitForQuery();
 
