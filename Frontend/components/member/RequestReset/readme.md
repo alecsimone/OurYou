@@ -11,15 +11,3 @@ Note that this component lives inside the [LogIn](../LogIn/LogIn.tsx) component.
 1. Calls the useForm hook to get the pieces needed to make the form
 1. Makes the email field for the form
 1. Returns formCreator, formFields, and resetRequested to the RequestReset component
-
-## [Features](RequestReset.test.tsx)
-
-### It renders the necessary form fields and lets the user type in them
-
-- Just checks that all the expected parts of the form are present and can be typed in
-
-### It disables the submit button if all inputs are not valid
-
-- Grabs the submit button and makes sure it's disabled to start
-- Types a couple characters in the email field, then makes sure the submit button is still disabled
-- Types a valid email in the email field, then makes sure the submit button is now enabled

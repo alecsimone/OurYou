@@ -1,19 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MockProviders from 'components/foundation/MockProviders';
 import '@testing-library/jest-dom';
+import { composeStories } from '@storybook/testing-react';
 import waitForQuery from 'utils/testing/waitForQuery';
-import RequestReset from './RequestReset';
-import validResetMock from './mutationMocks';
+import * as stories from './RequestReset.stories';
+
+const { Basic, ResetRequested } = composeStories(stories);
 
 describe('RequestReset', () => {
   it('renders the necessary form fields and lets the user type in them', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <RequestReset />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const emailInput = screen.getByPlaceholderText('Email');
     expect(emailInput).toBeInTheDocument();
@@ -24,11 +21,7 @@ describe('RequestReset', () => {
 
   it('disables the submit button if all inputs are not valid and tells the user why', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <RequestReset />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const submitButton = screen.getByText('Request Reset', {
       selector: 'button',
@@ -54,11 +47,7 @@ describe('RequestReset', () => {
 
   it('shows a success message after resetting the form', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders mocks={validResetMock}>
-        <RequestReset />
-      </MockProviders>
-    );
+    render(<ResetRequested />);
 
     const submitButton = screen.getByText('Request Reset', {
       selector: 'button',
