@@ -4,17 +4,15 @@ import userEvent from '@testing-library/user-event';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import mockRouter from 'next-router-mock';
 import { act } from 'react-dom/test-utils';
+import { composeStories } from '@storybook/testing-react';
 import { desktopBreakpointPx, mobileBreakpointPx } from '@styles/breakpoints';
-import MockProviders from 'components/foundation/MockProviders';
-import LogoBox from './LogoBox';
+import * as stories from './LogoBox.stories';
+
+const { Basic, NoName } = composeStories(stories);
 
 describe('LogoBox', () => {
   it('renders our logo and name', () => {
-    render(
-      <MockProviders>
-        <LogoBox toggleNavSidebar={() => {}} />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const logo = screen.getByTitle('Ouryou');
     expect(logo).toBeInTheDocument();
@@ -26,12 +24,7 @@ describe('LogoBox', () => {
   });
 
   it("doesn't render the name below the mobile breakpoint", () => {
-    window.innerWidth = mobileBreakpointPx;
-    render(
-      <MockProviders>
-        <LogoBox toggleNavSidebar={() => {}} />
-      </MockProviders>
-    );
+    render(<NoName />);
 
     const logo = screen.getByTitle('Ouryou');
     expect(logo).toBeInTheDocument();
@@ -47,11 +40,7 @@ describe('LogoBox', () => {
     window.innerWidth = mobileBreakpointPx;
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <LogoBox toggleNavSidebar={toggleNav} />
-      </MockProviders>
-    );
+    render(<NoName toggleNavSidebar={toggleNav} />);
 
     const logo = screen.getByTitle('Ouryou');
     expect(logo).toBeInTheDocument();
@@ -75,11 +64,9 @@ describe('LogoBox', () => {
     const toggleNav = jest.fn(() => {});
     const user = userEvent.setup();
     render(
-      <MockProviders>
-        <RouterContext.Provider value={mockRouter}>
-          <LogoBox toggleNavSidebar={toggleNav} />
-        </RouterContext.Provider>
-      </MockProviders>
+      <RouterContext.Provider value={mockRouter}>
+        <Basic toggleNavSidebar={toggleNav} />
+      </RouterContext.Provider>
     );
 
     const logo = screen.getByTitle('Ouryou');
