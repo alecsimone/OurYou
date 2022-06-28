@@ -1,22 +1,16 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import initialMemberMock from 'utils/testing/initialMemberMock';
+import { composeStories } from '@storybook/testing-react';
 import waitForQuery from 'utils/testing/waitForQuery';
-import MockProviders from '../MockProviders';
-import Header from './Header';
+import * as stories from './Header.stories';
+
+const { Tablet } = composeStories(stories);
 
 describe('Header', () => {
   it('shows and hides the search bar', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders mocks={initialMemberMock}>
-        <Header
-          toggleNavSidebar={() => {}}
-          toggleThingsSidebar={() => {}}
-        />
-      </MockProviders>
-    );
+    render(<Tablet />);
 
     await waitForQuery();
 
