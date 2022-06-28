@@ -1,16 +1,18 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MockProviders from 'components/foundation/MockProviders';
 import '@testing-library/jest-dom';
+import { composeStories } from '@storybook/testing-react';
 import waitForQuery from 'utils/testing/waitForQuery';
-import FinishReset from './FinishReset';
-import {
-  expiredResetMock,
-  failedResetMock,
-  redeemedResetMock,
-  validResetMock,
-} from './mutationMocks';
+import * as stories from './FinishReset.stories';
 import { expiredToken, redeemedToken, resetFailed } from './constants';
+
+const {
+  Basic,
+  SuccessfulReset,
+  FailedReset,
+  ExpiredToken,
+  AlreadyRedeemedToken,
+} = composeStories(stories);
 
 const necessaryFormFields = ['Email', 'Password', 'Confirm Password'];
 
@@ -27,11 +29,7 @@ useRouter.mockImplementation(() => ({
 describe('SignUp', () => {
   it('renders the necessary form fields and lets the user type in them', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <FinishReset />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const [emailInput, passwordInput, confirmPasswordInput] =
       necessaryFormFields.map((field) => screen.getByPlaceholderText(field));
@@ -53,11 +51,7 @@ describe('SignUp', () => {
   it('disables the submit button if all inputs are not valid and tells the user why', async () => {
     const user = userEvent.setup();
 
-    render(
-      <MockProviders>
-        <FinishReset />
-      </MockProviders>
-    );
+    render(<Basic />);
 
     const submitButton = screen.getByText('Reset Password', {
       selector: 'button',
@@ -107,11 +101,7 @@ describe('SignUp', () => {
   it('resets the password with valid inputs', async () => {
     const user = userEvent.setup();
 
-    render(
-      <MockProviders mocks={validResetMock}>
-        <FinishReset />
-      </MockProviders>
-    );
+    render(<SuccessfulReset />);
 
     const submitButton = screen.getByText('Reset Password', {
       selector: 'button',
@@ -137,11 +127,7 @@ describe('SignUp', () => {
   it('fails with an error message on a bad token', async () => {
     const user = userEvent.setup();
 
-    render(
-      <MockProviders mocks={failedResetMock}>
-        <FinishReset />
-      </MockProviders>
-    );
+    render(<FailedReset />);
 
     const submitButton = screen.getByText('Reset Password', {
       selector: 'button',
@@ -167,11 +153,7 @@ describe('SignUp', () => {
   it('fails with an error message on an expired token', async () => {
     const user = userEvent.setup();
 
-    render(
-      <MockProviders mocks={expiredResetMock}>
-        <FinishReset />
-      </MockProviders>
-    );
+    render(<ExpiredToken />);
 
     const submitButton = screen.getByText('Reset Password', {
       selector: 'button',
@@ -197,11 +179,7 @@ describe('SignUp', () => {
   it('fails with an error message on an already redeemed token', async () => {
     const user = userEvent.setup();
 
-    render(
-      <MockProviders mocks={redeemedResetMock}>
-        <FinishReset />
-      </MockProviders>
-    );
+    render(<AlreadyRedeemedToken />);
 
     const submitButton = screen.getByText('Reset Password', {
       selector: 'button',
