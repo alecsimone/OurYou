@@ -7,14 +7,3 @@ The modal expects to find an element with an ID of "modalHolder" into which it c
 ## [useModal](useModal.ts)
 
 Takes the close function passed into the Modal component as a prop and attaches it to a listener on the escape key.
-
-## [Features](Modal.test.tsx)
-
-### It exists and calls close with the button
-
-- First we check that the modal properly renders its child
-- Then we make sure that clicking the close button closes the modal
-
-### It exists and calls close with the escape key
-
-- This one is the same as the last one, except we use the escape key to close the modal instead of the button.

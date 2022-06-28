@@ -1,23 +1,18 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MockProviders from '../MockProviders';
-import Modal from './Modal';
+import { composeStories } from '@storybook/testing-react';
+import * as stories from './Modal.stories';
 
+const { Basic } = composeStories(stories);
+
+const modalText = 'The Modal Component';
 describe('Modal', () => {
-  const modalText = 'The Modal Component';
-
   const close = jest.fn(() => {});
 
   it('exists and calls close with the button', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <Modal close={close}>
-          <div>{modalText}</div>
-        </Modal>
-      </MockProviders>
-    );
+    render(<Basic close={close} />);
 
     const modal = screen.getByText(modalText);
     expect(modal).toBeInTheDocument();
@@ -40,13 +35,7 @@ describe('Modal', () => {
 
   it('exists and calls close with the escape key', async () => {
     const user = userEvent.setup();
-    render(
-      <MockProviders>
-        <Modal close={close}>
-          <div>{modalText}</div>
-        </Modal>
-      </MockProviders>
-    );
+    render(<Basic close={close} />);
 
     const modal = screen.getByText(modalText);
     expect(modal).toBeInTheDocument();
