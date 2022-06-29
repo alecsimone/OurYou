@@ -1,25 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import 'jsdom-worker';
-import MockProviders from 'components/foundation/MockProviders';
 import '@testing-library/jest-dom';
+import { composeStories } from '@storybook/testing-react';
 import waitForQuery from 'utils/testing/waitForQuery';
-import {
-  avatarMock,
-  mutationSuccessMock,
-  replacementAvatar,
-} from './queryMocks';
-import EditableAvatar from '.';
+import * as stories from './EditableAvatar.stories';
+import { replacementAvatar } from './queryMocks';
+
+const { WithAvatar } = composeStories(stories);
 
 describe('EditableAvatar', () => {
   window.URL.createObjectURL = () => 'test.jpg';
+  const user = userEvent.setup();
 
   it("displays the member's avatar and a change avatar button by default", async () => {
-    render(
-      <MockProviders mocks={avatarMock}>
-        <EditableAvatar />
-      </MockProviders>
-    );
+    render(<WithAvatar />);
 
     await waitForQuery();
 
@@ -31,13 +26,7 @@ describe('EditableAvatar', () => {
   });
 
   it('displays the edit avatar form after clicking the button', async () => {
-    const user = userEvent.setup();
-
-    render(
-      <MockProviders>
-        <EditableAvatar />
-      </MockProviders>
-    );
+    render(<WithAvatar />);
 
     const changeButton = screen.getByText('Change Avatar');
     expect(changeButton).toBeInTheDocument();
@@ -61,13 +50,7 @@ describe('EditableAvatar', () => {
   });
 
   it('closes the edit avatar form when clicking the cancel button', async () => {
-    const user = userEvent.setup();
-
-    render(
-      <MockProviders mocks={avatarMock}>
-        <EditableAvatar />
-      </MockProviders>
-    );
+    render(<WithAvatar />);
 
     const changeButton = screen.getByText('Change Avatar');
     expect(changeButton).toBeInTheDocument();
@@ -94,15 +77,7 @@ describe('EditableAvatar', () => {
   });
 
   it('successfully changes the avatar', async () => {
-    const user = userEvent.setup();
-
-    const combinedMocks = [...avatarMock, ...mutationSuccessMock];
-
-    render(
-      <MockProviders mocks={combinedMocks}>
-        <EditableAvatar />
-      </MockProviders>
-    );
+    render(<WithAvatar />);
 
     const changeButton = screen.getByText('Change Avatar');
     await user.click(changeButton);

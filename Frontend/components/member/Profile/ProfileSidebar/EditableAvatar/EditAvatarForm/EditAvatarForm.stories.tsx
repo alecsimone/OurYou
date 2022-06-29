@@ -7,7 +7,7 @@ import StyledEditableAvatar from '../StyledEditableAvatar';
 import EditAvatarForm from './EditAvatarForm';
 
 export default {
-  title: 'Member/Profile/ProfileSidebar/Editable Avatar/Edit Avatar Form',
+  title: 'Member/Profile/Profile Sidebar/Editable Avatar/Edit Avatar Form',
   component: EditAvatarForm,
 } as ComponentMeta<typeof EditAvatarForm>;
 
