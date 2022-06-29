@@ -106,9 +106,7 @@ export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <div style={{ padding: '2rem', background: `${midBlack}` }}>
-        <Story />
-      </div>
+      <Story />
     </ThemeProvider>
   ),
 ];

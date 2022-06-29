@@ -3,6 +3,7 @@ import { MockedProvider } from '@apollo/client/testing';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { screen, userEvent } from '@storybook/testing-library';
 import NavSidebar from './NavSidebar';
+import navSidebarMock from './queryMock';
 
 export default {
   title: 'Foundation/Nav Sidebar',
@@ -21,6 +22,15 @@ const Template: ComponentStory<typeof NavSidebar> = (args) => (
 );
 
 export const Basic = Template.bind({});
+
+export const LoggedIn = Template.bind({});
+LoggedIn.decorators = [
+  (Story) => (
+    <MockedProvider mocks={navSidebarMock}>
+      <Story />
+    </MockedProvider>
+  ),
+];
 
 export const Collapsed = Template.bind({});
 Collapsed.play = async () => {

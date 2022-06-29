@@ -4,20 +4,40 @@ import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { composeStories } from '@storybook/testing-react';
-import navLinks from './NavLinks';
+import waitForQuery from 'utils/testing/waitForQuery';
+import { navLinks } from './NavLinks';
 import * as stories from './NavSidebar.stories';
 
-const { Basic } = composeStories(stories);
+const { Basic, LoggedIn } = composeStories(stories);
 
 describe('NavSidebar', () => {
-  it('renders the nav links', () => {
-    render(<Basic />);
+  it('renders the nav links', async () => {
+    render(<LoggedIn />);
+
+    await waitForQuery();
 
     navLinks.forEach((linkObj) => {
       const navLine = screen.getByText(linkObj.text, {
         selector: 'span.navLabel',
       });
       expect(navLine).toBeInTheDocument();
+    });
+  });
+
+  it('renders the nav links', async () => {
+    render(<Basic />);
+
+    await waitForQuery();
+
+    navLinks.forEach((linkObj) => {
+      const navLine = screen.queryByText(linkObj.text, {
+        selector: 'span.navLabel',
+      });
+      if (linkObj.text === 'Home' || linkObj.text === 'Search') {
+        expect(navLine).toBeInTheDocument();
+      } else {
+        expect(navLine).not.toBeInTheDocument();
+      }
     });
   });
 
@@ -55,9 +75,11 @@ describe('NavSidebar', () => {
     const toggle = jest.fn(() => {});
     render(
       <RouterContext.Provider value={mockRouter}>
-        <Basic toggleOpen={toggle} />
+        <LoggedIn toggleOpen={toggle} />
       </RouterContext.Provider>
     );
+
+    await waitForQuery();
 
     const twitterLinkObj = navLinks.find(
       (linkObj) => linkObj.text === 'Twitter'

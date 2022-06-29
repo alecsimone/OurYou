@@ -2,8 +2,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import ArrowIcon from '@icons/Arrow';
 import FunctionalIcon from '@icons/FunctionalIcon';
+import useMemberData from 'utils/member/useMemberData';
 import StyledNavSidebar from './StyledNavSidebar';
-import navLinks from './NavLinks';
+import { loggedOutNavLinks, navLinks } from './NavLinks';
 import LogOutButton from './LogOutButton';
 
 interface NavSidebarProps {
@@ -12,6 +13,11 @@ interface NavSidebarProps {
 }
 
 const NavSidebar = ({ isOpen, toggleOpen }: NavSidebarProps): JSX.Element => {
+  const { id } = useMemberData('id');
+  let isLoggedIn = false;
+  if (id != null) {
+    isLoggedIn = true;
+  }
   const [collapsed, setCollapsed] = useState(false);
 
   let className = 'navSidebar';
@@ -26,7 +32,9 @@ const NavSidebar = ({ isOpen, toggleOpen }: NavSidebarProps): JSX.Element => {
     className += ' hidden';
   }
 
-  const navElements = navLinks.map((linkObj) => (
+  const linksToUse = isLoggedIn ? navLinks : loggedOutNavLinks;
+
+  const navElements = linksToUse.map((linkObj) => (
     <Link
       href={linkObj.href}
       key={linkObj.text}
@@ -55,12 +63,14 @@ const NavSidebar = ({ isOpen, toggleOpen }: NavSidebarProps): JSX.Element => {
     </Link>
   ));
 
-  navElements.push(
-    <LogOutButton
-      collapsed={collapsed}
-      key="logOutButton"
-    />
-  );
+  if (isLoggedIn) {
+    navElements.push(
+      <LogOutButton
+        collapsed={collapsed}
+        key="logOutButton"
+      />
+    );
+  }
   return (
     <StyledNavSidebar
       className={className}

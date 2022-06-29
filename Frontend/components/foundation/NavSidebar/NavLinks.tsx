@@ -16,12 +16,22 @@ interface linkInterface {
   href: string;
 }
 
-const navLinks: linkInterface[] = [
+const loggedOutNavLinks: linkInterface[] = [
   {
     icon: <HomeIcon />,
     text: 'Home',
     href: '/',
   },
+  {
+    icon: <Search />,
+    text: 'Search',
+    href: '/search',
+  },
+];
+export { loggedOutNavLinks };
+
+const navLinks: linkInterface[] = [
+  ...loggedOutNavLinks,
   {
     icon: <YouIcon />,
     text: 'My Things',
@@ -32,11 +42,6 @@ const navLinks: linkInterface[] = [
     icon: <FriendsIcon />,
     text: 'Friends',
     href: '/me?stuff=friends',
-  },
-  {
-    icon: <Search />,
-    text: 'Search',
-    href: '/search',
   },
   {
     icon: <TwitterIcon color="coolGrey" />,
@@ -66,4 +71,4 @@ const navLinks: linkInterface[] = [
     href: '/me',
   },
 ];
-export default navLinks;
+export { navLinks };
