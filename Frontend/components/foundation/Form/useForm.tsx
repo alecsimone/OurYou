@@ -17,7 +17,8 @@ const useForm: useFormInterface = (
   submitMutation,
   errorTranslator,
   submitButtonText,
-  cancelFunction
+  cancelFunction,
+  customValidityCheck
 ) => {
   // First let's handle the basic form state and our updater.
   const [formState, setFormState] = useState(initialState);
@@ -59,9 +60,13 @@ const useForm: useFormInterface = (
       }
     }
 
+    if (inputValidityCheck && customValidityCheck) {
+      inputValidityCheck = customValidityCheck(formState);
+    }
+
     // And set our validity state accordingly
     setAllInputsValid(inputValidityCheck);
-  }, [formState]);
+  }, [formState, customValidityCheck]);
 
   // Next we have an error state, which will be passed to the form to let the user know if there's an error submitting it
   const [error, setError] = useState<ApolloError | { message: string } | null>(
@@ -73,6 +78,8 @@ const useForm: useFormInterface = (
     e.preventDefault();
 
     if (!allInputsValid) return;
+
+    if (customValidityCheck && !customValidityCheck(formState)) return;
 
     await submitMutation({
       variables: formState,

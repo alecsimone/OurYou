@@ -1,52 +1,53 @@
+/* eslint-disable react/jsx-props-no-spreading */
+import { MockedProvider } from '@apollo/client/testing';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import StyledForm from '@styles/extendableElements/Form';
-import FormField from 'components/foundation/Form/FormFields/FormField';
+import { screen, userEvent } from '@storybook/testing-library';
+import { avatarMock, mutationErrorMock } from '../queryMocks';
 import StyledEditableAvatar from '../StyledEditableAvatar';
 import EditAvatarForm from './EditAvatarForm';
 
 export default {
-  title: 'Member/Profile/Profile Sidebar/Edit Avatar Form',
+  title: 'Member/Profile/ProfileSidebar/Editable Avatar/Edit Avatar Form',
   component: EditAvatarForm,
 } as ComponentMeta<typeof EditAvatarForm>;
 
-export const Basic: ComponentStory<typeof EditAvatarForm> = () => (
+const Template: ComponentStory<typeof EditAvatarForm> = (args) => (
   <StyledEditableAvatar>
-    <EditAvatarForm setEditingAvatar={() => {}} />
+    <EditAvatarForm {...args} />
   </StyledEditableAvatar>
 );
 
-export const ValidFormField: ComponentStory<typeof FormField> = () => (
-  <StyledForm className="editableAvatar">
-    <FormField
-      fieldType="input"
-      requirements="Must be a valid URL that is not the same as your current avatar."
-      fieldProps={{
-        type: 'url',
-        name: 'newAvatarLink',
-        placeholder: 'Link to image',
-        value: 'https://www.reddit.com',
-        onChange: () => {},
-        pattern: '(?!avatar$).*',
-      }}
-      key="link"
-    />
-  </StyledForm>
-);
+const combinedMocks = [...avatarMock, ...mutationErrorMock];
 
-export const InvalidFormField: ComponentStory<typeof FormField> = () => (
-  <StyledForm className="editableAvatar">
-    <FormField
-      fieldType="input"
-      requirements="Must be a valid URL that is not the same as your current avatar."
-      fieldProps={{
-        type: 'url',
-        name: 'newAvatarLink',
-        placeholder: 'Link to image',
-        value: 'abc',
-        onChange: () => {},
-        pattern: '(?!avatar$).*',
-      }}
-      key="link"
-    />
-  </StyledForm>
-);
+export const Basic = Template.bind({});
+Basic.decorators = [
+  (Story) => (
+    <MockedProvider mocks={combinedMocks}>
+      <Story />
+    </MockedProvider>
+  ),
+];
+
+export const WithLink = Template.bind({});
+WithLink.play = async () => {
+  const linkInput = await screen.getByPlaceholderText('Link to image');
+
+  await userEvent.type(linkInput, 'https://www.reddit.com/someImage.jpg');
+
+  linkInput.blur();
+};
+
+export const WithFile = Template.bind({});
+WithFile.play = async () => {
+  const uploadButton = screen.getByText('Upload Image');
+  const str = JSON.stringify({
+    name: 'test.jpg',
+    size: 100,
+  });
+  const blob = new Blob([str]);
+  const file = new File([blob], 'test.jpg', {
+    type: 'image/jpg',
+  });
+
+  await userEvent.upload(uploadButton, file);
+};

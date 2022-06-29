@@ -56,6 +56,13 @@ const useEditAvatarForm = (
     },
   });
 
+  const validityCheck = (formState: avatarStateInterface) => {
+    if (formState.newAvatarLink === '' && formState.uploadedAvatar == null) {
+      return false;
+    }
+    return true;
+  };
+
   // Get our form pieces
   const [formState, handleFormUpdate, formCreator, manualFormUpdate] =
     useForm<avatarStateInterface>(
@@ -63,7 +70,8 @@ const useEditAvatarForm = (
       setAvatar,
       undefined,
       undefined,
-      () => setEditingAvatar(false)
+      () => setEditingAvatar(false),
+      validityCheck
     );
 
   if (formState.newAvatarLink !== '') {
@@ -110,7 +118,7 @@ const useEditAvatarForm = (
         placeholder: 'Link to image',
         value: formState.newAvatarLink,
         onChange: handleFormUpdate,
-        pattern: `(?!${avatar}$).*`,
+        pattern: `(?!${avatar}$).+`,
       }}
       key="link"
     />

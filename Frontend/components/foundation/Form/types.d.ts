@@ -33,7 +33,8 @@ interface useFormInterface {
     callbackMutation: submitMutationInterface<formInterface>,
     errorTranslator?: errorTranslatorInterface,
     submitButtonText?: string,
-    cancelFunction?: () => void
+    cancelFunction?: () => void,
+    customValidityCheck?: (state: formInterface) => boolean
   ): [
     formInterface,
     ChangeEventHandler<HTMLInputElement>,
