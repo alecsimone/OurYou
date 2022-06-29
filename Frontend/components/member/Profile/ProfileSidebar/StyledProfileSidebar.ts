@@ -9,6 +9,13 @@ const StyledProfileSidebar = styled.div`
   > * {
     margin: 1rem 0;
   }
+  .profileLine {
+    display: flex;
+    align-items: center;
+    .profileLabel {
+      margin-right: 0.5rem;
+    }
+  }
 `;
 
 export default StyledProfileSidebar;

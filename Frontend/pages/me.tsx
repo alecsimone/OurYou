@@ -7,7 +7,12 @@ import runServerSideQueries from 'utils/runServerSideQueries';
 
 const MePage = (): JSX.Element => {
   const { id } = useMemberData('id');
-  return <Profile memberID={id} />;
+  return (
+    <Profile
+      memberID={id}
+      editable
+    />
+  );
 };
 
 export async function getServerSideProps(context: any) {

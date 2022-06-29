@@ -1,22 +1,42 @@
-import { useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import Error from 'components/foundation/Error';
+import BorderlessTextarea from 'components/foundation/Form/BorderlessTextarea/BorderlessTextarea';
+import Avatar from 'components/member/Avatar';
 import EditableAvatar from './EditableAvatar';
 import PROFILE_SIDEBAR_QUERY from './query';
 import StyledProfileSidebar from './StyledProfileSidebar';
 
 interface ProfileSidebarProps {
   memberID: string | undefined;
+  editable: boolean;
 }
 
-const ProfileSidebar = ({ memberID }: ProfileSidebarProps): JSX.Element => {
+const CHANGE_DISPLAY_NAME_MUTATION = gql`
+  mutation CHANGE_DISPLAY_NAME_MUTATION($id: ID!, $newName: String!) {
+    updateMember(where: { id: $id }, data: { displayName: $newName }) {
+      __typename
+      id
+      displayName
+    }
+  }
+`;
+
+const ProfileSidebar = ({
+  memberID,
+  editable,
+}: ProfileSidebarProps): JSX.Element => {
   const { data, loading, error } = useQuery(PROFILE_SIDEBAR_QUERY, {
     variables: {
       id: memberID,
     },
   });
+
+  const [changeDisplayName] = useMutation(CHANGE_DISPLAY_NAME_MUTATION);
   if (data) {
     const memberData = data.getProfileSidebarData;
     const {
+      id,
+      avatar,
       defaultPrivacy,
       displayName,
       email,
@@ -28,9 +48,32 @@ const ProfileSidebar = ({ memberID }: ProfileSidebarProps): JSX.Element => {
     } = memberData;
     return (
       <StyledProfileSidebar className="profileSidebar">
-        <EditableAvatar />
+        {editable ? <EditableAvatar /> : <Avatar avatar={avatar} />}
         <div>Default Privacy: {defaultPrivacy}</div>
-        <div>Display Name: {displayName}</div>
+        <div className="profileLine">
+          <div className="profileLabel">Display Name:</div>{' '}
+          <BorderlessTextarea
+            text={displayName}
+            updateText={(newName) => {
+              if (newName !== displayName) {
+                changeDisplayName({
+                  variables: {
+                    newName,
+                    id,
+                  },
+                  optimisticResponse: {
+                    __typename: 'Mutation',
+                    updateMember: {
+                      __typename: 'Member',
+                      id,
+                      displayName: newName,
+                    },
+                  },
+                });
+              }
+            }}
+          />
+        </div>
         <div>Role: {role}</div>
         <div>Rep: {rep}</div>
         <div>Giveable Rep: {giveableRep}</div>

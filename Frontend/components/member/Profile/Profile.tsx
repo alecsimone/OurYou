@@ -4,12 +4,16 @@ import StyledProfile from './StyledProfile';
 
 interface ProfileProps {
   memberID: string | undefined;
+  editable: boolean;
 }
 
-const Profile = ({ memberID }: ProfileProps): JSX.Element => (
+const Profile = ({ memberID, editable }: ProfileProps): JSX.Element => (
   <StyledProfile>
     <ProfileBody />
-    <ProfileSidebar memberID={memberID} />
+    <ProfileSidebar
+      memberID={memberID}
+      editable={editable}
+    />
   </StyledProfile>
 );
 

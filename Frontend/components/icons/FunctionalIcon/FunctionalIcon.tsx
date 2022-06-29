@@ -1,5 +1,5 @@
 import { MouseEvent, KeyboardEvent, ReactNode } from 'react';
-import SVG from '@styles/extendableElements/svg';
+import SVG from '@styles/extendableElements/SVG';
 import buttonLikeTrigger from 'utils/buttonLikeTrigger';
 
 interface FunctionalIconProps {

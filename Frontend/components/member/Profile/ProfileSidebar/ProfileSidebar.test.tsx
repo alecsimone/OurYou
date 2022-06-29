@@ -24,7 +24,7 @@ describe('ProfileSidebar', () => {
 
     await waitForQuery();
 
-    const avatar = screen.getByTitle('DefaultAvatar');
+    const avatar = screen.getByAltText('avatar');
     expect(avatar).toBeInTheDocument();
 
     fieldSearchStrings.forEach((searchString) => {

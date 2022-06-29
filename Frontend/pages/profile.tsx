@@ -1,9 +1,18 @@
+import { useRouter } from 'next/router';
 import PROFILE_SIDEBAR_QUERY from 'components/member/Profile/ProfileSidebar/query';
 import runServerSideQueries from 'utils/runServerSideQueries';
+import useMemberData from 'utils/member/useMemberData';
+import Profile from 'components/member/Profile';
 
 // interface ProfilePageProps {}
 
-const ProfilePage = (): JSX.Element => <div>ProfilePage</div>;
+const ProfilePage = (): JSX.Element => {
+  const router = useRouter();
+  const queryID = router.query.id;
+  const { id } = useMemberData('id');
+
+  return <Profile memberID={queryID != null ? queryID : id} />;
+};
 
 export async function getServerSideProps(context: any) {
   let variables;

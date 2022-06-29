@@ -1,3 +1,4 @@
+import { mockAvatar } from 'utils/testing/initialMemberMock';
 import PROFILE_SIDEBAR_QUERY from './query';
 
 const validProfileSidebarMock = [
@@ -13,7 +14,7 @@ const validProfileSidebarMock = [
         getProfileSidebarData: {
           __typename: 'Member',
           id: '123',
-          avatar: '',
+          avatar: mockAvatar,
           defaultPrivacy: 'Friends',
           displayName: 'Alec',
           role: 'Member',
