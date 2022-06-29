@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { composeStories } from '@storybook/testing-react';
 import * as stories from './SearchBar.stories';
 
-const { Basic, ShowingSearch, WithText } = composeStories(stories);
+const { Basic, ShowingSearch } = composeStories(stories);
 
 describe('SearchBar', () => {
   it('renders a search icon and a search bar', () => {

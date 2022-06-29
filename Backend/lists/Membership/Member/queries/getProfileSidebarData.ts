@@ -9,6 +9,7 @@ async function getProfileSidebarData(
   if (id == null) {
     computedID = ctx.session.itemId;
   }
+  console.log(computedID);
 
   const memberData = await ctx.query.Member.findOne({
     where: {
