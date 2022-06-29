@@ -32,6 +32,7 @@ const BorderlessTextarea = ({
 
   return (
     <StyledBorderlessTextarea
+      underline
       ref={elementRef}
       value={editedText}
       onChange={(e) => setEditedText(e.target.value)}

@@ -51,28 +51,30 @@ const ProfileSidebar = ({
         {editable ? <EditableAvatar /> : <Avatar avatar={avatar} />}
         <div>Default Privacy: {defaultPrivacy}</div>
         <div className="profileLine">
-          <div className="profileLabel">Display Name:</div>{' '}
-          <BorderlessTextarea
-            text={displayName}
-            updateText={(newName) => {
-              if (newName !== displayName) {
-                changeDisplayName({
-                  variables: {
-                    newName,
-                    id,
-                  },
-                  optimisticResponse: {
-                    __typename: 'Mutation',
-                    updateMember: {
-                      __typename: 'Member',
+          <div className="profileLabel">Display Name:</div>
+          <div className="profileValue">
+            <BorderlessTextarea
+              text={displayName}
+              updateText={(newName) => {
+                if (newName !== displayName) {
+                  changeDisplayName({
+                    variables: {
+                      newName,
                       id,
-                      displayName: newName,
                     },
-                  },
-                });
-              }
-            }}
-          />
+                    optimisticResponse: {
+                      __typename: 'Mutation',
+                      updateMember: {
+                        __typename: 'Member',
+                        id,
+                        displayName: newName,
+                      },
+                    },
+                  });
+                }
+              }}
+            />
+          </div>
         </div>
         <div>Role: {role}</div>
         <div>Rep: {rep}</div>
