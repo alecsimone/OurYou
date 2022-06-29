@@ -20,7 +20,7 @@ export default create({
   colorSecondary: blue,
 
   appBg: midBlack,
-  appContentBg: deepBlack,
+  appContentBg: lightBlack,
   appBorderColor: coolGrey,
   barSelectedColor: blue,
   barTextColor: setLightness(white, 50),
