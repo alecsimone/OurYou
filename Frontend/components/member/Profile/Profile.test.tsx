@@ -9,7 +9,10 @@ describe('Profile', () => {
   it(' shows member data when given a valid id', async () => {
     render(
       <MockProviders mocks={validProfileSidebarMock}>
-        <Profile memberID="123" />
+        <Profile
+          memberID="123"
+          editable
+        />
       </MockProviders>
     );
 
@@ -18,7 +21,7 @@ describe('Profile', () => {
     const defaultPrivacy = screen.getByText(/friends/i);
     expect(defaultPrivacy).toBeInTheDocument();
 
-    const displayName = screen.getByText(/alec/i);
+    const displayName = screen.getByDisplayValue(/alec/i);
     expect(displayName).toBeInTheDocument();
 
     const role = screen.getByText(/member/i);

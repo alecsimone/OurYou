@@ -1,6 +1,6 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import Error from 'components/foundation/Error';
-import BorderlessTextarea from 'components/foundation/Form/BorderlessTextarea/BorderlessTextarea';
+import AutoSizedTextInput from 'components/foundation/Form/AutoSizedTextInput/AutoSizedTextInput';
 import Avatar from 'components/member/Avatar';
 import EditableAvatar from './EditableAvatar';
 import PROFILE_SIDEBAR_QUERY from './query';
@@ -53,26 +53,24 @@ const ProfileSidebar = ({
         <div className="profileLine">
           <div className="profileLabel">Display Name:</div>
           <div className="profileValue">
-            <BorderlessTextarea
+            <AutoSizedTextInput
               text={displayName}
-              updateText={(newName) => {
-                if (newName !== displayName) {
-                  changeDisplayName({
-                    variables: {
-                      newName,
+              updateText={(newText) =>
+                changeDisplayName({
+                  variables: {
+                    id,
+                    newName: newText,
+                  },
+                  optimisticResponse: {
+                    __typename: 'Mutation',
+                    updateMember: {
+                      __typename: 'Member',
                       id,
+                      displayName: newText,
                     },
-                    optimisticResponse: {
-                      __typename: 'Mutation',
-                      updateMember: {
-                        __typename: 'Member',
-                        id,
-                        displayName: newName,
-                      },
-                    },
-                  });
-                }
-              }}
+                  },
+                })
+              }
             />
           </div>
         </div>

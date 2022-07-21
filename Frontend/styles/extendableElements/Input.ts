@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const Input = styled.input`
   border: none;
   border-bottom: 1px solid ${(props) => props.theme.coolGrey};
-  border-radius: 3px;
   background: none;
   padding: 0.25rem 1rem;
   color: ${(props) => props.theme.white};
@@ -14,6 +13,7 @@ const Input = styled.input`
   }
   &:focus {
     outline: 2px solid ${(props) => props.theme.blue};
+    border-radius: 3px;
   }
   &:invalid:not(:focus):not(:placeholder-shown) {
     border: 1px solid ${(props) => props.theme.red};
