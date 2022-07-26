@@ -18,7 +18,7 @@ describe('Profile', () => {
 
     await waitForQuery();
 
-    const defaultPrivacy = screen.getByText(/friends/i);
+    const defaultPrivacy = screen.getByDisplayValue('Friends');
     expect(defaultPrivacy).toBeInTheDocument();
 
     const displayName = screen.getByDisplayValue(/alec/i);

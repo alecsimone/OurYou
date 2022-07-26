@@ -1,7 +1,10 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import Error from 'components/foundation/Error';
 import AutoSizedTextInput from 'components/foundation/Form/AutoSizedTextInput/AutoSizedTextInput';
+import PrivacyDropdown from 'components/foundation/Form/PrivacyDropdown';
 import Avatar from 'components/member/Avatar';
+import CHANGE_DEFAULT_PRIVACY_MUTATION from './changeDefaultPrivacyMutation';
+import CHANGE_DISPLAY_NAME_MUTATION from './changeDisplayNameMutation';
 import EditableAvatar from './EditableAvatar';
 import PROFILE_SIDEBAR_QUERY from './query';
 import StyledProfileSidebar from './StyledProfileSidebar';
@@ -10,16 +13,6 @@ interface ProfileSidebarProps {
   memberID: string | undefined;
   editable: boolean;
 }
-
-const CHANGE_DISPLAY_NAME_MUTATION = gql`
-  mutation CHANGE_DISPLAY_NAME_MUTATION($id: ID!, $newName: String!) {
-    updateMember(where: { id: $id }, data: { displayName: $newName }) {
-      __typename
-      id
-      displayName
-    }
-  }
-`;
 
 const ProfileSidebar = ({
   memberID,
@@ -32,6 +25,9 @@ const ProfileSidebar = ({
   });
 
   const [changeDisplayName] = useMutation(CHANGE_DISPLAY_NAME_MUTATION);
+
+  const [changeDefaultPrivacy] = useMutation(CHANGE_DEFAULT_PRIVACY_MUTATION);
+
   if (data) {
     const memberData = data.getProfileSidebarData;
     const {
@@ -46,31 +42,55 @@ const ProfileSidebar = ({
       twitchName,
       twitterUserName,
     } = memberData;
+
+    const updateDisplayName = (newText: string) =>
+      changeDisplayName({
+        variables: {
+          id,
+          newName: newText,
+        },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          updateMember: {
+            __typename: 'Member',
+            id,
+            displayName: newText,
+          },
+        },
+      });
+
+    const updateDefaultPrivacy = (newPrivacy: string) =>
+      changeDefaultPrivacy({
+        variables: {
+          id,
+          newPrivacy,
+        },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          updateMember: {
+            __typename: 'Member',
+            id,
+            defaultPrivacy: newPrivacy,
+          },
+        },
+      });
+
     return (
       <StyledProfileSidebar className="profileSidebar">
         {editable ? <EditableAvatar /> : <Avatar avatar={avatar} />}
-        <div>Default Privacy: {defaultPrivacy}</div>
+        <div>
+          Default Privacy:{' '}
+          <PrivacyDropdown
+            selectPrivacy={(value) => updateDefaultPrivacy(value)}
+            initialValue={defaultPrivacy}
+          />{' '}
+        </div>
         <div className="profileLine">
           <div className="profileLabel">Display Name:</div>
           <div className="profileValue">
             <AutoSizedTextInput
               text={displayName}
-              updateText={(newText) =>
-                changeDisplayName({
-                  variables: {
-                    id,
-                    newName: newText,
-                  },
-                  optimisticResponse: {
-                    __typename: 'Mutation',
-                    updateMember: {
-                      __typename: 'Member',
-                      id,
-                      displayName: newText,
-                    },
-                  },
-                })
-              }
+              updateText={updateDisplayName}
             />
           </div>
         </div>
