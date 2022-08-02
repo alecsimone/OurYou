@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { MockedProvider } from '@apollo/client/testing';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import validNameChangeMock from './mutationMocks';
 import ProfileSidebar from './ProfileSidebar';
 import { validProfileSidebarMock } from './queryMocks';
 
@@ -17,9 +18,12 @@ export const Basic = Template.bind({});
 Basic.args = {
   memberID: '123',
 };
+
+const combinedMocks = [...validProfileSidebarMock, ...validNameChangeMock];
+
 Basic.decorators = [
   (Story) => (
-    <MockedProvider mocks={validProfileSidebarMock}>
+    <MockedProvider mocks={combinedMocks}>
       <Story />
     </MockedProvider>
   ),

@@ -1,13 +1,10 @@
-import { useMutation, useQuery } from '@apollo/client';
 import Error from 'components/foundation/Error';
 import AutoSizedTextInput from 'components/foundation/Form/AutoSizedTextInput/AutoSizedTextInput';
 import PrivacyDropdown from 'components/foundation/Form/PrivacyDropdown';
 import Avatar from 'components/member/Avatar';
-import CHANGE_DEFAULT_PRIVACY_MUTATION from './changeDefaultPrivacyMutation';
-import CHANGE_DISPLAY_NAME_MUTATION from './changeDisplayNameMutation';
 import EditableAvatar from './EditableAvatar';
-import PROFILE_SIDEBAR_QUERY from './query';
 import StyledProfileSidebar from './StyledProfileSidebar';
+import useProfileSidebar from './useProfileSidebar';
 
 interface ProfileSidebarProps {
   memberID: string | undefined;
@@ -18,15 +15,8 @@ const ProfileSidebar = ({
   memberID,
   editable,
 }: ProfileSidebarProps): JSX.Element => {
-  const { data, loading, error } = useQuery(PROFILE_SIDEBAR_QUERY, {
-    variables: {
-      id: memberID,
-    },
-  });
-
-  const [changeDisplayName] = useMutation(CHANGE_DISPLAY_NAME_MUTATION);
-
-  const [changeDefaultPrivacy] = useMutation(CHANGE_DEFAULT_PRIVACY_MUTATION);
+  const [changeDisplayName, changeDefaultPrivacy, { data, loading, error }] =
+    useProfileSidebar(memberID);
 
   if (data) {
     const memberData = data.getProfileSidebarData;
@@ -59,7 +49,9 @@ const ProfileSidebar = ({
         },
       });
 
-    const updateDefaultPrivacy = (newPrivacy: string) =>
+    const updateDefaultPrivacy = (
+      newPrivacy: 'Private' | 'Friends' | 'FriendsOfFriends' | 'Public'
+    ) =>
       changeDefaultPrivacy({
         variables: {
           id,

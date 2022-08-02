@@ -6,6 +6,7 @@ const StyledProfileSidebar = styled.div`
   border-left: var(--foundationBorderStyle);
   background: ${/* sc-value */ (props) => props.theme.midBlack};
   padding: 2rem;
+  min-width: 30rem;
   max-width: min(35%, 35vh);
   > * {
     margin: 1rem 0;

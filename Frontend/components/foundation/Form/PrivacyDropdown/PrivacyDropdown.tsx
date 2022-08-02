@@ -3,7 +3,9 @@ import Select from '@styles/extendableElements/Select';
 
 interface PrivacyDropdownProps {
   initialValue: 'Private' | 'Friends' | 'FriendsOfFriends' | 'Public';
-  selectPrivacy: (value: string) => void;
+  selectPrivacy: (
+    value: 'Private' | 'Friends' | 'FriendsOfFriends' | 'Public'
+  ) => void;
 }
 
 const PrivacyDropdown = ({

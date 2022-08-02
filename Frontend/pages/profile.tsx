@@ -11,7 +11,12 @@ const ProfilePage = (): JSX.Element => {
   const queryID = router.query.id;
   const { id } = useMemberData('id');
 
-  return <Profile memberID={queryID != null ? queryID : id} />;
+  return (
+    <Profile
+      memberID={queryID != null ? queryID : id}
+      editable={queryID === id && id != null}
+    />
+  );
 };
 
 export async function getServerSideProps(context: any) {

@@ -21,6 +21,10 @@ const AutoSizedTextInput = ({
     dynamicallyResizeElement(elementRef.current);
   });
 
+  useEffect(() => {
+    setEditedText(text);
+  }, [text]);
+
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter' && elementRef.current) {
       updateText(elementRef.current.value);
