@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import THING_QUERY from 'components/things/ThingCard/query';
 import runServerSideQueries from 'utils/runServerSideQueries';
+import ThingCard from 'components/things/ThingCard/ThingCard';
+import ErrorAlert from 'components/foundation/Error/ErrorAlert';
 
 // interface ThingPageProps {}
 
@@ -9,7 +11,17 @@ const ThingPage = (): JSX.Element => {
   const queryID = router.query.id;
   console.log(queryID);
 
-  return <div>{`Thing ${queryID}`}</div>;
+  if (queryID == null) {
+    return (
+      <ErrorAlert error="You must provide the ID of the thing you'd like to view" />
+    );
+  }
+
+  if (Array.isArray(queryID)) {
+    return <ErrorAlert error="Invalid ID" />;
+  }
+
+  return <ThingCard id={queryID} />;
 };
 
 export async function getServerSideProps(context: any) {

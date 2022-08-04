@@ -2,98 +2,103 @@ import commentFields from './commentFields';
 import contentPieceFields from './contentPieceFields';
 
 const fullThingFields = `
-   __typename
-   id
-   title
-   author {
-      __typename
-      id
-      avatar
-      displayName
-      friends {
-         __typename
-         id
-         friends {
-            __typename
-            id
-         }
-      }
-      rep
-   }
-   featuredImage
-   poster
-   content {
-      ${contentPieceFields}
-   }
-   unsavedNewContent
-   addToStartUnsavedNewContent
-   copiedInContent {
-      ${contentPieceFields}
-   }
-   partOfTags {
-      __typename
-      id
-      title
-      author {
-         __typename
-         id
-         displayName
-         avatar
-         rep
-      }
-   }
-   color
-   comments {
-      ${commentFields}
-   }
-   votes {
-      __typename
-      id
-      value
-      voter {
-         __typename
-         id
-         displayName
-         rep
-         avatar
-      }
-   }
-   score
-   privacy
-   subjectConnections {
-      id
-      subject {
-         id
-         privacy
-      }
-      object {
-         id
-         privacy
-      }
-      relationship
-      strength
-      isBlocked
-      createdAt
-   }
-   objectConnections {
-      id
-      subject {
-         id
-      }
-      object {
-         id
-      }
-      relationship
-      strength
-      isBlocked
-      createdAt
-   }
-   createdAt
-   updatedAt
+  __typename
+  id
+  title
+  author {
+    __typename
+    id
+    avatar
+    displayName
+    rep
+  }
+  featuredImage
+  poster
+  content {
+    ${contentPieceFields}
+  }
+  unsavedNewContent
+  addToStartUnsavedNewContent
+  copiedInContent {
+    ${contentPieceFields}
+  }
+  partOfTags {
+    __typename
+    id
+    title
+    author {
+        __typename
+        id
+        displayName
+        avatar
+        rep
+    }
+  }
+  color
+  comments {
+    ${commentFields}
+  }
+  votes {
+    __typename
+    id
+    value
+    voter {
+        __typename
+        id
+        displayName
+        rep
+        avatar
+    }
+  }
+  score
+  privacy
+  subjectConnections {
+    id
+    subject {
+        id
+        privacy
+    }
+    object {
+        id
+        privacy
+    }
+    relationship
+    strength
+    createdAt
+  }
+  objectConnections {
+    id
+    subject {
+        id
+    }
+    object {
+        id
+    }
+    relationship
+    strength
+    createdAt
+  }
+  createdAt
 `;
 export default fullThingFields;
 
 // Not Implemented yet
+
+//   author {
+//   __typename
+//   id
+//   avatar
+//   displayName
+//   friends {
+//       __typename
+//       id
+//       friends {
+//         __typename
+//         id
+//       }
+//   }
+//   rep
+// }
 
 //  contentOrder;
 //  manualUpdatedAt;
@@ -102,4 +107,8 @@ export default fullThingFields;
 //     id
 //     displayName
 //     avatar
+//  }
+
+//  subjectConnections / objectConnections {
+//     isBlocked
 //  }
