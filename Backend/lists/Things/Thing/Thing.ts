@@ -1,5 +1,5 @@
 import { list } from '@keystone-6/core';
-import { relationship, text } from '@keystone-6/core/fields';
+import { relationship, text, timestamp } from '@keystone-6/core/fields';
 import createdAt from '../../common/createdAt';
 import privacy from '../../common/privacy';
 import score from '../../common/score';
@@ -23,14 +23,25 @@ const Thing = list({
       ref: 'Member.createdThings',
     }),
 
-    featuredImage: text(),
-    poster: text(),
+    featuredImage: text({
+      db: {
+        isNullable: true,
+      },
+    }),
+    poster: text({
+      db: {
+        isNullable: true,
+      },
+    }),
     color: text({
       defaultValue: 'hsl(210, 10%, 30%)',
     }),
 
     privacy,
-    // individualViewPermissions: [Member] @relation(name: "IndividualViewers")
+    individualViewers: relationship({
+      ref: 'Member.individualThingViewPermissions',
+      many: true,
+    }),
 
     votes: relationship({
       ref: 'Vote.onThing',
@@ -59,9 +70,29 @@ const Thing = list({
         inlineConnect: true,
       },
     }),
+    contentOrder: text({
+      isOrderable: false,
+      defaultValue: '[]',
+      validation: {
+        isRequired: true,
+        match: {
+          regex: /\[.*\]/,
+          explanation:
+            'contentOrder must be a string that represents an array of IDs',
+        },
+      },
+    }),
     // contentOrder: [String] @scalarList(strategy:RELATION)
-    // unsavedNewContent: String
-    // addToStartUnsavedNewContent: String
+    unsavedNewContent: text({
+      db: {
+        isNullable: true,
+      },
+    }),
+    addToStartUnsavedNewContent: text({
+      db: {
+        isNullable: true,
+      },
+    }),
     copiedInContent: relationship({
       ref: 'ContentPiece.copiedToThings',
       many: true,
@@ -81,7 +112,9 @@ const Thing = list({
       many: true,
     }),
 
-    // manualUpdatedAt: DateTime
+    updatedAt: timestamp({
+      defaultValue: { kind: 'now' },
+    }),
     createdAt,
   },
   ui: {

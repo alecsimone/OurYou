@@ -12,66 +12,77 @@ generator client {
 }
 
 model Member {
-  id                      String       @id @default(cuid())
-  email                   String       @unique @default("")
-  displayName             String       @unique @default("")
-  avatar                  String       @default("")
-  avatarUpload            Json?
-  password                String?
-  role                    String       @default("Unverified")
-  rep                     Int?         @default(0)
-  giveableRep             Int?         @default(0)
-  defaultPrivacy          String       @default("Friends")
-  twitchName              String       @default("")
-  votes                   Vote[]       @relation("Vote_voter")
-  createdThings           Thing[]      @relation("Thing_author")
-  ownedTags               Tag[]        @relation("Tag_author")
-  comments                Comment[]    @relation("Comment_author")
-  verificationToken       String       @default("")
-  twitterUserName         String       @default("")
-  createdConnections      Connection[] @relation("Connection_creator")
-  createdAt               DateTime?    @default(now())
-  passwordResetToken      String?
-  passwordResetIssuedAt   DateTime?
-  passwordResetRedeemedAt DateTime?
+  id                                    String         @id @default(cuid())
+  email                                 String         @unique @default("")
+  displayName                           String         @unique @default("")
+  avatar                                String         @default("")
+  avatarUpload                          Json?
+  password                              String?
+  role                                  String         @default("Unverified")
+  rep                                   Int?           @default(0)
+  giveableRep                           Int?           @default(0)
+  defaultPrivacy                        String         @default("Friends")
+  friendsA                              Member[]       @relation("Member_friendsA")
+  friendsB                              Member[]       @relation("Member_friendsA")
+  twitchName                            String         @default("")
+  votes                                 Vote[]         @relation("Vote_voter")
+  createdThings                         Thing[]        @relation("Thing_author")
+  ownedTags                             Tag[]          @relation("Tag_author")
+  individualThingViewPermissions        Thing[]        @relation("Member_individualThingViewPermissions")
+  individualContentPieceViewPermissions ContentPiece[] @relation("ContentPiece_individualViewers")
+  comments                              Comment[]      @relation("Comment_author")
+  verificationToken                     String         @default("")
+  twitterUserName                       String         @default("")
+  createdConnections                    Connection[]   @relation("Connection_creator")
+  createdAt                             DateTime?      @default(now())
+  passwordResetToken                    String?
+  passwordResetIssuedAt                 DateTime?
+  passwordResetRedeemedAt               DateTime?
 }
 
 model Thing {
-  id                 String         @id @default(cuid())
-  title              String         @default("Untitled Thing")
-  author             Member?        @relation("Thing_author", fields: [authorId], references: [id])
-  authorId           String?        @map("author")
-  featuredImage      String         @default("")
-  poster             String         @default("")
-  color              String         @default("hsl(210, 10%, 30%)")
-  privacy            String         @default("Friends")
-  votes              Vote[]         @relation("Vote_onThing")
-  score              Int            @default(0)
-  partOfTags         Tag[]          @relation("Tag_connectedThings")
-  content            ContentPiece[] @relation("ContentPiece_onThing")
-  copiedInContent    ContentPiece[] @relation("ContentPiece_copiedToThings")
-  comments           Comment[]      @relation("Comment_onThing")
-  subjectConnections Connection[]   @relation("Connection_subject")
-  objectConnections  Connection[]   @relation("Connection_object")
-  createdAt          DateTime?      @default(now())
+  id                          String         @id @default(cuid())
+  title                       String         @default("Untitled Thing")
+  author                      Member?        @relation("Thing_author", fields: [authorId], references: [id])
+  authorId                    String?        @map("author")
+  featuredImage               String?
+  poster                      String?
+  color                       String         @default("hsl(210, 10%, 30%)")
+  privacy                     String         @default("Friends")
+  individualViewers           Member[]       @relation("Member_individualThingViewPermissions")
+  votes                       Vote[]         @relation("Vote_onThing")
+  score                       Int            @default(0)
+  partOfTags                  Tag[]          @relation("Tag_connectedThings")
+  content                     ContentPiece[] @relation("ContentPiece_onThing")
+  contentOrder                String         @default("[]")
+  unsavedNewContent           String?
+  addToStartUnsavedNewContent String?
+  copiedInContent             ContentPiece[] @relation("ContentPiece_copiedToThings")
+  comments                    Comment[]      @relation("Comment_onThing")
+  subjectConnections          Connection[]   @relation("Connection_subject")
+  objectConnections           Connection[]   @relation("Connection_object")
+  updatedAt                   DateTime?      @default(now())
+  createdAt                   DateTime?      @default(now())
 
   @@index([title])
   @@index([authorId])
 }
 
 model ContentPiece {
-  id             String    @id @default(cuid())
-  content        String    @default("")
-  comments       Comment[] @relation("Comment_onContentPiece")
-  onThing        Thing?    @relation("ContentPiece_onThing", fields: [onThingId], references: [id])
-  onThingId      String?   @map("onThing")
-  copiedToThings Thing[]   @relation("ContentPiece_copiedToThings")
-  onTag          Tag?      @relation("ContentPiece_onTag", fields: [onTagId], references: [id])
-  onTagId        String?   @map("onTag")
-  votes          Vote[]    @relation("Vote_onContentPiece")
-  score          Int       @default(0)
-  privacy        String    @default("Friends")
-  createdAt      DateTime? @default(now())
+  id                String    @id @default(cuid())
+  content           String    @default("")
+  unsavedNewContent String?
+  comments          Comment[] @relation("Comment_onContentPiece")
+  onThing           Thing?    @relation("ContentPiece_onThing", fields: [onThingId], references: [id])
+  onThingId         String?   @map("onThing")
+  copiedToThings    Thing[]   @relation("ContentPiece_copiedToThings")
+  onTag             Tag?      @relation("ContentPiece_onTag", fields: [onTagId], references: [id])
+  onTagId           String?   @map("onTag")
+  votes             Vote[]    @relation("Vote_onContentPiece")
+  score             Int       @default(0)
+  privacy           String    @default("Friends")
+  individualViewers Member[]  @relation("ContentPiece_individualViewers")
+  createdAt         DateTime? @default(now())
 
   @@index([content])
   @@index([onThingId])
@@ -123,6 +134,7 @@ model Connection {
   objectId     String?   @map("object")
   relationship String    @default("")
   strength     Int       @default(0)
+  isBlocked    Boolean   @default(true)
   createdAt    DateTime? @default(now())
 
   @@index([creatorId])

@@ -4,6 +4,7 @@
 type Query {
   verifyMember(id: ID!, code: String!): Member
   getProfileSidebarData(id: ID): Member
+  transferPosts: JSON
   members(
     where: MemberWhereInput! = {}
     orderBy: [MemberOrderByInput!]! = []
@@ -148,6 +149,20 @@ type Member {
   rep: Int
   giveableRep: Int
   defaultPrivacy: String
+  friendsA(
+    where: MemberWhereInput! = {}
+    orderBy: [MemberOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Member!]
+  friendsACount(where: MemberWhereInput! = {}): Int
+  friendsB(
+    where: MemberWhereInput! = {}
+    orderBy: [MemberOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Member!]
+  friendsBCount(where: MemberWhereInput! = {}): Int
   twitchName: String
   votes(
     where: VoteWhereInput! = {}
@@ -170,6 +185,22 @@ type Member {
     skip: Int! = 0
   ): [Tag!]
   ownedTagsCount(where: TagWhereInput! = {}): Int
+  individualThingViewPermissions(
+    where: ThingWhereInput! = {}
+    orderBy: [ThingOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Thing!]
+  individualThingViewPermissionsCount(where: ThingWhereInput! = {}): Int
+  individualContentPieceViewPermissions(
+    where: ContentPieceWhereInput! = {}
+    orderBy: [ContentPieceOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [ContentPiece!]
+  individualContentPieceViewPermissionsCount(
+    where: ContentPieceWhereInput! = {}
+  ): Int
   comments(
     where: CommentWhereInput! = {}
     orderBy: [CommentOrderByInput!]! = []
@@ -267,10 +298,14 @@ input MemberWhereInput {
   rep: IntNullableFilter
   giveableRep: IntNullableFilter
   defaultPrivacy: StringFilter
+  friendsA: MemberManyRelationFilter
+  friendsB: MemberManyRelationFilter
   twitchName: StringFilter
   votes: VoteManyRelationFilter
   createdThings: ThingManyRelationFilter
   ownedTags: TagManyRelationFilter
+  individualThingViewPermissions: ThingManyRelationFilter
+  individualContentPieceViewPermissions: ContentPieceManyRelationFilter
   comments: CommentManyRelationFilter
   verificationToken: StringFilter
   twitterUserName: StringFilter
@@ -341,6 +376,12 @@ input IntNullableFilter {
   not: IntNullableFilter
 }
 
+input MemberManyRelationFilter {
+  every: MemberWhereInput
+  some: MemberWhereInput
+  none: MemberWhereInput
+}
+
 input VoteManyRelationFilter {
   every: VoteWhereInput
   some: VoteWhereInput
@@ -357,6 +398,12 @@ input TagManyRelationFilter {
   every: TagWhereInput
   some: TagWhereInput
   none: TagWhereInput
+}
+
+input ContentPieceManyRelationFilter {
+  every: ContentPieceWhereInput
+  some: ContentPieceWhereInput
+  none: ContentPieceWhereInput
 }
 
 input CommentManyRelationFilter {
@@ -414,10 +461,14 @@ input MemberUpdateInput {
   rep: Int
   giveableRep: Int
   defaultPrivacy: String
+  friendsA: MemberRelateToManyForUpdateInput
+  friendsB: MemberRelateToManyForUpdateInput
   twitchName: String
   votes: VoteRelateToManyForUpdateInput
   createdThings: ThingRelateToManyForUpdateInput
   ownedTags: TagRelateToManyForUpdateInput
+  individualThingViewPermissions: ThingRelateToManyForUpdateInput
+  individualContentPieceViewPermissions: ContentPieceRelateToManyForUpdateInput
   comments: CommentRelateToManyForUpdateInput
   verificationToken: String
   twitterUserName: String
@@ -432,6 +483,13 @@ input MemberUpdateInput {
 The `Upload` scalar type represents a file upload.
 """
 scalar Upload
+
+input MemberRelateToManyForUpdateInput {
+  disconnect: [MemberWhereUniqueInput!]
+  set: [MemberWhereUniqueInput!]
+  create: [MemberCreateInput!]
+  connect: [MemberWhereUniqueInput!]
+}
 
 input VoteRelateToManyForUpdateInput {
   disconnect: [VoteWhereUniqueInput!]
@@ -452,6 +510,13 @@ input TagRelateToManyForUpdateInput {
   set: [TagWhereUniqueInput!]
   create: [TagCreateInput!]
   connect: [TagWhereUniqueInput!]
+}
+
+input ContentPieceRelateToManyForUpdateInput {
+  disconnect: [ContentPieceWhereUniqueInput!]
+  set: [ContentPieceWhereUniqueInput!]
+  create: [ContentPieceCreateInput!]
+  connect: [ContentPieceWhereUniqueInput!]
 }
 
 input CommentRelateToManyForUpdateInput {
@@ -483,10 +548,14 @@ input MemberCreateInput {
   rep: Int
   giveableRep: Int
   defaultPrivacy: String
+  friendsA: MemberRelateToManyForCreateInput
+  friendsB: MemberRelateToManyForCreateInput
   twitchName: String
   votes: VoteRelateToManyForCreateInput
   createdThings: ThingRelateToManyForCreateInput
   ownedTags: TagRelateToManyForCreateInput
+  individualThingViewPermissions: ThingRelateToManyForCreateInput
+  individualContentPieceViewPermissions: ContentPieceRelateToManyForCreateInput
   comments: CommentRelateToManyForCreateInput
   verificationToken: String
   twitterUserName: String
@@ -495,6 +564,11 @@ input MemberCreateInput {
   passwordResetToken: String
   passwordResetIssuedAt: DateTime
   passwordResetRedeemedAt: DateTime
+}
+
+input MemberRelateToManyForCreateInput {
+  create: [MemberCreateInput!]
+  connect: [MemberWhereUniqueInput!]
 }
 
 input VoteRelateToManyForCreateInput {
@@ -510,6 +584,11 @@ input ThingRelateToManyForCreateInput {
 input TagRelateToManyForCreateInput {
   create: [TagCreateInput!]
   connect: [TagWhereUniqueInput!]
+}
+
+input ContentPieceRelateToManyForCreateInput {
+  create: [ContentPieceCreateInput!]
+  connect: [ContentPieceWhereUniqueInput!]
 }
 
 input CommentRelateToManyForCreateInput {
@@ -530,6 +609,13 @@ type Thing {
   poster: String
   color: String
   privacy: String
+  individualViewers(
+    where: MemberWhereInput! = {}
+    orderBy: [MemberOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Member!]
+  individualViewersCount(where: MemberWhereInput! = {}): Int
   votes(
     where: VoteWhereInput! = {}
     orderBy: [VoteOrderByInput!]! = []
@@ -552,6 +638,9 @@ type Thing {
     skip: Int! = 0
   ): [ContentPiece!]
   contentCount(where: ContentPieceWhereInput! = {}): Int
+  contentOrder: String
+  unsavedNewContent: String
+  addToStartUnsavedNewContent: String
   copiedInContent(
     where: ContentPieceWhereInput! = {}
     orderBy: [ContentPieceOrderByInput!]! = []
@@ -580,6 +669,7 @@ type Thing {
     skip: Int! = 0
   ): [Connection!]
   objectConnectionsCount(where: ConnectionWhereInput! = {}): Int
+  updatedAt: DateTime
   createdAt: DateTime
 }
 
@@ -594,19 +684,53 @@ input ThingWhereInput {
   id: IDFilter
   title: StringFilter
   author: MemberWhereInput
-  featuredImage: StringFilter
-  poster: StringFilter
+  featuredImage: StringNullableFilter
+  poster: StringNullableFilter
   color: StringFilter
   privacy: StringFilter
+  individualViewers: MemberManyRelationFilter
   votes: VoteManyRelationFilter
   score: IntFilter
   partOfTags: TagManyRelationFilter
   content: ContentPieceManyRelationFilter
+  contentOrder: StringFilter
+  unsavedNewContent: StringNullableFilter
+  addToStartUnsavedNewContent: StringNullableFilter
   copiedInContent: ContentPieceManyRelationFilter
   comments: CommentManyRelationFilter
   subjectConnections: ConnectionManyRelationFilter
   objectConnections: ConnectionManyRelationFilter
+  updatedAt: DateTimeNullableFilter
   createdAt: DateTimeNullableFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
 }
 
 input IntFilter {
@@ -620,12 +744,6 @@ input IntFilter {
   not: IntFilter
 }
 
-input ContentPieceManyRelationFilter {
-  every: ContentPieceWhereInput
-  some: ContentPieceWhereInput
-  none: ContentPieceWhereInput
-}
-
 input ThingOrderByInput {
   id: OrderDirection
   title: OrderDirection
@@ -634,6 +752,9 @@ input ThingOrderByInput {
   color: OrderDirection
   privacy: OrderDirection
   score: OrderDirection
+  unsavedNewContent: OrderDirection
+  addToStartUnsavedNewContent: OrderDirection
+  updatedAt: OrderDirection
   createdAt: OrderDirection
 }
 
@@ -644,14 +765,19 @@ input ThingUpdateInput {
   poster: String
   color: String
   privacy: String
+  individualViewers: MemberRelateToManyForUpdateInput
   votes: VoteRelateToManyForUpdateInput
   score: Int
   partOfTags: TagRelateToManyForUpdateInput
   content: ContentPieceRelateToManyForUpdateInput
+  contentOrder: String
+  unsavedNewContent: String
+  addToStartUnsavedNewContent: String
   copiedInContent: ContentPieceRelateToManyForUpdateInput
   comments: CommentRelateToManyForUpdateInput
   subjectConnections: ConnectionRelateToManyForUpdateInput
   objectConnections: ConnectionRelateToManyForUpdateInput
+  updatedAt: DateTime
   createdAt: DateTime
 }
 
@@ -659,13 +785,6 @@ input MemberRelateToOneForUpdateInput {
   create: MemberCreateInput
   connect: MemberWhereUniqueInput
   disconnect: Boolean
-}
-
-input ContentPieceRelateToManyForUpdateInput {
-  disconnect: [ContentPieceWhereUniqueInput!]
-  set: [ContentPieceWhereUniqueInput!]
-  create: [ContentPieceCreateInput!]
-  connect: [ContentPieceWhereUniqueInput!]
 }
 
 input ThingUpdateArgs {
@@ -680,14 +799,19 @@ input ThingCreateInput {
   poster: String
   color: String
   privacy: String
+  individualViewers: MemberRelateToManyForCreateInput
   votes: VoteRelateToManyForCreateInput
   score: Int
   partOfTags: TagRelateToManyForCreateInput
   content: ContentPieceRelateToManyForCreateInput
+  contentOrder: String
+  unsavedNewContent: String
+  addToStartUnsavedNewContent: String
   copiedInContent: ContentPieceRelateToManyForCreateInput
   comments: CommentRelateToManyForCreateInput
   subjectConnections: ConnectionRelateToManyForCreateInput
   objectConnections: ConnectionRelateToManyForCreateInput
+  updatedAt: DateTime
   createdAt: DateTime
 }
 
@@ -696,14 +820,10 @@ input MemberRelateToOneForCreateInput {
   connect: MemberWhereUniqueInput
 }
 
-input ContentPieceRelateToManyForCreateInput {
-  create: [ContentPieceCreateInput!]
-  connect: [ContentPieceWhereUniqueInput!]
-}
-
 type ContentPiece {
   id: ID!
   content: String
+  unsavedNewContent: String
   comments(
     where: CommentWhereInput! = {}
     orderBy: [CommentOrderByInput!]! = []
@@ -729,6 +849,13 @@ type ContentPiece {
   votesCount(where: VoteWhereInput! = {}): Int
   score: Int
   privacy: String
+  individualViewers(
+    where: MemberWhereInput! = {}
+    orderBy: [MemberOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Member!]
+  individualViewersCount(where: MemberWhereInput! = {}): Int
   createdAt: DateTime
 }
 
@@ -742,6 +869,7 @@ input ContentPieceWhereInput {
   NOT: [ContentPieceWhereInput!]
   id: IDFilter
   content: StringFilter
+  unsavedNewContent: StringNullableFilter
   comments: CommentManyRelationFilter
   onThing: ThingWhereInput
   copiedToThings: ThingManyRelationFilter
@@ -749,12 +877,14 @@ input ContentPieceWhereInput {
   votes: VoteManyRelationFilter
   score: IntFilter
   privacy: StringFilter
+  individualViewers: MemberManyRelationFilter
   createdAt: DateTimeNullableFilter
 }
 
 input ContentPieceOrderByInput {
   id: OrderDirection
   content: OrderDirection
+  unsavedNewContent: OrderDirection
   score: OrderDirection
   privacy: OrderDirection
   createdAt: OrderDirection
@@ -762,6 +892,7 @@ input ContentPieceOrderByInput {
 
 input ContentPieceUpdateInput {
   content: String
+  unsavedNewContent: String
   comments: CommentRelateToManyForUpdateInput
   onThing: ThingRelateToOneForUpdateInput
   copiedToThings: ThingRelateToManyForUpdateInput
@@ -769,6 +900,7 @@ input ContentPieceUpdateInput {
   votes: VoteRelateToManyForUpdateInput
   score: Int
   privacy: String
+  individualViewers: MemberRelateToManyForUpdateInput
   createdAt: DateTime
 }
 
@@ -791,6 +923,7 @@ input ContentPieceUpdateArgs {
 
 input ContentPieceCreateInput {
   content: String
+  unsavedNewContent: String
   comments: CommentRelateToManyForCreateInput
   onThing: ThingRelateToOneForCreateInput
   copiedToThings: ThingRelateToManyForCreateInput
@@ -798,6 +931,7 @@ input ContentPieceCreateInput {
   votes: VoteRelateToManyForCreateInput
   score: Int
   privacy: String
+  individualViewers: MemberRelateToManyForCreateInput
   createdAt: DateTime
 }
 
@@ -986,6 +1120,7 @@ type Connection {
   object: Thing
   relationship: String
   strength: Int
+  isBlocked: Boolean
   createdAt: DateTime
 }
 
@@ -1003,13 +1138,20 @@ input ConnectionWhereInput {
   object: ThingWhereInput
   relationship: StringFilter
   strength: IntFilter
+  isBlocked: BooleanFilter
   createdAt: DateTimeNullableFilter
+}
+
+input BooleanFilter {
+  equals: Boolean
+  not: BooleanFilter
 }
 
 input ConnectionOrderByInput {
   id: OrderDirection
   relationship: OrderDirection
   strength: OrderDirection
+  isBlocked: OrderDirection
   createdAt: OrderDirection
 }
 
@@ -1019,6 +1161,7 @@ input ConnectionUpdateInput {
   object: ThingRelateToOneForUpdateInput
   relationship: String
   strength: Int
+  isBlocked: Boolean
   createdAt: DateTime
 }
 
@@ -1033,6 +1176,7 @@ input ConnectionCreateInput {
   object: ThingRelateToOneForCreateInput
   relationship: String
   strength: Int
+  isBlocked: Boolean
   createdAt: DateTime
 }
 

@@ -77,7 +77,16 @@ const Member = list({
     defaultPrivacy: privacy,
 
     // notifications: [Notification] @relation(name:"Notification")
-    // friends: [Member] @relation(name:"Friends")
+
+    friendsA: relationship({
+      ref: 'Member.friendsB',
+      many: true,
+    }),
+
+    friendsB: relationship({
+      ref: 'Member.friendsA',
+      many: true,
+    }),
     // friendRequests: [Member] @relation(name:"FriendRequests")
     // ignoredFriendRequests: [Member] @relation(name:"IgnoredFriendRequests")
 
@@ -103,9 +112,15 @@ const Member = list({
       many: true,
     }),
 
-    // individualThingViewPermissions: [Thing] @relation(name: "IndividualViewers")
+    individualThingViewPermissions: relationship({
+      ref: 'Thing.individualViewers',
+      many: true,
+    }),
 
-    // individualContentPieceViewPermissions: [ContentPiece] @relation(name: "IndividualContentPieceViewers")
+    individualContentPieceViewPermissions: relationship({
+      ref: 'ContentPiece.individualViewers',
+      many: true,
+    }),
 
     // collections: [Collection] @relation(name: "Collector")
     // lastActiveCollection: Collection @relation(name:"LastActiveCollection")

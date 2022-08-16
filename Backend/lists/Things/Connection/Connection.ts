@@ -1,5 +1,5 @@
 import { list } from '@keystone-6/core';
-import { integer, relationship, text } from '@keystone-6/core/fields';
+import { checkbox, integer, relationship, text } from '@keystone-6/core/fields';
 import createdAt from '../../common/createdAt';
 
 const Connection = list({
@@ -32,7 +32,9 @@ const Connection = list({
         min: 0,
       },
     }),
-    // isBlocked: Boolean @default(value: false)
+    isBlocked: checkbox({
+      defaultValue: true,
+    }),
 
     createdAt,
   },

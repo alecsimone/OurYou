@@ -19,7 +19,12 @@ const ContentPiece = list({
         displayMode: 'textarea',
       },
     }),
-    // unsavedNewContent: String
+
+    unsavedNewContent: text({
+      db: {
+        isNullable: true,
+      },
+    }),
 
     comments: relationship({
       ref: 'Comment.onContentPiece',
@@ -45,7 +50,11 @@ const ContentPiece = list({
     score,
 
     privacy,
-    // individualViewPermissions: [Member] @relation(name: "IndividualContentPieceViewers")
+
+    individualViewers: relationship({
+      ref: 'Member.individualContentPieceViewPermissions',
+      many: true,
+    }),
 
     createdAt,
   },
