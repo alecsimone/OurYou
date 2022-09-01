@@ -84,7 +84,6 @@ model ContentPiece {
   individualViewers Member[]  @relation("ContentPiece_individualViewers")
   createdAt         DateTime? @default(now())
 
-  @@index([content])
   @@index([onThingId])
   @@index([onTagId])
 }

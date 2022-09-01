@@ -14,7 +14,8 @@ const ContentPiece = list({
           min: 1,
         },
       },
-      isIndexed: true,
+      // I wanted content to be indexed, but it's causing errors with longer content pieces. They're pretty generic "Prisma Error" errors, but through trial and error I've been able to narrow it down to the total complexity of the content piece. I.e. 10,000 'd's repeated over and over again can be added, but the Boots Riley Endorsement post could not be until I got it under ~4375 characters (not a hard limit because again, it seems to depend on the entropy of the string).
+      // isIndexed: true,
       ui: {
         displayMode: 'textarea',
       },

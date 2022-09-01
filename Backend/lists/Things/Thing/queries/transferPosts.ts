@@ -21,7 +21,11 @@ export default async function transferPosts(
     },
     query: 'createdAt',
   });
-  console.log(mostRecentPost[0].createdAt);
+
+  let cursorVariable;
+  if (mostRecentPost.length > 0) {
+    cursorVariable = mostRecentPost[0].createdAt;
+  }
 
   await fetch(requestURL, {
     method: 'POST',
@@ -35,7 +39,7 @@ export default async function transferPosts(
         }
       `,
       variables: {
-        cursor: mostRecentPost[0].createdAt,
+        cursor: cursorVariable,
       },
     }),
   })
@@ -53,7 +57,6 @@ export default async function transferPosts(
     let count = 1;
     for (const thing of things) {
       const dataObj = {
-        title: thing.title,
         featuredImage: thing.featuredImage,
         poster: thing.poster,
         privacy: thing.privacy,
@@ -61,6 +64,12 @@ export default async function transferPosts(
         addToStartUnsavedNewContent: thing.addToStartUnsavedNewContent,
         createdAt: thing.createdAt,
       };
+
+      if (thing.title.length > 140) {
+        dataObj.title = `${thing.title.substring(0, 137).trim()}...`;
+      } else {
+        dataObj.title = thing.title;
+      }
 
       if (thing.color != null) {
         dataObj.color = thing.color;
@@ -91,11 +100,16 @@ export default async function transferPosts(
 
       // Votes - If there are any (and the voter exists in new DB), need to connect them.
       if (thing.votes && Array.isArray(thing.votes)) {
-        for (const voter of thing.votes) {
-          if (voter.displayName === 'Alec') {
+        for (const vote of thing.votes) {
+          if (vote.voter.displayName === 'Alec') {
             dataObj.votes = {
-              connect: {
-                id: 'cl6gxosz10030isj46d4bn0c4',
+              create: {
+                voter: {
+                  connect: {
+                    id: 'cl6gxosz10030isj46d4bn0c4',
+                  },
+                },
+                value: 1,
               },
             };
           }
@@ -145,7 +159,6 @@ export default async function transferPosts(
           const newPieceObj = {
             content: piece.content,
             unsavedNewContent: piece.unsavedNewContent,
-            privacy: piece.privacy,
           };
 
           if (piece.privacy == null) {
@@ -255,11 +268,11 @@ export default async function transferPosts(
         dataObj,
       });
 
-      console.log(`${count} / ${things.length}: Creating ${thing.title}...`);
-      // await ctx.query.Thing.createOne({
-      //   data: dataObj,
-      // });
-      // console.log('Success!');
+      console.log(`${count} / ${things.length}: Creating "${thing.title}"...`);
+      await ctx.query.Thing.createOne({
+        data: dataObj,
+      });
+      console.log('Success!');
 
       count += 1;
     }
