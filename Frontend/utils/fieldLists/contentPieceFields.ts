@@ -4,6 +4,7 @@ const contentPieceFields = `
   __typename
   id
   content
+  unsavedNewContent
   comments {
     ${commentFields}
   }
@@ -42,19 +43,16 @@ const contentPieceFields = `
     }
   }
   privacy
+  individualViewers {
+    __typename
+    id
+    displayName
+    avatar
+  }
 `;
 export default contentPieceFields;
 
 // Not Implemented Yet
-
-// unsavedNewContent;
-
-// individualViewPermissions {
-//   __typename
-//   id
-//   displayName
-//   avatar
-// }
 
 // links {
 //   ${linkFields}

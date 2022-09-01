@@ -10,6 +10,30 @@ const fullThingFields = `
     id
     avatar
     displayName
+    friendsA {
+      __typename
+      id
+      friendsA {
+        __typename
+        id
+      }
+      friendsB {
+        __typename
+        id
+      }
+    }
+    friendsB {
+      __typename
+      id
+      friendsA {
+        __typename
+        id
+      }
+      friendsB {
+        __typename
+        id
+      }
+    }
     rep
   }
   featuredImage
@@ -17,6 +41,7 @@ const fullThingFields = `
   content {
     ${contentPieceFields}
   }
+  contentOrder
   unsavedNewContent
   addToStartUnsavedNewContent
   copiedInContent {
@@ -52,6 +77,12 @@ const fullThingFields = `
   }
   score
   privacy
+  individualViewers {
+    __typename
+    id
+    displayName
+    avatar
+  }
   subjectConnections {
     id
     subject {
@@ -64,6 +95,7 @@ const fullThingFields = `
     }
     relationship
     strength
+    isBlocked
     createdAt
   }
   objectConnections {
@@ -76,39 +108,10 @@ const fullThingFields = `
     }
     relationship
     strength
+    isBlocked
     createdAt
   }
+  updatedAt
   createdAt
 `;
 export default fullThingFields;
-
-// Not Implemented yet
-
-//   author {
-//   __typename
-//   id
-//   avatar
-//   displayName
-//   friends {
-//       __typename
-//       id
-//       friends {
-//         __typename
-//         id
-//       }
-//   }
-//   rep
-// }
-
-//  contentOrder;
-//  manualUpdatedAt;
-//  individualViewPermissions {
-//     __typename
-//     id
-//     displayName
-//     avatar
-//  }
-
-//  subjectConnections / objectConnections {
-//     isBlocked
-//  }

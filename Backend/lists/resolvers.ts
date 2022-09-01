@@ -2,14 +2,12 @@ import { graphQLSchemaExtension } from '@keystone-6/core';
 import verifyMember from './Membership/Member/queries/verifyMember';
 import getProfileSidebarData from './Membership/Member/queries/getProfileSidebarData';
 import setAvatar from './Membership/Member/mutations/setAvatar';
-import transferPosts from './Things/Thing/queries/transferPosts';
 
 const extendGraphqlSchema = graphQLSchemaExtension({
   typeDefs: /* graphql */ `
     type Query {
       verifyMember(id: ID!, code: String!): Member,
       getProfileSidebarData(id: ID): Member,
-      transferPosts: JSON
     }
     type Mutation {
       setAvatar(newAvatarLink: String, uploadedAvatar: [Upload]): Member
@@ -19,7 +17,6 @@ const extendGraphqlSchema = graphQLSchemaExtension({
     Query: {
       verifyMember,
       getProfileSidebarData,
-      transferPosts,
     },
     Mutation: {
       setAvatar,

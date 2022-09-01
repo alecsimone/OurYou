@@ -7,6 +7,14 @@ const commentFields = `
     displayName
     avatar
     rep
+    friendsA {
+      __typename
+      id
+    }
+    friendsB {
+      __typename
+      id
+    }
   }
   comment
   replies {
@@ -18,6 +26,14 @@ const commentFields = `
         displayName
         avatar
         rep
+        friendsA {
+          __typename
+          id
+        }
+        friendsB {
+          __typename
+          id
+        }
     }
     comment
     votes {
@@ -43,6 +59,14 @@ const commentFields = `
         displayName
         avatar
         rep
+        friendsA {
+          __typename
+          id
+        }
+        friendsB {
+          __typename
+          id
+        }
     }
     comment
     votes {
@@ -75,12 +99,30 @@ const commentFields = `
     __typename
     id
     onThing {
-        __typename
+      __typename
+      id
+      title
+      author {
         id
-        title
-        author {
+        friendsA {
           id
+          friendsA {
+            id
+          }
+          friendsB {
+            id
+          }
         }
+        friendsB {
+          id
+          friendsA {
+            id
+          }
+          friendsB {
+            id
+          }
+        }
+      }
     }
   }
   onThing {
@@ -88,7 +130,25 @@ const commentFields = `
     id
     title
     author {
+      id
+      friendsA {
         id
+        friendsA {
+          id
+        }
+        friendsB {
+          id
+        }
+      }
+      friendsB {
+        id
+        friendsA {
+          id
+        }
+        friendsB {
+          id
+        }
+      }
     }
   }
   onTag {
@@ -97,6 +157,24 @@ const commentFields = `
     title
     author {
         id
+        friendsA {
+          id
+          friendsA {
+            id
+          }
+          friendsB {
+            id
+          }
+        }
+        friendsB {
+          id
+          friendsA {
+            id
+          }
+          friendsB {
+            id
+          }
+        }
     }
   }
   score
@@ -105,29 +183,6 @@ const commentFields = `
 export default commentFields;
 
 // Not Implemented yet
-
-// In every use of author except the one that follows this
-// author {
-//   friends {
-//       __typename
-//       id
-//   }
-// }
-
-// onContentPiece {
-
-//   onThing / onTag / onContentPiece/onThing {
-//       author {
-//         id
-//         friends {
-//             id
-//             friends {
-//               id
-//             }
-//         }
-//       }
-//   }
-// }
 
 // links {
 //   ${linkFields}
