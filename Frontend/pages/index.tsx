@@ -1,35 +1,21 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
-import Modal from 'components/foundation/Modal';
-import Button from '@styles/extendableElements/Button';
 import runServerSideQueries from 'utils/runServerSideQueries';
+import RichText from 'components/foundation/RichText';
 
-const Home: NextPage = () => {
-  const [showingModal, setShowingModal] = useState(false);
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-      }}
-    >
-      <Button
-        type="button"
-        onClick={() => setShowingModal(!showingModal)}
-      >
-        Show Modal
-      </Button>
-      {showingModal && (
-        <Modal close={() => setShowingModal(false)}>
-          <div>Modal!</div>
-        </Modal>
-      )}
-    </div>
-  );
-};
+const Home: NextPage = () => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100%',
+      maxWidth: '80%',
+      margin: 'auto',
+    }}
+  >
+    <RichText text="**Bold**. And then some plain text. ** More bold, __Bold and underline,** Just Underline__ and then some text after" />
+  </div>
+);
 
 export async function getServerSideProps(context: any) {
   return runServerSideQueries(context);
