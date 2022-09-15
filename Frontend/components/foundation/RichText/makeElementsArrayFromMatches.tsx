@@ -1,5 +1,11 @@
-import { CSSProperties } from 'react';
-import stringToObject from 'utils/stringToObject';
+import getPrecedingText from './tagMakers/getPrecedingText';
+import makeBlockQuote from './tagMakers/makeBlockQuote';
+import makeCodeBlock from './tagMakers/makeCodeBlock';
+import makeEmail from './tagMakers/makeEmail';
+import makeStyleTags from './tagMakers/makeStyleTags';
+import makeSummary from './tagMakers/makeSummary';
+import makeTwitterMention from './tagMakers/makeTwitterMention';
+import makeUrl from './tagMakers/makeUrl';
 import { CustomMatchObj } from './types';
 
 const makeElementsArrayFromMatches = (
@@ -9,19 +15,7 @@ const makeElementsArrayFromMatches = (
   const elementsArray: (JSX.Element | string)[] = [];
 
   matches.forEach((match, index) => {
-    if (index === 0) {
-      const startingText = originalText.substring(0, match.start);
-      console.log({ startingText });
-      elementsArray.push(startingText);
-    } else {
-      const previousMatch = matches[index - 1];
-      const interMatchText = originalText.substring(
-        previousMatch.end,
-        match.start
-      );
-      console.log({ interMatchText });
-      elementsArray.push(interMatchText);
-    }
+    elementsArray.push(getPrecedingText(match, matches, index, originalText));
 
     // We're using includes because it could be an array or a string
     if (
@@ -31,51 +25,15 @@ const makeElementsArrayFromMatches = (
       match.tag.includes('slashes') ||
       match.tag.includes('rawStyle')
     ) {
-      let styleObj: CSSProperties = {};
-
-      if (match.tag.includes('stars')) {
-        styleObj.fontWeight = 'bold';
-      }
-      if (match.tag.includes('bars')) {
-        styleObj.textDecoration = 'underline';
-      }
-      if (match.tag.includes('pounds')) {
-        styleObj.fontSize = '2em';
-        styleObj.fontWeight = '700';
-      }
-      if (match.tag.includes('slashes')) {
-        styleObj.fontStyle = 'italic';
-      }
-      if (match.tag.includes('rawStyle')) {
-        if (match.extraGroups == null) {
-          elementsArray.push(match.content);
-        } else {
-          styleObj = stringToObject(match.extraGroups.styleObjectRaw, ':;');
-        }
-      }
-
-      elementsArray.push(
-        <span
-          key={match.start}
-          style={styleObj}
-        >
-          {match.content}
-        </span>
-      );
+      elementsArray.push(makeStyleTags(match));
     }
 
     if (match.tag.includes('code')) {
-      elementsArray.push(
-        <pre>
-          <code className={`language-${match?.extraGroups?.codeLang}`}>
-            {match.content.trim()}
-          </code>
-        </pre>
-      );
+      elementsArray.push(makeCodeBlock(match));
     }
 
     if (match.tag.includes('quote')) {
-      elementsArray.push(<blockquote>{match.content}</blockquote>);
+      elementsArray.push(makeBlockQuote(match));
     }
 
     if (match.tag.includes('summary')) {
@@ -84,73 +42,26 @@ const makeElementsArrayFromMatches = (
         match.extraGroups.summaryText != null &&
         match.extraGroups.summarizedText != null
       ) {
-        elementsArray.push(
-          <details>
-            <summary>{match.extraGroups.summaryText}</summary>
-            {match.extraGroups.summarizedText}
-          </details>
-        );
+        elementsArray.push(makeSummary(match));
       }
     }
 
     if (match.tag.includes('twitterMention')) {
-      if (match.extraGroups == null || match.extraGroups.username == null) {
-        if (match.fullTag == null) {
-          elementsArray.push('[Mention Error]');
-        } else {
-          elementsArray.push(match.fullTag);
-        }
-      } else {
-        elementsArray.push(
-          <a
-            href={`https://twitter.com/${match.extraGroups.username}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            @{match.extraGroups.username}
-          </a>
-        );
-      }
+      elementsArray.push(makeTwitterMention(match));
     }
 
     if (match.tag.includes('email')) {
-      elementsArray.push(
-        <a
-          href={`mailto:${match.fullTag}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {match.fullTag}
-        </a>
-      );
+      elementsArray.push(makeEmail(match));
     }
 
     if (match.tag.includes('url')) {
       if (match.fullTag != null) {
-        let fullUrl: string;
-        if (
-          !match.fullTag.includes('://') &&
-          !match.fullTag.includes('mailto')
-        ) {
-          fullUrl = `https://${match.fullTag}`;
-        } else {
-          fullUrl = match.fullTag;
-        }
-        elementsArray.push(
-          <a
-            href={fullUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {match.fullTag}
-          </a>
-        );
+        elementsArray.push(makeUrl(match));
       }
     }
 
     if (index === matches.length - 1) {
       const endingText = originalText.substring(match.end);
-      console.log({ endingText });
       elementsArray.push(endingText);
     }
   });
