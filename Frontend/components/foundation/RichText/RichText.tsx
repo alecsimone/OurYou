@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React from 'react';
 import filterFalsePositiveMatches from './filterFalsePositiveMatches';
 import getAllMatches from './getAllMatches';
 import makeCustomMatchObj from './makeCustomMatchObj';
@@ -13,50 +12,30 @@ interface RichTextProps {
   text: string;
 }
 
-const logging = true;
-
 const RichText = ({ text }: RichTextProps): JSX.Element => {
-  if (logging) {
-    console.log('---- New Rich Text Instance ----');
-  }
+  // First we run a custom regex exec loop that allows us to find nested and overlapping matches
   const matches = getAllMatches(text, superMatcher);
-  if (logging) {
-    console.log({ matches });
-  }
 
+  // Then we want to turn each match into a CustomMatchObj that identifies what kind of tag the match is and has all the info we'll need about it
   const matchObjects: CustomMatchObj[] = [];
   for (const match of matches) {
     const matchObj = makeCustomMatchObj(match);
     matchObjects.push(matchObj);
   }
-  if (logging) {
-    console.log({ matchObjects });
-  }
 
+  // If there are no matches, we can just return plain text
   if (matchObjects.length === 0) {
-    if (logging) {
-      console.log('no matches');
-    }
-    return <span>{text}</span>;
+    return <>{text}</>;
   }
 
-  // First we want to get rid of any false positives caused by the end tag of one match and the start tag of the next match of the same kind
+  // If there are matches, first we want to get rid of any false positives caused by the end tag of one match and the start tag of the next match of the same kind
   const realMatches = filterFalsePositiveMatches(matchObjects);
-  if (logging) {
-    console.log({ realMatches });
-  }
 
-  // Then we need to split any overlapping matches into pure matches with the corresponding tags. IE, one match for the part before the overlap, one combined match for the overlap, and a final match for the part after the overlap
+  // Then we need to split any overlapping matches into pure matches with the corresponding tags. IE, one match for the part before the overlap, one combined match for the overlap, and a final match for the part after the overlap. We also need to skip any matches nested within other matches, as those will be handled by our recursive use of this component
   const pureMatches = splitCombinedMatches(realMatches);
-  if (logging) {
-    console.log({ pureMatches });
-  }
 
   // Finally, we want to turn our matches (and the text that doesn't include any matches) into JSX elements
   const elementsArray = makeElementsArrayFromMatches(pureMatches, text);
-  if (logging) {
-    console.log({ elementsArray });
-  }
 
   return <>{elementsArray}</>;
 };

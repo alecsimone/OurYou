@@ -1,13 +1,18 @@
 import { CustomMatchObj } from '../types';
 
-const makeEmail = (match: CustomMatchObj) => (
+interface EmailProps {
+  match: CustomMatchObj;
+}
+
+const Email = ({ match }: EmailProps): JSX.Element => (
   <a
     href={`mailto:${match.fullTag}`}
     target="_blank"
     rel="noreferrer"
+    key={match.start}
   >
     {match.fullTag}
   </a>
 );
 
-export default makeEmail;
+export default Email;

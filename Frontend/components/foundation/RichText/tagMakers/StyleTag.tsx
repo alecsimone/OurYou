@@ -1,9 +1,15 @@
 import { CSSProperties } from 'react';
 import stringToObject from 'utils/stringToObject';
+// eslint-disable-next-line import/no-cycle
 import RichText from '../RichText';
 import { CustomMatchObj } from '../types';
 
-const makeStyleTags = (match: CustomMatchObj) => {
+interface StyleTagProps {
+  match: CustomMatchObj;
+}
+
+const StyleTag = ({ match }: StyleTagProps): JSX.Element => {
+  // What we're doing here is creating an object of style properties that we can apply to this text. There might be multiple tags involved, so we just check for each tag and if it's present we add its properties to our style object.
   let styleObj: CSSProperties = {};
 
   if (match.tag.includes('stars')) {
@@ -21,19 +27,16 @@ const makeStyleTags = (match: CustomMatchObj) => {
   }
   if (match.tag.includes('rawStyle')) {
     if (match.extraGroups == null) {
-      return match.content;
+      return <span key={match.start}>match.content</span>;
     }
     styleObj = stringToObject(match.extraGroups.styleObjectRaw, ':;');
   }
 
   return (
-    <span
-      key={match.start}
-      style={styleObj}
-    >
+    <span style={styleObj}>
       <RichText text={match.content} />
     </span>
   );
 };
 
-export default makeStyleTags;
+export default StyleTag;

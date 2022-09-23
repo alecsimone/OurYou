@@ -8,7 +8,12 @@ interface ArrowProps {
 
 const ArrowIcon = ({ color = 'coolGrey' }: ArrowProps): JSX.Element => {
   const theme = useContext(ThemeContext);
-  const computedColor = theme[color];
+  let computedColor: string;
+  if (theme[color]) {
+    computedColor = theme[color];
+  } else {
+    computedColor = color;
+  }
 
   return (
     <>

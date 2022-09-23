@@ -8,7 +8,7 @@ const makeCustomMatchObj = (match: RegExpExecArray): CustomMatchObj => {
     return match.groups[groupName] != null;
   });
 
-  // Then we'll check that against this list of tags to see which tag we're on. There will also be a "textContent" group for each tag, so we need to clarify.
+  // Then we'll check that against this list of tags to see which tag we're on. There will also be a "textContent" group for each tag, and possibly some other helpful named groups, so we need to clarify.
   const [thisMatchTag] = capturedGroups.filter((group) =>
     [
       'bars',
@@ -26,7 +26,7 @@ const makeCustomMatchObj = (match: RegExpExecArray): CustomMatchObj => {
     ].includes(group)
   );
 
-  // We can then get the textContent by looking at the group that isn't the tag group
+  // We can then get the textContent by looking for the non-null group with 'TextContent' in its name
   const [textContentGroupName] = capturedGroups.filter((group) =>
     group.includes('TextContent')
   );

@@ -1,6 +1,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import RichText from './RichText';
+import {
+  barsTexts,
+  blockQuoteTexts,
+  codeBlockTexts,
+  emailTexts,
+  noMatchText,
+  poundsTexts,
+  rawStyleTexts,
+  starsTexts,
+  summaryTexts,
+  twitterTexts,
+  urlTexts,
+} from './storyTestHelpers';
 
 export default {
   title: 'Rich Text/Simple',
@@ -13,55 +26,55 @@ const Template: ComponentStory<typeof RichText> = (args) => (
 
 export const NoMatches = Template.bind({});
 NoMatches.args = {
-  text: 'This is some plain text.',
+  text: noMatchText,
 };
 
 export const Stars = Template.bind({});
 Stars.args = {
-  text: "**This text should be bold,** but this text shouldn't",
+  text: `**${starsTexts.boldText}** ${starsTexts.plainText}`,
 };
 
 export const Bars = Template.bind({});
 Bars.args = {
-  text: "__This text should be underlined,__ but this text shouldn't",
+  text: `__${barsTexts.underlinedText}__ ${barsTexts.plainText}`,
 };
 
 export const Pounds = Template.bind({});
 Pounds.args = {
-  text: '##This text should be a header.##',
+  text: `##${poundsTexts.headerText}## ${poundsTexts.plainText}`,
 };
 
 export const RawStyle = Template.bind({});
 RawStyle.args = {
-  text: '<style="color: green; fontWeight: bold">This text should be bold and green,</style> but this text shouldn\'t',
+  text: `<style="color: green; fontWeight: bold">${rawStyleTexts.styledText}</style> ${rawStyleTexts.plainText}`,
 };
 
 export const Code = Template.bind({});
 Code.args = {
-  text: "Here is a code block <code lang='js'>console.log('hello world!');</code>",
+  text: `${codeBlockTexts.plainText} <code lang='js'>${codeBlockTexts.code}</code>`,
 };
 
 export const BlockQuote = Template.bind({});
 BlockQuote.args = {
-  text: 'This is some text that is not a quote <"And this is some text that is">',
+  text: `${blockQuoteTexts.startPlainText} <"${blockQuoteTexts.quoteText}"> ${blockQuoteTexts.endPlainText}`,
 };
 
 export const Summary = Template.bind({});
 Summary.args = {
-  text: 'This is some normal text. >>This is text that is summarized<<(And this is the summary) And then here is some more text for after',
+  text: `${summaryTexts.startPlainText} >>${summaryTexts.summarizedText}<<(${summaryTexts.summaryText}) ${summaryTexts.endPlainText}`,
 };
 
 export const TwitterMention = Template.bind({});
 TwitterMention.args = {
-  text: "Let's mention @alecsimone on twitter!",
+  text: `${twitterTexts.startPlainText} @${twitterTexts.name} ${twitterTexts.endPlainText}`,
 };
 
 export const Email = Template.bind({});
 Email.args = {
-  text: 'Send an email to alecsimone@gmail.com if you want to be ignored!',
+  text: `${emailTexts.startPlainText} ${emailTexts.email} ${emailTexts.endPlainText}`,
 };
 
 export const URL = Template.bind({});
 URL.args = {
-  text: 'This is a link to https://ouryou.org and I hope you click it.',
+  text: `${urlTexts.startPlainText} ${urlTexts.url} ${urlTexts.endPlainText}`,
 };

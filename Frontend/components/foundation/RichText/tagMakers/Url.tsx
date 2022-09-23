@@ -1,6 +1,10 @@
 import { CustomMatchObj } from '../types';
 
-const makeUrl = (match: CustomMatchObj) => {
+interface UrlProps {
+  match: CustomMatchObj;
+}
+
+const Url = ({ match }: UrlProps): JSX.Element => {
   let fullUrl: string;
   if (!match.fullTag!.includes('://') && !match.fullTag!.includes('mailto')) {
     fullUrl = `https://${match.fullTag}`;
@@ -12,10 +16,11 @@ const makeUrl = (match: CustomMatchObj) => {
       href={fullUrl}
       target="_blank"
       rel="noreferrer"
+      key={match.start}
     >
       {match.fullTag}
     </a>
   );
 };
 
-export default makeUrl;
+export default Url;

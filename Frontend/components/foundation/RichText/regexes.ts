@@ -21,6 +21,8 @@ const urlParts = {
   ),
 };
 
+// ! NOTE: If you want to add a tag to this list, you must add its name to the array inside makeCustomMatchObj.ts and to the TagName type in types.d.ts, and if it has a named capture group specifically for its text content, that name must include 'TextContent'
+
 const regexes = {
   // * Style Tags
   rawStyle: new RegExp(
@@ -45,7 +47,7 @@ const regexes = {
     'gis'
   ),
   quote: new RegExp(
-    '(?<quote><(?<quoteTextContent>".+")(?<!lang="[a-z]+")>)',
+    '(?<quote><"(?<quoteTextContent>.+)"(?<!lang="[a-z]+")>)',
     'gis'
   ),
   summary: new RegExp(
